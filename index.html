@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ffffff">
+  <meta name="description" content="A proposed two-lecture introduction to quantum states, stabilizers, and the Gottesman-Knill theorem for undergraduate complexity theory students.">
+  <meta property="og:title" content="Intro to quantum computation and the Gottesman-Knill theorem">
+  <meta property="og:description" content="A 15-455 course project: proposed outline, theorem statement, Bell-state example, and suggested reading.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://l6zw32.github.io/quantum-computation/">
+  <link rel="canonical" href="https://l6zw32.github.io/quantum-computation/">
+  <link rel="icon" href="./favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./styles.css">
+  <script src="./app.js" defer></script>
+  <title>Intro to quantum computation and the Gottesman-Knill theorem</title>
+</head>
+<body id="top">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="page">
+    <header class="site-header">
+      <p class="course-label">15-455 · Undergraduate complexity theory</p>
+      <h1>Intro to quantum computation and the Gottesman-Knill theorem</h1>
+      <p class="page-subtitle">Course project · Proposed outline and introductory example</p>
+      <nav class="main-nav" aria-label="Page contents">
+        <a href="#overview">Overview</a>
+        <a href="#outline">Proposed outline</a>
+        <a href="#theorem">Theorem statement</a>
+        <a href="#bell-preview">Bell-state example</a>
+        <a href="#resources">References</a>
+      </nav>
+    </header>
+
+    <main id="main">
+      <section id="overview" aria-labelledby="overview-title">
+        <h2 id="overview-title">Overview</h2>
+        <p>This project will introduce quantum computation through stabilizer states and the Gottesman–Knill theorem. The proposed material covers two lecture units for students with the mathematical background of 15-455, beginning with quantum states and gates and developing a proof that a restricted family of quantum circuits can be simulated efficiently by a classical randomized algorithm.</p>
+        <p>The central question is <strong>which quantum computations have efficient classical simulations?</strong> Stabilizer circuits provide a useful case study: they can create entangled states, yet their structure permits a compact description and efficient simulation. <a href="#resource-1" aria-label="Reference 1">[1]</a> <a href="#resource-3" aria-label="Reference 3">[3]</a></p>
+        <p><strong>Prerequisites.</strong> Basic linear algebra, discrete probability, and asymptotic notation. Quantum notation, tensor products, and the required binary linear algebra will be introduced along the way. No physics background is assumed.</p>
+        <p class="project-status"><strong>Current stage:</strong> this page presents the proposed outline, the main theorem statement, and a short interactive example. The full lessons and theorem proof are planned for the completed site.</p>
+      </section>
+
+      <section id="outline" aria-labelledby="outline-title">
+        <h2 id="outline-title">Proposed course outline</h2>
+        <p>The eight sections below are listed in their intended reading order. Each description explains the material planned for that section.</p>
+        <div class="lecture-unit">
+          <h3>Lecture 1: Quantum states and compact descriptions</h3>
+          <ol class="outline-list">
+            <li id="section-1">
+              <h4>Quantum states, gates, and measurement</h4>
+              <p>This section will introduce quantum states as normalized complex vectors, gates as unitary transformations, and measurement probabilities as the squared magnitudes of amplitudes. One- and two-qubit examples will establish the notation and show how tensor products describe composite systems.</p>
+            </li>
+            <li id="section-2">
+              <h4>Building an entangled state</h4>
+              <p>A Hadamard gate and a controlled-NOT gate will take two qubits from |00⟩ to a Bell state. The walkthrough will connect the circuit, its amplitudes, and its measurement outcomes, then use this example to motivate the problem of representing larger quantum systems. A short <a href="#bell-preview">interactive example</a> is available below.</p>
+            </li>
+            <li id="section-3">
+              <h4>Pauli operators and stabilizers</h4>
+              <p>We will introduce I, X, Y, and Z, then study the condition P|ψ⟩ = |ψ⟩. The Bell state will make this definition concrete: its XX and ZZ constraints will provide a new way to describe the same state, up to global phase.</p>
+            </li>
+            <li id="section-4">
+              <h4>Compact representation of stabilizer states</h4>
+              <p>This section will explain why n independent, commuting, consistent Pauli constraints specify an n-qubit stabilizer state. We will encode the signed generators using binary data and show why their description requires O(n²) bits, preparing the representation used by the simulator.</p>
+            </li>
+          </ol>
+        </div>
+        <div class="lecture-unit">
+          <h3>Lecture 2: Efficient classical simulation</h3>
+          <ol class="outline-list" start="5">
+            <li id="section-5">
+              <h4>How Clifford gates update stabilizers</h4>
+              <p>We will derive the conjugation rule P ↦ UPU† and work out its effect for H, S, and CNOT. Because these gates preserve signed Pauli operators, each circuit step can be translated into an update of the compact representation.</p>
+            </li>
+            <li id="section-6">
+              <h4>Simulating measurement</h4>
+              <p>Computational-basis measurements of a stabilizer state will be analyzed through their commutation relations with its generators. We will distinguish deterministic outcomes from fair random outcomes and derive the corresponding state updates, keeping the signs needed for correct predictions.</p>
+            </li>
+            <li id="section-7">
+              <h4>The Gottesman–Knill theorem</h4>
+              <p>This section will assemble initialization, gate updates, and measurement updates into a classical randomized algorithm. A correctness proof and a running-time analysis will establish that it samples exactly the circuit’s measurement distribution using polynomial time and a compact state description. The <a href="#theorem">theorem statement</a> appears below.</p>
+            </li>
+            <li id="section-8">
+              <h4>Beyond Clifford circuits</h4>
+              <p>We will examine how a T-gate changes the operator description and why the same Pauli-string update rule no longer suffices. A final discussion will place the theorem in the broader question of quantum advantage, with worked examples and short exercises consolidating the two lecture units.</p>
+            </li>
+          </ol>
+        </div>
+      </section>
+
+      <section id="theorem" aria-labelledby="theorem-title">
+        <h2 id="theorem-title">Main theorem</h2>
+        <div class="theorem-statement">
+          <h3>Theorem (Gottesman–Knill, circuit form)</h3>
+          <p>Let C be an n-qubit circuit initialized in |0⟩<sup>⊗n</sup>, with s operations consisting of Hadamard gates, phase gates S = diag(1, i), controlled-NOT gates, and computational-basis measurements. There is a classical randomized algorithm that samples exactly the joint distribution of its measurement outcomes in time polynomial in n + s. Its representation of the quantum state uses O(n²) bits. <a href="#resource-1" aria-label="Reference 1">[1]</a> <a href="#resource-3" aria-label="Reference 3">[3]</a></p>
+        </div>
+        <p><strong>Planned proof.</strong> Section 7 will combine the compact stabilizer representation with the gate and measurement update rules, prove that these updates preserve the correct state and outcome probabilities, and bound the running time.</p>
+        <p>The guarantee concerns this circuit family and efficient sampling of its outcomes. It does not assert that arbitrary quantum circuits have efficient classical simulations.</p>
+      </section>
+
+      <section id="bell-preview" aria-labelledby="preview-title">
+        <h2 id="preview-title">Example: Preparing a Bell state</h2>
+        <p>Starting from |00⟩, apply a Hadamard gate H to the first qubit and then a controlled-NOT (CNOT) from the first qubit to the second. Select a step to compare the quantum state, its measurement probabilities, and its stabilizer generators. We use the basis order |q₀q₁⟩, with q₀ on the left. <a href="#resource-1" aria-label="Reference 1">[1]</a></p>
+        <figure class="bell-example">
+          <div class="example-grid">
+            <div class="circuit-panel">
+              <h3>Circuit and selected step</h3>
+              <svg class="circuit" viewBox="0 0 400 126" role="img" aria-labelledby="circuit-title circuit-desc">
+                <title id="circuit-title">A circuit that prepares a Bell state</title>
+                <desc id="circuit-desc">Qubits q zero and q one start in zero. Apply a Hadamard gate to q zero, then a controlled-NOT from q zero to q one.</desc>
+                <text x="8" y="44" class="circuit-label">q₀</text><text x="8" y="100" class="circuit-label">q₁</text>
+                <text x="45" y="44" class="ket">|0⟩</text><text x="45" y="100" class="ket">|0⟩</text>
+                <path d="M82 38H374M82 94H374" class="wire"/>
+                <g class="gate active" data-gate="h"><rect x="127" y="18" width="40" height="40"/><text x="147" y="45" text-anchor="middle">H</text></g>
+                <g class="cnot active" data-gate="cnot"><path d="M261 38V94"/><circle cx="261" cy="38" r="5" class="control"/><circle cx="261" cy="94" r="13" class="target"/><path d="M251 94H271M261 84V104"/></g>
+                <text x="147" y="120" text-anchor="middle" class="gate-caption">Hadamard</text><text x="261" y="120" text-anchor="middle" class="gate-caption">CNOT</text>
+              </svg>
+              <div class="step-controls" role="group" aria-label="Select a circuit checkpoint">
+                <button type="button" data-step="0" aria-pressed="false">1. Initialize</button>
+                <button type="button" data-step="1" aria-pressed="false">2. Apply H</button>
+                <button type="button" data-step="2" aria-pressed="true">3. Apply CNOT</button>
+              </div>
+              <p class="example-help">The highlighted gates have been applied at the selected step.</p>
+            </div>
+            <div class="preview-output" aria-live="polite" aria-atomic="true">
+              <h3>State and measurement</h3>
+              <div class="state-label"><span>Quantum state</span><span id="state-kind">Entangled</span></div>
+              <div class="state-equation" id="state-equation" aria-label="The sum of ket zero zero and ket one one, divided by square root of two"><span class="fraction"><span>|00⟩ + |11⟩</span><span>√2</span></span></div>
+              <p class="probability-heading">Measurement probabilities</p>
+              <div class="probability-bars" aria-label="Probabilities: zero zero 50 percent; zero one 0 percent; one zero 0 percent; one one 50 percent">
+                <div class="probability-column"><span class="bar-number">50%</span><div class="bar-track"><span class="bar" style="height:50%"></span></div><span class="bar-label">|00⟩</span></div>
+                <div class="probability-column"><span class="bar-number">0%</span><div class="bar-track"><span class="bar" style="height:0%"></span></div><span class="bar-label">|01⟩</span></div>
+                <div class="probability-column"><span class="bar-number">0%</span><div class="bar-track"><span class="bar" style="height:0%"></span></div><span class="bar-label">|10⟩</span></div>
+                <div class="probability-column"><span class="bar-number">50%</span><div class="bar-track"><span class="bar" style="height:50%"></span></div><span class="bar-label">|11⟩</span></div>
+              </div>
+              <div class="stabilizer-strip"><span>Stabilizer generators</span><div id="generators"><code>+XX</code><code>+ZZ</code></div></div>
+              <p class="step-explanation" id="step-explanation">CNOT correlates the two qubits. Measuring gives 00 or 11, each with probability ½.</p>
+            </div>
+          </div>
+          <figcaption><strong>Figure 1.</strong> Preparing a Bell state and describing it with stabilizer generators. The three checkpoints are exact states of this circuit.</figcaption>
+          <noscript><p>The final Bell-state example is shown. Enable JavaScript to switch between circuit checkpoints.</p></noscript>
+        </figure>
+      </section>
+
+      <section id="resources" aria-labelledby="resources-title">
+        <h2 id="resources-title">References and suggested reading</h2>
+        <p>The project will use the following resources for the quantum foundations, stabilizer formalism, and simulation algorithm.</p>
+        <ol class="resource-list">
+          <li id="resource-1">
+            <p>Ronald de Wolf. <a href="https://homepages.cwi.nl/~rdewolf/qcnotes.pdf">Quantum Computing: Lecture Notes</a>.</p>
+            <p class="resource-description"><strong>Main reference.</strong> Chapters 1–2 provide the foundations. Sections 20.1–20.3 develop stabilizer states, Clifford circuits, and the Gottesman–Knill theorem; Appendix A reviews the linear algebra. Section numbering refers to the August 2026 edition.</p>
+          </li>
+          <li id="resource-2">
+            <p><a href="https://www.youtube.com/playlist?list=PLm3J0oaFux3YL5qLskC6xQ24JpMwOAeJz">Quantum Computation and Information at CMU</a>. Video lecture playlist.</p>
+            <p class="resource-description"><strong>Supplementary lectures.</strong> The video lectures will provide a second perspective on quantum states, circuits, and entanglement. They will support the introductory sections and offer a broader view of the subject.</p>
+          </li>
+          <li id="resource-3">
+            <p>Scott Aaronson and Daniel Gottesman. <a href="https://arxiv.org/pdf/quant-ph/0406196">Improved Simulation of Stabilizer Circuits</a>.</p>
+            <p class="resource-description"><strong>Further reading.</strong> This paper will support the detailed simulation rules and provide an advanced extension after the main theorem. Sections II–III are particularly useful for the representation and update procedures.</p>
+          </li>
+        </ol>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <span>15-455 course project · Proposed outline</span>
+      <a href="#top" aria-label="Return to the top of the page">Back to top</a>
+    </footer>
+  </div>
+</body>
+</html>
