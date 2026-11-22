@@ -4,9 +4,9 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#ffffff">
-  <meta name="description" content="A proposed two-lecture introduction to quantum states, stabilizers, and the Gottesman-Knill theorem for undergraduate complexity theory students.">
+  <meta name="description" content="A learning outline for a beginner’s guide to quantum states, stabilizers, and the Gottesman-Knill theorem for undergraduate complexity theory students.">
   <meta property="og:title" content="Intro to quantum computation and the Gottesman-Knill theorem">
-  <meta property="og:description" content="A 15-455 course project: proposed outline, theorem statement, Bell-state example, and suggested reading.">
+  <meta property="og:description" content="A quantum computation learning outline, theorem statement, interactive Bell-state example, and suggested reading for students of complexity theory.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://l6zw32.github.io/quantum-computation/">
   <link rel="canonical" href="https://l6zw32.github.io/quantum-computation/">
@@ -21,10 +21,10 @@
     <header class="site-header">
       <p class="course-label">15-455 · Undergraduate complexity theory</p>
       <h1>Intro to quantum computation and the Gottesman-Knill theorem</h1>
-      <p class="page-subtitle">Course project · Proposed outline and introductory example</p>
+      <p class="page-subtitle">Learning outline and interactive example</p>
       <nav class="main-nav" aria-label="Page contents">
         <a href="#overview">Overview</a>
-        <a href="#outline">Proposed outline</a>
+        <a href="#outline">Learning outline</a>
         <a href="#theorem">Theorem statement</a>
         <a href="#bell-preview">Bell-state example</a>
         <a href="#resources">References</a>
@@ -34,16 +34,16 @@
     <main id="main">
       <section id="overview" aria-labelledby="overview-title">
         <h2 id="overview-title">Overview</h2>
-        <p>This project will introduce quantum computation through stabilizer states and the Gottesman–Knill theorem. The core is scoped to fit within two lectures for students with the mathematical background of 15-455. It begins with classical bits and the definition of a qubit, then develops a proof that Clifford circuits with final computational-basis measurements can be simulated efficiently by a classical randomized algorithm.</p>
+        <p>This website is designed to help students with the mathematical background of 15-455 learn quantum computation from the beginning. The planned learning path starts with classical bits and qubits, then develops the stabilizer tools needed to prove that Clifford circuits with final computational-basis measurements can be simulated efficiently by a classical randomized algorithm.</p>
         <p>The central question is <strong>which quantum computations have efficient classical simulations?</strong> Stabilizer circuits provide a useful case study: they can create entangled states, yet their structure permits a compact description and efficient simulation. <a href="#resource-1" aria-label="Reference 1">[1]</a> <a href="#resource-3" aria-label="Reference 3">[3]</a></p>
         <p><strong>Prerequisites.</strong> Only the background of 15-455 is assumed: familiarity with classical computation, elementary probability, mathematical proofs, and asymptotic notation. No previous knowledge of quantum computing or physics is required. Short reminders will introduce the complex numbers, vectors, and matrix operations used in the examples and proof. Quantum notation, tensor products, and binary row elimination will be explained where they are needed.</p>
-        <p class="project-status"><strong>Current stage:</strong> this page presents the proposed outline, the main theorem statement, and a short interactive example. The full lessons and theorem proof are planned for the completed site.</p>
+        <p class="project-status"><strong>Current version:</strong> this page provides a learning outline, the main theorem statement, and an interactive example. The full explanations and theorem proof are planned for the completed guide.</p>
       </section>
 
       <section id="outline" aria-labelledby="outline-title">
-        <h2 id="outline-title">Proposed course outline</h2>
-        <p>The seven sections below form a self-contained core planned for <strong>150 minutes</strong> of teaching, including the worked examples, theorem proof, and brief checks for understanding. Using <strong>two 80-minute lectures</strong> as the upper limit leaves 10 minutes for questions and transitions. These are presentation-time estimates.</p>
-        <p>We will use the Bell state as a recurring example and prove the Gottesman–Knill theorem for Clifford circuits with final computational-basis measurements. The references offer optional further reading; the core will explain the mathematics it needs.</p>
+        <h2 id="outline-title">Learning outline</h2>
+        <p>The seven sections below outline the learning path for the completed guide. They are arranged in reading order, with each section building on the previous ones through explanations, worked examples, and brief checks for understanding. The goal is a concise, self-contained introduction that you can work through at your own pace.</p>
+        <p>The Bell state will serve as a recurring example, connecting the basic ideas to a proof of the Gottesman–Knill theorem for Clifford circuits with final computational-basis measurements. Each section will explain the mathematics it needs. The references offer optional further reading.</p>
         <div class="lecture-unit">
           <h3>Quantum states and compact descriptions</h3>
           <ol class="outline-list">
@@ -140,26 +140,26 @@
 
       <section id="resources" aria-labelledby="resources-title">
         <h2 id="resources-title">References and suggested reading</h2>
-        <p>These references support the quantum foundations, stabilizer formalism, and simulation proof. Reading the linked chapters, watching the playlist, or studying the advanced paper is optional and is not part of the 150-minute core.</p>
+        <p>These references offer alternative explanations and further reading on quantum foundations, stabilizers, and simulation. You can use them to revisit an idea or explore the subject further. The completed guide is intended to be self-contained, so the linked material will be optional.</p>
         <ol class="resource-list">
           <li id="resource-1">
             <p>Ronald de Wolf. <a href="https://homepages.cwi.nl/~rdewolf/qcnotes.pdf">Quantum Computing: Lecture Notes</a>.</p>
-            <p class="resource-description"><strong>Main reference.</strong> Selected definitions from Chapter 1 and Section 2.1 support the introduction. Sections 20.1–20.3 support the stabilizer representation and proof; Appendix A is available for additional mathematical background. The core does not require reading these chapters in full. Section numbering refers to the August 2026 edition.</p>
+            <p class="resource-description"><strong>Main reference.</strong> Selected definitions from Chapter 1 and Section 2.1 support the introduction. Sections 20.1–20.3 support the stabilizer representation and proof; Appendix A is available for additional mathematical background. The guide will introduce the definitions and results needed from these sources. Section numbering refers to the August 2026 edition.</p>
           </li>
           <li id="resource-2">
             <p><a href="https://www.youtube.com/playlist?list=PLm3J0oaFux3YL5qLskC6xQ24JpMwOAeJz">Quantum Computation and Information at CMU</a>. Video lecture playlist.</p>
-            <p class="resource-description"><strong>Optional background.</strong> Selected videos offer another explanation of quantum states, circuits, and entanglement. The playlist is supplementary to the self-contained core.</p>
+            <p class="resource-description"><strong>Optional background.</strong> Selected videos offer another explanation of quantum states, circuits, and entanglement. The playlist offers an optional second perspective on the guide’s introductory topics.</p>
           </li>
           <li id="resource-3">
             <p>Scott Aaronson and Daniel Gottesman. <a href="https://arxiv.org/pdf/quant-ph/0406196">Improved Simulation of Stabilizer Circuits</a>.</p>
-            <p class="resource-description"><strong>Optional advanced reading.</strong> Sections II–III give further detail about stabilizer simulation. The core uses a straightforward polynomial-time simulator; the paper’s optimized algorithms and additional extensions are outside its scope.</p>
+            <p class="resource-description"><strong>Optional advanced reading.</strong> Sections II–III give further detail about stabilizer simulation. The guide will focus on a straightforward polynomial-time simulator. This paper offers optimized algorithms and extensions for readers who want to explore further.</p>
           </li>
         </ol>
       </section>
     </main>
 
     <footer class="site-footer">
-      <span>15-455 course project · Proposed outline</span>
+      <span>15-455 · Quantum computation learning guide</span>
       <a href="#top" aria-label="Return to the top of the page">Back to top</a>
     </footer>
   </div>
