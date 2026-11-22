@@ -34,54 +34,51 @@
     <main id="main">
       <section id="overview" aria-labelledby="overview-title">
         <h2 id="overview-title">Overview</h2>
-        <p>This project will introduce quantum computation through stabilizer states and the Gottesman–Knill theorem. The proposed material covers two lecture units for students with the mathematical background of 15-455, beginning with classical bits and the definition of a qubit and developing a proof that a restricted family of quantum circuits can be simulated efficiently by a classical randomized algorithm.</p>
+        <p>This project will introduce quantum computation through stabilizer states and the Gottesman–Knill theorem. The core is scoped to fit within two lectures for students with the mathematical background of 15-455. It begins with classical bits and the definition of a qubit, then develops a proof that Clifford circuits with final computational-basis measurements can be simulated efficiently by a classical randomized algorithm.</p>
         <p>The central question is <strong>which quantum computations have efficient classical simulations?</strong> Stabilizer circuits provide a useful case study: they can create entangled states, yet their structure permits a compact description and efficient simulation. <a href="#resource-1" aria-label="Reference 1">[1]</a> <a href="#resource-3" aria-label="Reference 3">[3]</a></p>
-        <p><strong>Prerequisites.</strong> Only the background of 15-455 is assumed: familiarity with classical computation, elementary probability, mathematical proofs, and asymptotic notation. No previous knowledge of quantum computing or physics is required. We will review the complex numbers, vectors, and matrix operations that we need, and introduce quantum notation, tensor products, and binary linear algebra before using them.</p>
+        <p><strong>Prerequisites.</strong> Only the background of 15-455 is assumed: familiarity with classical computation, elementary probability, mathematical proofs, and asymptotic notation. No previous knowledge of quantum computing or physics is required. Short reminders will introduce the complex numbers, vectors, and matrix operations used in the examples and proof. Quantum notation, tensor products, and binary row elimination will be explained where they are needed.</p>
         <p class="project-status"><strong>Current stage:</strong> this page presents the proposed outline, the main theorem statement, and a short interactive example. The full lessons and theorem proof are planned for the completed site.</p>
       </section>
 
       <section id="outline" aria-labelledby="outline-title">
         <h2 id="outline-title">Proposed course outline</h2>
-        <p>The eight sections below are listed in their intended reading order. Each description explains the material planned for that section.</p>
+        <p>The seven sections below form a self-contained core planned for <strong>150 minutes</strong> of teaching, including the worked examples, theorem proof, and brief checks for understanding. Using <strong>two 80-minute lectures</strong> as the upper limit leaves 10 minutes for questions and transitions. These are presentation-time estimates.</p>
+        <p>We will use the Bell state as a recurring example and prove the Gottesman–Knill theorem for Clifford circuits with final computational-basis measurements. The references offer optional further reading; the core will explain the mathematics it needs.</p>
         <div class="lecture-unit">
-          <h3>Quantum states and compact descriptions</h3>
+          <h3>Quantum states and compact descriptions <small>(80 minutes)</small></h3>
           <ol class="outline-list">
             <li id="section-1">
-              <h4>From classical bits to qubits</h4>
-              <p>We will start with ordinary bits and randomized computation, then introduce a qubit and explain the notation |0⟩, |1⟩, and |ψ⟩. After reviewing the required complex numbers and vector operations, we will define amplitudes and normalization, calculate measurement probabilities in simple examples, and use interference to distinguish a quantum superposition from an ordinary random bit. We will introduce one-qubit gates as transformations of states and work through Hadamard and phase-gate examples. We will then build the notation for multiple qubits and tensor products from two-bit strings, preparing for controlled-NOT and the Bell-state example.</p>
+              <h4>From classical bits to qubits <small>(30 minutes)</small></h4>
+              <p>We will start with ordinary bits, introduce a qubit, and explain the notation |0⟩, |1⟩, and |ψ⟩. Short reminders about complex numbers, vectors, and matrix operations will support the definitions of amplitudes, normalization, and measurement probabilities. Applying a Hadamard gate twice will provide one worked example of how gates act and how interference distinguishes a superposition from an ordinary random bit.</p>
             </li>
             <li id="section-2">
-              <h4>Building an entangled state</h4>
-              <p>A Hadamard gate and a controlled-NOT gate will take two qubits from |00⟩ to a Bell state. The walkthrough will connect the circuit, its amplitudes, and its measurement outcomes, then use this example to motivate the problem of representing larger quantum systems. A short <a href="#bell-preview">interactive example</a> is available below.</p>
+              <h4>Two qubits and the Bell-state example <small>(15 minutes)</small></h4>
+              <p>We will build two-qubit notation and tensor products from the four two-bit strings, then define controlled-NOT by its action on those strings. Applying H and CNOT to |00⟩ will produce a Bell state, whose amplitudes and measurement probabilities we will calculate. This <a href="#bell-preview">interactive example</a> will recur throughout the remaining sections.</p>
             </li>
             <li id="section-3">
-              <h4>Pauli operators and stabilizers</h4>
-              <p>We will introduce I, X, Y, and Z, then study the condition P|ψ⟩ = |ψ⟩. The Bell state will make this definition concrete: its XX and ZZ constraints will provide a new way to describe the same state, up to global phase.</p>
+              <h4>Pauli operators and stabilizer constraints <small>(20 minutes)</small></h4>
+              <p>We will introduce I, X, Y, and Z, signed Pauli strings, and the equation P|ψ⟩ = |ψ⟩. Using the Bell state's XX and ZZ constraints, we will explain commuting operators and products of generators. The discussion will establish the multiplication and sign rules needed for the simulation proof.</p>
             </li>
             <li id="section-4">
-              <h4>Compact representation of stabilizer states</h4>
-              <p>This section will explain why n independent, commuting, consistent Pauli constraints specify an n-qubit stabilizer state. We will encode the signed generators using binary data and show why their description requires O(n²) bits, preparing the representation used by the simulator.</p>
+              <h4>Why the state has a compact description <small>(15 minutes)</small></h4>
+              <p>We will define independence and consistency of commuting Pauli generators, and prove the lemma that n such independent constraints determine an n-qubit state up to global phase. Encoding each Pauli letter with two bits and retaining the generator signs gives an O(n²)-bit description. This representation will support the gate and measurement updates below.</p>
             </li>
           </ol>
         </div>
         <div class="lecture-unit">
-          <h3>Efficient classical simulation</h3>
+          <h3>Efficient classical simulation <small>(70 minutes)</small></h3>
           <ol class="outline-list" start="5">
             <li id="section-5">
-              <h4>How Clifford gates update stabilizers</h4>
-              <p>We will derive the conjugation rule P ↦ UPU† and work out its effect for H, S, and CNOT. Because these gates preserve signed Pauli operators, each circuit step can be translated into an update of the compact representation.</p>
+              <h4>Updating generators under Clifford gates <small>(20 minutes)</small></h4>
+              <p>We will derive the rule P ↦ UPU†, explain the phase gate S, and give the local update rules for H, S, and CNOT, including their signs. Representative calculations and the running Bell example will show why the updated generators describe the correct state. Each gate update will be shown to take polynomial time.</p>
             </li>
             <li id="section-6">
-              <h4>Simulating measurement</h4>
-              <p>Computational-basis measurements of a stabilizer state will be analyzed through their commutation relations with its generators. We will distinguish deterministic outcomes from fair random outcomes and derive the corresponding state updates, keeping the signs needed for correct predictions.</p>
+              <h4>Sampling the final measurements <small>(30 minutes)</small></h4>
+              <p>We will sample the final computational-basis measurements one qubit at a time. The proof will distinguish deterministic outcomes from fair random outcomes, justify both probabilities, and derive the generator update after each sampled result. A short introduction to binary row elimination will show how to find a required generator product and its sign in polynomial time.</p>
             </li>
             <li id="section-7">
-              <h4>The Gottesman–Knill theorem</h4>
-              <p>This section will assemble initialization, gate updates, and measurement updates into a classical randomized algorithm. A correctness proof and a running-time analysis will establish that it samples exactly the circuit’s measurement distribution using polynomial time and a compact state description. The <a href="#theorem">theorem statement</a> appears below.</p>
-            </li>
-            <li id="section-8">
-              <h4>Beyond Clifford circuits</h4>
-              <p>We will examine how a T-gate changes the operator description and why the same Pauli-string update rule no longer suffices. A final discussion will place the theorem in the broader question of quantum advantage, with worked examples and short exercises consolidating the two lecture units.</p>
+              <h4>The Gottesman–Knill theorem and its proof <small>(20 minutes)</small></h4>
+              <p>We will assemble the previously proved representation and update lemmas into a classical randomized simulator. An induction over the gates and sampled measurements will prove that the full output distribution is correct, followed by a polynomial running-time bound and the O(n²)-bit state-storage bound. A brief closing discussion will explain what this restricted-circuit theorem says about quantum advantage. The <a href="#theorem">theorem statement</a> appears below.</p>
             </li>
           </ol>
         </div>
@@ -90,10 +87,10 @@
       <section id="theorem" aria-labelledby="theorem-title">
         <h2 id="theorem-title">Main theorem</h2>
         <div class="theorem-statement">
-          <h3>Theorem (Gottesman–Knill, circuit form)</h3>
-          <p>Let C be an n-qubit circuit initialized in |0⟩<sup>⊗n</sup>, with s operations consisting of Hadamard gates, phase gates S = diag(1, i), controlled-NOT gates, and computational-basis measurements. There is a classical randomized algorithm that samples exactly the joint distribution of its measurement outcomes in time polynomial in n + s. Its representation of the quantum state uses O(n²) bits. <a href="#resource-1" aria-label="Reference 1">[1]</a> <a href="#resource-3" aria-label="Reference 3">[3]</a></p>
+          <h3>Theorem (Gottesman–Knill, final-measurement form)</h3>
+          <p>Let C be an n-qubit circuit initialized in |0⟩<sup>⊗n</sup> that applies s gates chosen from Hadamard gates, phase gates S = diag(1, i), and controlled-NOT gates, and then measures all qubits in the computational basis. There is a classical randomized algorithm that samples exactly the joint distribution of these final measurement outcomes in time polynomial in n + s. Its representation of the quantum state uses O(n²) bits. <a href="#resource-1" aria-label="Reference 1">[1]</a> <a href="#resource-3" aria-label="Reference 3">[3]</a></p>
         </div>
-        <p><strong>Planned proof.</strong> Section 7 will combine the compact stabilizer representation with the gate and measurement update rules, prove that these updates preserve the correct state and outcome probabilities, and bound the running time.</p>
+        <p><strong>Planned proof.</strong> Sections 3–6 will establish the representation, gate-update, and measurement lemmas. Section 7 will combine them into a complete proof of the stated theorem, including correctness of the joint output distribution and a polynomial running-time bound.</p>
         <p>The guarantee concerns this circuit family and efficient sampling of its outcomes. It does not assert that arbitrary quantum circuits have efficient classical simulations.</p>
       </section>
 
@@ -143,19 +140,19 @@
 
       <section id="resources" aria-labelledby="resources-title">
         <h2 id="resources-title">References and suggested reading</h2>
-        <p>The project will use the following resources for the quantum foundations, stabilizer formalism, and simulation algorithm.</p>
+        <p>These references support the quantum foundations, stabilizer formalism, and simulation proof. Reading the linked chapters, watching the playlist, or studying the advanced paper is optional and is not part of the 150-minute core.</p>
         <ol class="resource-list">
           <li id="resource-1">
             <p>Ronald de Wolf. <a href="https://homepages.cwi.nl/~rdewolf/qcnotes.pdf">Quantum Computing: Lecture Notes</a>.</p>
-            <p class="resource-description"><strong>Main reference.</strong> Chapters 1–2 provide the foundations. Sections 20.1–20.3 develop stabilizer states, Clifford circuits, and the Gottesman–Knill theorem; Appendix A reviews the linear algebra. Section numbering refers to the August 2026 edition.</p>
+            <p class="resource-description"><strong>Main reference.</strong> Selected definitions from Chapter 1 and Section 2.1 support the introduction. Sections 20.1–20.3 support the stabilizer representation and proof; Appendix A is available for additional mathematical background. The core does not require reading these chapters in full. Section numbering refers to the August 2026 edition.</p>
           </li>
           <li id="resource-2">
             <p><a href="https://www.youtube.com/playlist?list=PLm3J0oaFux3YL5qLskC6xQ24JpMwOAeJz">Quantum Computation and Information at CMU</a>. Video lecture playlist.</p>
-            <p class="resource-description"><strong>Supplementary lectures.</strong> The video lectures will provide a second perspective on quantum states, circuits, and entanglement. They will support the introductory sections and offer a broader view of the subject.</p>
+            <p class="resource-description"><strong>Optional background.</strong> Selected videos offer another explanation of quantum states, circuits, and entanglement. The playlist is supplementary to the self-contained core.</p>
           </li>
           <li id="resource-3">
             <p>Scott Aaronson and Daniel Gottesman. <a href="https://arxiv.org/pdf/quant-ph/0406196">Improved Simulation of Stabilizer Circuits</a>.</p>
-            <p class="resource-description"><strong>Further reading.</strong> This paper will support the detailed simulation rules and provide an advanced extension after the main theorem. Sections II–III are particularly useful for the representation and update procedures.</p>
+            <p class="resource-description"><strong>Optional advanced reading.</strong> Sections II–III give further detail about stabilizer simulation. The core uses a straightforward polynomial-time simulator; the paper’s optimized algorithms and additional extensions are outside its scope.</p>
           </li>
         </ol>
       </section>
