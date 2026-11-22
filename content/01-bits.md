@@ -241,12 +241,56 @@ The original $\alpha$ does not have to be $1/\sqrt2$. We have chosen an equivale
 
 ## Check your understanding {#practice}
 
+### 1. Measurement between gates
+
 Start in $|0\rangle$, apply H, measure, apply H again, then measure again. What is the final distribution? What changes if you omit the first measurement?
 
 <details markdown="1">
 <summary>Show answer</summary>
 
 The first measurement leaves $|0\rangle$ or $|1\rangle$, each with probability ½. The next H produces $|+\rangle$ or $|-\rangle$, so the final outcome is also fair. Without the first measurement, interference gives $H^2|0\rangle=|0\rangle$, so the final outcome is always 0.
+</details>
+
+### 2. Complex amplitudes and probabilities
+
+Consider
+
+\[
+|\psi\rangle=\frac{\sqrt3}{2}|0\rangle+\frac{i}{2}|1\rangle.
+\]
+
+Is this state vector normalized? What are its computational-basis measurement probabilities? Does replacing $i/2$ by $-1/2$ change those probabilities?
+
+<details markdown="1">
+<summary>Show answer</summary>
+
+Yes: $|\sqrt3/2|^2=3/4$ and $|i/2|^2=1/4$, so the squared magnitudes sum to 1. The probabilities are $\Pr(0)=3/4$ and $\Pr(1)=1/4$.
+
+Replacing $i/2$ by $-1/2$ leaves these probabilities unchanged because $|-1/2|^2=1/4$. It changes the relative phase, but computational-basis measurement alone does not reveal that change.
+</details>
+
+### 3. Same probabilities, same state?
+
+Consider the normalized state vectors
+
+\[
+\begin{split}
+|\psi_1\rangle&=\frac{|0\rangle+i|1\rangle}{\sqrt2},\\
+|\psi_2\rangle&=\frac{i|0\rangle-|1\rangle}{\sqrt2},\\
+|\psi_3\rangle&=\frac{|0\rangle-i|1\rangle}{\sqrt2}.
+\end{split}
+\]
+
+For each, remove any global phase so that the $|0\rangle$ amplitude is $1/\sqrt2$, and identify the relative phase $\delta\in[0,2\pi)$. Which vectors describe the same physical state? Can computational-basis measurements distinguish these preparations?
+
+<details markdown="1">
+<summary>Show answer</summary>
+
+Since $|\psi_2\rangle=i|\psi_1\rangle$, the first two vectors describe the same physical state. Multiplying $|\psi_2\rangle$ by $-i$ gives $|\psi_1\rangle$. Their representative has relative phase $\delta=\pi/2$, since $i=e^{i\pi/2}$.
+
+The third vector already has first amplitude $1/\sqrt2$ and has relative phase $\delta=3\pi/2$, since $-i=e^{i3\pi/2}$. It describes a different physical state: a common factor taking $|\psi_1\rangle$ to $|\psi_3\rangle$ would have to be 1 to preserve the first amplitude, but then it could not change the second amplitude.
+
+All three give $\Pr(0)=\Pr(1)=1/2$, so computational-basis measurements alone cannot distinguish them. Equal probabilities in one basis do not determine the full quantum state.
 </details>
 
 **Carry forward:** describe pure states with normalized amplitude vectors, transform them with gates, and use squared magnitudes only when computing measurement probabilities.
