@@ -49,6 +49,12 @@ Thus its vector has length 1. A valid pure-state vector must be normalized.
 The Born rule is a rule of the quantum model, not something derived from normalization. Normalization ensures that its probabilities sum to 1. The measurement leaves the qubit in the observed basis state, so an immediate repeat gives the same result. To estimate the original probabilities, prepare the original state afresh for each trial. [1]
 
 <aside class="worked-example" markdown="1">
+### Example: probabilities
+
+The state $\frac35|0\rangle+\frac45|1\rangle$ is normalized because $9/25+16/25=1$. Measuring it gives 0 with probability $9/25$ and 1 with probability $16/25$. The amplitudes $3/5$ and $4/5$ are **not** the probabilities.
+</aside>
+
+<aside class="worked-example" markdown="1">
 ### Example: which amplitudes give a 50–50 outcome?
 
 Suppose we want a pure qubit state whose computational-basis measurement gives 0 and 1 with probability $1/2$ each. By the Born rule, we need
