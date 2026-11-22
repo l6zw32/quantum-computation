@@ -51,6 +51,7 @@ Publishing uses the committed HTML, so no custom build workflow is required. Aft
 
 ## Mathematical conventions
 
+- Introduce new terminology using the label **Definition (Term)**:. Distinguish definitions from rules and properties, and explain newly used notation at its first use.
 - The basis order is `|q0 q1 ...>`, with qubit 0 leftmost.
 - Tensor-string notation `XZ` means X on the first qubit and Z on the second. Single-qubit matrix multiplication is distinguished explicitly when needed.
 - Pauli letters use binary coordinates I = 00, X = 10, Z = 01, Y = 11, with a separate sign bit.
