@@ -45,39 +45,39 @@
         <p>The seven sections below form a self-contained core planned for <strong>150 minutes</strong> of teaching, including the worked examples, theorem proof, and brief checks for understanding. Using <strong>two 80-minute lectures</strong> as the upper limit leaves 10 minutes for questions and transitions. These are presentation-time estimates.</p>
         <p>We will use the Bell state as a recurring example and prove the Gottesman–Knill theorem for Clifford circuits with final computational-basis measurements. The references offer optional further reading; the core will explain the mathematics it needs.</p>
         <div class="lecture-unit">
-          <h3>Quantum states and compact descriptions <small>(80 minutes)</small></h3>
+          <h3>Quantum states and compact descriptions</h3>
           <ol class="outline-list">
             <li id="section-1">
-              <h4>From classical bits to qubits <small>(30 minutes)</small></h4>
+              <h4>From classical bits to qubits</h4>
               <p>We will start with ordinary bits, introduce a qubit, and explain the notation |0⟩, |1⟩, and |ψ⟩. Short reminders about complex numbers, vectors, and matrix operations will support the definitions of amplitudes, normalization, and measurement probabilities. Applying a Hadamard gate twice will provide one worked example of how gates act and how interference distinguishes a superposition from an ordinary random bit.</p>
             </li>
             <li id="section-2">
-              <h4>Two qubits and the Bell-state example <small>(15 minutes)</small></h4>
+              <h4>Two qubits and the Bell-state example</h4>
               <p>We will build two-qubit notation and tensor products from the four two-bit strings, then define controlled-NOT by its action on those strings. Applying H and CNOT to |00⟩ will produce a Bell state, whose amplitudes and measurement probabilities we will calculate. This <a href="#bell-preview">interactive example</a> will recur throughout the remaining sections.</p>
             </li>
             <li id="section-3">
-              <h4>Pauli operators and stabilizer constraints <small>(20 minutes)</small></h4>
+              <h4>Pauli operators and stabilizer constraints</h4>
               <p>We will introduce I, X, Y, and Z, signed Pauli strings, and the equation P|ψ⟩ = |ψ⟩. Using the Bell state's XX and ZZ constraints, we will explain commuting operators and products of generators. The discussion will establish the multiplication and sign rules needed for the simulation proof.</p>
             </li>
             <li id="section-4">
-              <h4>Why the state has a compact description <small>(15 minutes)</small></h4>
+              <h4>Why the state has a compact description</h4>
               <p>We will define independence and consistency of commuting Pauli generators, and prove the lemma that n such independent constraints determine an n-qubit state up to global phase. Encoding each Pauli letter with two bits and retaining the generator signs gives an O(n²)-bit description. This representation will support the gate and measurement updates below.</p>
             </li>
           </ol>
         </div>
         <div class="lecture-unit">
-          <h3>Efficient classical simulation <small>(70 minutes)</small></h3>
+          <h3>Efficient classical simulation</h3>
           <ol class="outline-list" start="5">
             <li id="section-5">
-              <h4>Updating generators under Clifford gates <small>(20 minutes)</small></h4>
+              <h4>Updating generators under Clifford gates</h4>
               <p>We will derive the rule P ↦ UPU†, explain the phase gate S, and give the local update rules for H, S, and CNOT, including their signs. Representative calculations and the running Bell example will show why the updated generators describe the correct state. Each gate update will be shown to take polynomial time.</p>
             </li>
             <li id="section-6">
-              <h4>Sampling the final measurements <small>(30 minutes)</small></h4>
+              <h4>Sampling the final measurements</h4>
               <p>We will sample the final computational-basis measurements one qubit at a time. The proof will distinguish deterministic outcomes from fair random outcomes, justify both probabilities, and derive the generator update after each sampled result. A short introduction to binary row elimination will show how to find a required generator product and its sign in polynomial time.</p>
             </li>
             <li id="section-7">
-              <h4>The Gottesman–Knill theorem and its proof <small>(20 minutes)</small></h4>
+              <h4>The Gottesman–Knill theorem and its proof</h4>
               <p>We will assemble the previously proved representation and update lemmas into a classical randomized simulator. An induction over the gates and sampled measurements will prove that the full output distribution is correct, followed by a polynomial running-time bound and the O(n²)-bit state-storage bound. A brief closing discussion will explain what this restricted-circuit theorem says about quantum advantage. The <a href="#theorem">theorem statement</a> appears below.</p>
             </li>
           </ol>
