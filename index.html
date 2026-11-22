@@ -34,9 +34,9 @@
     <main id="main">
       <section id="overview" aria-labelledby="overview-title">
         <h2 id="overview-title">Overview</h2>
-        <p>This project will introduce quantum computation through stabilizer states and the Gottesman–Knill theorem. The proposed material covers two lecture units for students with the mathematical background of 15-455, beginning with quantum states and gates and developing a proof that a restricted family of quantum circuits can be simulated efficiently by a classical randomized algorithm.</p>
+        <p>This project will introduce quantum computation through stabilizer states and the Gottesman–Knill theorem. The proposed material covers two lecture units for students with the mathematical background of 15-455, beginning with classical bits and the definition of a qubit and developing a proof that a restricted family of quantum circuits can be simulated efficiently by a classical randomized algorithm.</p>
         <p>The central question is <strong>which quantum computations have efficient classical simulations?</strong> Stabilizer circuits provide a useful case study: they can create entangled states, yet their structure permits a compact description and efficient simulation. <a href="#resource-1" aria-label="Reference 1">[1]</a> <a href="#resource-3" aria-label="Reference 3">[3]</a></p>
-        <p><strong>Prerequisites.</strong> Basic linear algebra, discrete probability, and asymptotic notation. Quantum notation, tensor products, and the required binary linear algebra will be introduced along the way. No physics background is assumed.</p>
+        <p><strong>Prerequisites.</strong> Only the background of 15-455 is assumed: familiarity with classical computation, elementary probability, mathematical proofs, and asymptotic notation. No previous knowledge of quantum computing or physics is required. We will review the complex numbers, vectors, and matrix operations that we need, and introduce quantum notation, tensor products, and binary linear algebra before using them.</p>
         <p class="project-status"><strong>Current stage:</strong> this page presents the proposed outline, the main theorem statement, and a short interactive example. The full lessons and theorem proof are planned for the completed site.</p>
       </section>
 
@@ -47,8 +47,8 @@
           <h3>Quantum states and compact descriptions</h3>
           <ol class="outline-list">
             <li id="section-1">
-              <h4>Quantum states, gates, and measurement</h4>
-              <p>This section will introduce quantum states as normalized complex vectors, gates as unitary transformations, and measurement probabilities as the squared magnitudes of amplitudes. One- and two-qubit examples will establish the notation and show how tensor products describe composite systems.</p>
+              <h4>From classical bits to qubits</h4>
+              <p>We will start with ordinary bits and randomized computation, then introduce a qubit and explain the notation |0⟩, |1⟩, and |ψ⟩. After reviewing the required complex numbers and vector operations, we will define amplitudes and normalization, calculate measurement probabilities in simple examples, and use interference to distinguish a quantum superposition from an ordinary random bit. We will introduce one-qubit gates as transformations of states and work through Hadamard and phase-gate examples. We will then build the notation for multiple qubits and tensor products from two-bit strings, preparing for controlled-NOT and the Bell-state example.</p>
             </li>
             <li id="section-2">
               <h4>Building an entangled state</h4>
