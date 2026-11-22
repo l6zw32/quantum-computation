@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ffffff">
+  <meta name="description" content="Assemble a complete proof that H, S, and CNOT circuits with final computational-basis measurements admit exact classical sampling in polynomial time.">
+  <meta property="og:title" content="The Gottesman–Knill theorem and its proof">
+  <meta property="og:description" content="Assemble a complete proof that H, S, and CNOT circuits with final computational-basis measurements admit exact classical sampling in polynomial time.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://l6zw32.github.io/quantum-computation/gottesman-knill-theorem.html">
+  <link rel="canonical" href="https://l6zw32.github.io/quantum-computation/gottesman-knill-theorem.html">
+  <link rel="icon" href="./favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./styles.css">
+  <link rel="stylesheet" href="./lesson.css">
+  <title>The Gottesman–Knill theorem and its proof | Intro to quantum computation and the Gottesman-Knill theorem</title>
+</head>
+<body id="top">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="page lesson-page">
+    <header class="site-header">
+      <p class="guide-title"><a href="./">Intro to quantum computation and the Gottesman-Knill theorem</a></p>
+      <p class="course-label">Section 7 · Efficient classical simulation</p>
+      <h1>The Gottesman–Knill theorem and its proof</h1>
+      <p class="page-subtitle">An exact classical sampler, with correctness and runtime bounds</p>
+      <nav class="main-nav" aria-label="Guide navigation">
+        <a href="./#outline">Learning outline</a>
+        <a href="#contents">On this page</a>
+        <a href="#practice">Check your understanding</a>
+        <a href="#references">References</a>
+      </nav>
+      <details class="guide-sections">
+        <summary>All seven sections</summary>
+        <nav aria-label="All guide sections"><ol><li><a href="./from-bits-to-qubits.html">From classical bits to qubits</a></li>
+<li><a href="./two-qubits-and-bell-state.html">Two qubits and the Bell-state example</a></li>
+<li><a href="./pauli-operators-and-stabilizers.html">Pauli operators and stabilizer constraints</a></li>
+<li><a href="./compact-stabilizer-description.html">Why the state has a compact description</a></li>
+<li><a href="./clifford-gate-updates.html">Updating generators under Clifford gates</a></li>
+<li><a href="./sampling-measurements.html">Sampling the final measurements</a></li>
+<li><a href="./gottesman-knill-theorem.html" aria-current="page">The Gottesman–Knill theorem and its proof</a></li></ol></nav>
+      </details>
+    </header>
+    <main id="main">
+      <div class="lesson-intro"><p>We can now combine the representation, gate rules, and measurement procedure into a complete classical algorithm.</p></div>
+      <nav class="lesson-contents" id="contents" aria-labelledby="contents-title">
+        <h2 id="contents-title">On this page</h2>
+        <div class="toc">
+<ul>
+<li><a href="#the-theorem">The theorem</a></li>
+<li><a href="#the-algorithm">The algorithm</a></li>
+<li><a href="#why-the-output-distribution-is-correct">Why the output distribution is correct</a></li>
+<li><a href="#why-the-algorithm-is-efficient">Why the algorithm is efficient</a></li>
+<li><a href="#practice">Check your understanding</a></li>
+<li><a href="#references">References</a></li>
+</ul>
+</div>
+
+      </nav>
+      <article class="lesson-content" aria-label="Section 7: The Gottesman–Knill theorem and its proof">
+        
+<h2 id="the-theorem">The theorem</h2>
+<aside class="theorem-statement">
+<p><strong>Gottesman–Knill theorem, final-measurement form.</strong> Consider an <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math>-qubit circuit initialized in <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mo stretchy="false">&#x0007C;</mo><msup><mn>0</mn><mi>n</mi></msup><mi>&#x027E9;</mi></mrow><annotation encoding="application/x-tex">|0^n\rangle</annotation></semantics></math>, followed by <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mi>s</mi></mrow><annotation encoding="application/x-tex">s</annotation></semantics></math> gates chosen from <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mi>H</mi></mrow><annotation encoding="application/x-tex">H</annotation></semantics></math>, <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mi>S</mi></mrow><annotation encoding="application/x-tex">S</annotation></semantics></math>, and CNOT, and then computational-basis measurements of all qubits. A classical randomized algorithm samples exactly the joint distribution of its <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math> output bits in time polynomial in <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mi>n</mi><mo>&#x0002B;</mo><mi>s</mi></mrow><annotation encoding="application/x-tex">n+s</annotation></semantics></math>, using <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mi>O</mi><mo stretchy="false">&#x00028;</mo><msup><mi>n</mi><mn>2</mn></msup><mo stretchy="false">&#x00029;</mo></mrow><annotation encoding="application/x-tex">O(n^2)</annotation></semantics></math> bits to represent and update the state. <a class="reference-link" href="#ref-1" aria-label="Reference 1">[1]</a> <a class="reference-link" href="#ref-2" aria-label="Reference 2">[2]</a></p>
+</aside>
+<p>We write <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mo stretchy="false">&#x0007C;</mo><msup><mn>0</mn><mi>n</mi></msup><mi>&#x027E9;</mi><mo>&#x0003D;</mo><mo stretchy="false">&#x0007C;</mo><mn>0</mn><msup><mi>&#x027E9;</mi><mrow><mo>&#x02297;</mo><mi>n</mi></mrow></msup></mrow><annotation encoding="application/x-tex">|0^n\rangle=|0\rangle^{\otimes n}</annotation></semantics></math>. The bounds below describe a simple algorithm. Faster implementations exist, but polynomial time is the conclusion we need.</p>
+<h2 id="the-algorithm">The algorithm</h2>
+<ol>
+<li><strong>Initialize:</strong> store the <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math> generators <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><msub><mi>Z</mi><mn>0</mn></msub><mo>&#x0002C;</mo><mi>&#x02026;</mi><mo>&#x0002C;</mo><msub><mi>Z</mi><mrow><mi>n</mi><mo>&#x02212;</mo><mn>1</mn></mrow></msub></mrow><annotation encoding="application/x-tex">Z_0,\ldots,Z_{n-1}</annotation></semantics></math> of <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mo stretchy="false">&#x0007C;</mo><msup><mn>0</mn><mi>n</mi></msup><mi>&#x027E9;</mi></mrow><annotation encoding="application/x-tex">|0^n\rangle</annotation></semantics></math>.</li>
+<li><strong>Apply the gates:</strong> for each gate <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mi>U</mi></mrow><annotation encoding="application/x-tex">U</annotation></semantics></math>, replace every generator <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><msub><mi>g</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">g_i</annotation></semantics></math> by <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mi>U</mi><msub><mi>g</mi><mi>i</mi></msub><msup><mi>U</mi><mi>&#x02020;</mi></msup></mrow><annotation encoding="application/x-tex">Ug_iU^\dagger</annotation></semantics></math>, using the local signed Pauli update rules.</li>
+<li><strong>Measure:</strong> for <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mi>j</mi><mo>&#x0003D;</mo><mn>0</mn><mo>&#x0002C;</mo><mi>&#x02026;</mi><mo>&#x0002C;</mo><mi>n</mi><mo>&#x02212;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">j=0,\ldots,n-1</annotation></semantics></math>, apply the procedure from Section 6 to <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mi>M</mi><mo>&#x0003D;</mo><msub><mi>Z</mi><mi>j</mi></msub></mrow><annotation encoding="application/x-tex">M=Z_j</annotation></semantics></math>. Record the output bit and retain the updated generators.</li>
+<li><strong>Return:</strong> output the recorded string <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><msub><mi>b</mi><mn>0</mn></msub><mo>&#x022EF;</mo><msub><mi>b</mi><mrow><mi>n</mi><mo>&#x02212;</mo><mn>1</mn></mrow></msub></mrow><annotation encoding="application/x-tex">b_0\cdots b_{n-1}</annotation></semantics></math>.</li>
+</ol>
+<p>Although the measurements are processed sequentially, they reproduce a computational-basis measurement of the full register. The projectors on different qubits commute; their product selects the same basis vector as the full measurement.</p>
+<h2 id="why-the-output-distribution-is-correct">Why the output distribution is correct</h2>
+<p>We maintain this invariant: <strong>the stored generators describe the quantum state conditioned on the measurement outcomes sampled so far, and every sampled prefix has the correct probability.</strong></p>
+<p>Initially, the generators describe <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mo stretchy="false">&#x0007C;</mo><msup><mn>0</mn><mi>n</mi></msup><mi>&#x027E9;</mi></mrow><annotation encoding="application/x-tex">|0^n\rangle</annotation></semantics></math>, and the empty prefix has probability <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mn>1</mn></mrow><annotation encoding="application/x-tex">1</annotation></semantics></math>.</p>
+<p>For a gate, the conjugation identity</p>
+<div class="equation"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mo stretchy="false">&#x00028;</mo><mi>U</mi><msub><mi>g</mi><mi>i</mi></msub><msup><mi>U</mi><mi>&#x02020;</mi></msup><mo stretchy="false">&#x00029;</mo><mo stretchy="false">&#x00028;</mo><mi>U</mi><mo stretchy="false">&#x0007C;</mo><mi>&#x003C8;</mi><mi>&#x027E9;</mi><mo stretchy="false">&#x00029;</mo><mo>&#x0003D;</mo><mi>U</mi><mo stretchy="false">&#x0007C;</mo><mi>&#x003C8;</mi><mi>&#x027E9;</mi></mrow><annotation encoding="application/x-tex">(Ug_iU^\dagger)(U|\psi\rangle)=U|\psi\rangle</annotation></semantics></math></div>
+<p>shows that the updated generators stabilize the new state. Conjugation preserves commutation, independence, and consistency. Section 5 established that these gates preserve signed Pauli strings, so the representation remains valid.</p>
+<p>For a measurement, Section 6 computes its exact conditional outcome probabilities and produces generators for the resulting conditional state. The classical algorithm chooses between outcomes with those same probabilities. Multiplying the probability of the previous prefix by this conditional probability gives the correct probability of the extended prefix. An impossible outcome is never selected.</p>
+<p>Induction over the circuit gates and successive measurements proves the invariant. After the last measurement, it establishes equality of the entire output distributions, including all correlations.</p>
+<h2 id="why-the-algorithm-is-efficient">Why the algorithm is efficient</h2>
+<p>Each generator has <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math> Pauli letters and one sign. The <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math> generators therefore use <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mi>n</mi><mo stretchy="false">&#x00028;</mo><mn>2</mn><mi>n</mi><mo>&#x0002B;</mo><mn>1</mn><mo stretchy="false">&#x00029;</mo><mo>&#x0003D;</mo><mi>O</mi><mo stretchy="false">&#x00028;</mo><msup><mi>n</mi><mn>2</mn></msup><mo stretchy="false">&#x00029;</mo></mrow><annotation encoding="application/x-tex">n(2n+1)=O(n^2)</annotation></semantics></math> bits.</p>
+<p>A one- or two-qubit gate changes only one or two letters and the sign in each row. Using fixed local rules costs <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mi>O</mi><mo stretchy="false">&#x00028;</mo><mi>n</mi><mo stretchy="false">&#x00029;</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math> operations per gate, or <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mi>O</mi><mo stretchy="false">&#x00028;</mo><mi>n</mi><mi>s</mi><mo stretchy="false">&#x00029;</mo></mrow><annotation encoding="application/x-tex">O(ns)</annotation></semantics></math> altogether.</p>
+<p>For each measurement, the commutation test scans one column. A random outcome requires at most <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mi>n</mi><mo>&#x02212;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">n-1</annotation></semantics></math> products of length-<math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math> strings, costing <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mi>O</mi><mo stretchy="false">&#x00028;</mo><msup><mi>n</mi><mn>2</mn></msup><mo stretchy="false">&#x00029;</mo></mrow><annotation encoding="application/x-tex">O(n^2)</annotation></semantics></math>. A deterministic outcome uses binary Gaussian elimination in <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mi>O</mi><mo stretchy="false">&#x00028;</mo><msup><mi>n</mi><mn>3</mn></msup><mo stretchy="false">&#x00029;</mo></mrow><annotation encoding="application/x-tex">O(n^3)</annotation></semantics></math>, followed by sign recovery in <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mi>O</mi><mo stretchy="false">&#x00028;</mo><msup><mi>n</mi><mn>2</mn></msup><mo stretchy="false">&#x00029;</mo></mrow><annotation encoding="application/x-tex">O(n^2)</annotation></semantics></math>. There are <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math> measurements, so their total cost is at most <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mi>O</mi><mo stretchy="false">&#x00028;</mo><msup><mi>n</mi><mn>4</mn></msup><mo stretchy="false">&#x00029;</mo></mrow><annotation encoding="application/x-tex">O(n^4)</annotation></semantics></math>. Initialization costs <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mi>O</mi><mo stretchy="false">&#x00028;</mo><msup><mi>n</mi><mn>2</mn></msup><mo stretchy="false">&#x00029;</mo></mrow><annotation encoding="application/x-tex">O(n^2)</annotation></semantics></math> and is absorbed in this bound.</p>
+<p>Adding the costs gives <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mi>O</mi><mo stretchy="false">&#x00028;</mo><mi>n</mi><mi>s</mi><mo>&#x0002B;</mo><msup><mi>n</mi><mn>4</mn></msup><mo stretchy="false">&#x00029;</mo></mrow><annotation encoding="application/x-tex">O(ns+n^4)</annotation></semantics></math> elementary operations in an array-based implementation. A Turing-machine implementation has at most polynomial overhead. The elimination workspace is also <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mi>O</mi><mo stretchy="false">&#x00028;</mo><msup><mi>n</mi><mn>2</mn></msup><mo stretchy="false">&#x00029;</mo></mrow><annotation encoding="application/x-tex">O(n^2)</annotation></semantics></math> bits. All arithmetic uses bits and the finite Pauli phases; randomness consists solely of fair coin flips. No approximation of amplitudes is involved.</p>
+<p>The theorem gives an exact classical sampler for this restricted family, even when its states are entangled. It does not require writing down the exponentially long amplitude vector. The essential fact is that every allowed operation preserves a compact description that we can update efficiently.</p>
+<p>Entanglement alone therefore does not guarantee a computational speedup. Arbitrary quantum circuits are outside this theorem’s scope.</p>
+<h2 id="practice">Check your understanding</h2>
+<p>Does the simulator have to produce a list of all <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><msup><mn>2</mn><mi>n</mi></msup></mrow><annotation encoding="application/x-tex">2^n</annotation></semantics></math> output probabilities?</p>
+<details>
+<summary>Show answer</summary>
+<p>No. It returns one <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math>-bit string with exactly the quantum circuit’s distribution. This is <strong>sampling</strong>, not listing that distribution. Run the algorithm again from its initial generators to obtain a fresh sample.</p>
+</details>
+<h2 id="references">References</h2>
+<ol>
+<li id="ref-1">Ronald de Wolf, <a href="https://homepages.cwi.nl/~rdewolf/qcnotes.pdf">Quantum Computing: Lecture Notes</a>, Section 20.3, Theorem 6.</li>
+<li id="ref-2">Scott Aaronson and Daniel Gottesman, <a href="https://arxiv.org/pdf/quant-ph/0406196">Improved Simulation of Stabilizer Circuits</a>, Sections II–III. Their optimized simulator improves the measurement cost; the proof above uses ordinary Gaussian elimination.</li>
+</ol>
+      </article>
+      <nav class="chapter-nav" aria-label="Previous and next sections">
+        <a href="./sampling-measurements.html">← Previous: Sampling the final measurements</a>
+        <a href="./#outline">Return to the learning outline →</a>
+      </nav>
+    </main>
+    <footer class="site-footer">
+      <span>15-455 · Quantum computation learning guide</span>
+      <a href="#top">Back to top</a>
+    </footer>
+  </div>
+</body>
+</html>

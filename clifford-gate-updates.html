@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ffffff">
+  <meta name="description" content="Derive Clifford conjugation, learn signed H, S, and CNOT updates, and follow the Bell circuit using stabilizer generators.">
+  <meta property="og:title" content="Updating generators under Clifford gates">
+  <meta property="og:description" content="Derive Clifford conjugation, learn signed H, S, and CNOT updates, and follow the Bell circuit using stabilizer generators.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://l6zw32.github.io/quantum-computation/clifford-gate-updates.html">
+  <link rel="canonical" href="https://l6zw32.github.io/quantum-computation/clifford-gate-updates.html">
+  <link rel="icon" href="./favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./styles.css">
+  <link rel="stylesheet" href="./lesson.css">
+  <title>Updating generators under Clifford gates | Intro to quantum computation and the Gottesman-Knill theorem</title>
+</head>
+<body id="top">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="page lesson-page">
+    <header class="site-header">
+      <p class="guide-title"><a href="./">Intro to quantum computation and the Gottesman-Knill theorem</a></p>
+      <p class="course-label">Section 5 · Efficient classical simulation</p>
+      <h1>Updating generators under Clifford gates</h1>
+      <p class="page-subtitle">Track H, S, and CNOT using local rules and exact signs</p>
+      <nav class="main-nav" aria-label="Guide navigation">
+        <a href="./#outline">Learning outline</a>
+        <a href="#contents">On this page</a>
+        <a href="#practice">Check your understanding</a>
+        <a href="#references">References</a>
+      </nav>
+      <details class="guide-sections">
+        <summary>All seven sections</summary>
+        <nav aria-label="All guide sections"><ol><li><a href="./from-bits-to-qubits.html">From classical bits to qubits</a></li>
+<li><a href="./two-qubits-and-bell-state.html">Two qubits and the Bell-state example</a></li>
+<li><a href="./pauli-operators-and-stabilizers.html">Pauli operators and stabilizer constraints</a></li>
+<li><a href="./compact-stabilizer-description.html">Why the state has a compact description</a></li>
+<li><a href="./clifford-gate-updates.html" aria-current="page">Updating generators under Clifford gates</a></li>
+<li><a href="./sampling-measurements.html">Sampling the final measurements</a></li>
+<li><a href="./gottesman-knill-theorem.html">The Gottesman–Knill theorem and its proof</a></li></ol></nav>
+      </details>
+    </header>
+    <main id="main">
+      <div class="lesson-intro"><p>We now have a compact description of a stabilizer state. To simulate a circuit, we must update that description when a gate changes the state. The key is to transform each constraint along with the state.</p></div>
+      <nav class="lesson-contents" id="contents" aria-labelledby="contents-title">
+        <h2 id="contents-title">On this page</h2>
+        <div class="toc">
+<ul>
+<li><a href="#the-update-rule-follows-from-one-equation">The update rule follows from one equation</a></li>
+<li><a href="#one-qubit-gates-four-possibilities-each">One-qubit gates: four possibilities each</a></li>
+<li><a href="#cnot-update-the-control-and-target-together">CNOT: update the control and target together</a></li>
+<li><a href="#follow-the-bell-state-circuit-using-generators">Follow the Bell-state circuit using generators</a></li>
+<li><a href="#practice">Check your understanding</a></li>
+<li><a href="#references">References</a></li>
+</ul>
+</div>
+
+      </nav>
+      <article class="lesson-content" aria-label="Section 5: Updating generators under Clifford gates">
+        
+<h2 id="the-update-rule-follows-from-one-equation">The update rule follows from one equation</h2>
+<p>Suppose <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mi>g</mi><mo stretchy="false">&#x0007C;</mo><mi>&#x003C8;</mi><mi>&#x027E9;</mi><mo>&#x0003D;</mo><mo stretchy="false">&#x0007C;</mo><mi>&#x003C8;</mi><mi>&#x027E9;</mi></mrow><annotation encoding="application/x-tex">g|\psi\rangle=|\psi\rangle</annotation></semantics></math> and a unitary gate <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mi>U</mi></mrow><annotation encoding="application/x-tex">U</annotation></semantics></math> produces <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mo stretchy="false">&#x0007C;</mo><msup><mi>&#x003C8;</mi><mi>&#x02032;</mi></msup><mi>&#x027E9;</mi><mo>&#x0003D;</mo><mi>U</mi><mo stretchy="false">&#x0007C;</mo><mi>&#x003C8;</mi><mi>&#x027E9;</mi></mrow><annotation encoding="application/x-tex">|\psi&#x27;\rangle=U|\psi\rangle</annotation></semantics></math>. Then</p>
+<div class="equation"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mtable displaystyle="true" columnspacing="0em" rowspacing="3pt"><mtr><mtd columnalign="right"><mo stretchy="false">&#x00028;</mo><mi>U</mi><mi>g</mi><msup><mi>U</mi><mi>&#x02020;</mi></msup><mo stretchy="false">&#x00029;</mo><mo stretchy="false">&#x0007C;</mo><msup><mi>&#x003C8;</mi><mi>&#x02032;</mi></msup><mi>&#x027E9;</mi></mtd><mtd columnalign="left"><mi /><mo>&#x0003D;</mo><mi>U</mi><mi>g</mi><msup><mi>U</mi><mi>&#x02020;</mi></msup><mi>U</mi><mo stretchy="false">&#x0007C;</mo><mi>&#x003C8;</mi><mi>&#x027E9;</mi></mtd></mtr><mtr><mtd columnalign="right" /><mtd columnalign="left"><mi /><mo>&#x0003D;</mo><mi>U</mi><mi>g</mi><mo stretchy="false">&#x0007C;</mo><mi>&#x003C8;</mi><mi>&#x027E9;</mi><mo>&#x0003D;</mo><mo stretchy="false">&#x0007C;</mo><msup><mi>&#x003C8;</mi><mi>&#x02032;</mi></msup><mi>&#x027E9;</mi><mo>&#x0002E;</mo></mtd></mtr></mtable></mrow><annotation encoding="application/x-tex">\begin{split}(UgU^\dagger)|\psi&#x27;\rangle&amp;=UgU^\dagger U|\psi\rangle\\&amp;=Ug|\psi\rangle=|\psi&#x27;\rangle.\end{split}</annotation></semantics></math></div>
+<p>So the new stabilizer is <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mi>U</mi><mi>g</mi><msup><mi>U</mi><mi>&#x02020;</mi></msup></mrow><annotation encoding="application/x-tex">UgU^\dagger</annotation></semantics></math>. This transformation is called <strong>conjugation</strong>. The dagger denotes conjugate transpose; for a unitary, <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><msup><mi>U</mi><mi>&#x02020;</mi></msup><mo>&#x0003D;</mo><msup><mi>U</mi><mrow><mo>&#x02212;</mo><mn>1</mn></mrow></msup></mrow><annotation encoding="application/x-tex">U^\dagger=U^{-1}</annotation></semantics></math>.</p>
+<p>Apply this rule to all <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math> generators. Conjugation preserves products because</p>
+<div class="equation"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>U</mi><mo stretchy="false">&#x00028;</mo><mi>g</mi><mi>h</mi><mo stretchy="false">&#x00029;</mo><msup><mi>U</mi><mi>&#x02020;</mi></msup><mo>&#x0003D;</mo><mo stretchy="false">&#x00028;</mo><mi>U</mi><mi>g</mi><msup><mi>U</mi><mi>&#x02020;</mi></msup><mo stretchy="false">&#x00029;</mo><mo stretchy="false">&#x00028;</mo><mi>U</mi><mi>h</mi><msup><mi>U</mi><mi>&#x02020;</mi></msup><mo stretchy="false">&#x00029;</mo><mo>&#x0002E;</mo></mrow><annotation encoding="application/x-tex">U(gh)U^\dagger=(UgU^\dagger)(UhU^\dagger).</annotation></semantics></math></div>
+<p>It therefore preserves commutation. It also preserves independence and consistency: any new product equal to <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mi>&#x000B1;</mi><msub><mi>I</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">\pm I_n</annotation></semantics></math> would, after conjugating back, give the same relation among the old generators. Whenever the new operators remain signed Pauli strings, the theorem from the previous section guarantees that they still specify exactly the new state.</p>
+<p>A <strong>Clifford unitary</strong> maps Pauli operators to Pauli operators under conjugation. We use H, CNOT, and the <strong>phase gate</strong></p>
+<div class="equation"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>S</mi><mo>&#x0003D;</mo><mo>&#x00028;</mo><mtable><mtr><mtd><mn>1</mn></mtd><mtd><mn>0</mn></mtd></mtr><mtr><mtd><mn>0</mn></mtd><mtd><mi>i</mi></mtd></mtr></mtable><mo>&#x00029;</mo><mo>&#x0002C;</mo></mrow><annotation encoding="application/x-tex">S=\begin{pmatrix}1&amp;0\\0&amp;i\end{pmatrix},</annotation></semantics></math></div>
+<div class="equation"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>S</mi><mo stretchy="false">&#x00028;</mo><mi>&#x003B1;</mi><mo stretchy="false">&#x0007C;</mo><mn>0</mn><mi>&#x027E9;</mi><mo>&#x0002B;</mo><mi>&#x003B2;</mi><mo stretchy="false">&#x0007C;</mo><mn>1</mn><mi>&#x027E9;</mi><mo stretchy="false">&#x00029;</mo><mo>&#x0003D;</mo><mi>&#x003B1;</mi><mo stretchy="false">&#x0007C;</mo><mn>0</mn><mi>&#x027E9;</mi><mo>&#x0002B;</mo><mi>i</mi><mi>&#x003B2;</mi><mo stretchy="false">&#x0007C;</mo><mn>1</mn><mi>&#x027E9;</mi><mo>&#x0002E;</mo></mrow><annotation encoding="application/x-tex">S(\alpha|0\rangle+\beta|1\rangle)=\alpha|0\rangle+i\beta|1\rangle.</annotation></semantics></math></div>
+<p>Since <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mo stretchy="false">&#x0007C;</mo><mi>i</mi><mo stretchy="false">&#x0007C;</mo><mo>&#x0003D;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">|i|=1</annotation></semantics></math>, S preserves normalization; its inverse replaces <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mi>i</mi></mrow><annotation encoding="application/x-tex">i</annotation></semantics></math> by <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mo>&#x02212;</mo><mi>i</mi></mrow><annotation encoding="application/x-tex">-i</annotation></semantics></math>. The tables below establish the Clifford property for all three gates. Their compositions preserve it too. <a class="reference-link" href="#ref-1" aria-label="Reference 1">[1]</a></p>
+<h2 id="one-qubit-gates-four-possibilities-each">One-qubit gates: four possibilities each</h2>
+<p>For <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mi>H</mi></mrow><annotation encoding="application/x-tex">H</annotation></semantics></math> or <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mi>S</mi></mrow><annotation encoding="application/x-tex">S</annotation></semantics></math> acting on a qubit, only that qubit's letter in each generator changes. The exact rules are:</p>
+<table class="comparison-table">
+<thead>
+<tr>
+<th scope="col">Old letter <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mi>P</mi></mrow><annotation encoding="application/x-tex">P</annotation></semantics></math></th>
+<th scope="col"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mi>H</mi><mi>P</mi><msup><mi>H</mi><mi>&#x02020;</mi></msup></mrow><annotation encoding="application/x-tex">HPH^\dagger</annotation></semantics></math></th>
+<th scope="col"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mi>S</mi><mi>P</mi><msup><mi>S</mi><mi>&#x02020;</mi></msup></mrow><annotation encoding="application/x-tex">SPS^\dagger</annotation></semantics></math></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mi>I</mi></mrow><annotation encoding="application/x-tex">I</annotation></semantics></math></td>
+<td><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mi>I</mi></mrow><annotation encoding="application/x-tex">I</annotation></semantics></math></td>
+<td><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mi>I</mi></mrow><annotation encoding="application/x-tex">I</annotation></semantics></math></td>
+</tr>
+<tr>
+<td><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mi>X</mi></mrow><annotation encoding="application/x-tex">X</annotation></semantics></math></td>
+<td><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mi>Z</mi></mrow><annotation encoding="application/x-tex">Z</annotation></semantics></math></td>
+<td><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mi>Y</mi></mrow><annotation encoding="application/x-tex">Y</annotation></semantics></math></td>
+</tr>
+<tr>
+<td><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mi>Y</mi></mrow><annotation encoding="application/x-tex">Y</annotation></semantics></math></td>
+<td><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mo>&#x02212;</mo><mi>Y</mi></mrow><annotation encoding="application/x-tex">-Y</annotation></semantics></math></td>
+<td><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mo>&#x02212;</mo><mi>X</mi></mrow><annotation encoding="application/x-tex">-X</annotation></semantics></math></td>
+</tr>
+<tr>
+<td><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mi>Z</mi></mrow><annotation encoding="application/x-tex">Z</annotation></semantics></math></td>
+<td><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mi>X</mi></mrow><annotation encoding="application/x-tex">X</annotation></semantics></math></td>
+<td><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mi>Z</mi></mrow><annotation encoding="application/x-tex">Z</annotation></semantics></math></td>
+</tr>
+</tbody>
+</table>
+<p>These follow by multiplying the two-by-two matrices. The negative signs matter. For instance, <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mi>Y</mi><mo>&#x0003D;</mo><mi>i</mi><mo stretchy="false">&#x00028;</mo><mi>X</mi><mi>&#x000B7;</mi><mi>Z</mi><mo stretchy="false">&#x00029;</mo></mrow><annotation encoding="application/x-tex">Y=i(X\cdot Z)</annotation></semantics></math>, so the Hadamard rules for <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mi>X</mi></mrow><annotation encoding="application/x-tex">X</annotation></semantics></math> and <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mi>Z</mi></mrow><annotation encoding="application/x-tex">Z</annotation></semantics></math> give
+<math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mi>H</mi><mi>Y</mi><msup><mi>H</mi><mi>&#x02020;</mi></msup><mo>&#x0003D;</mo><mi>i</mi><mo stretchy="false">&#x00028;</mo><mi>Z</mi><mi>&#x000B7;</mi><mi>X</mi><mo stretchy="false">&#x00029;</mo><mo>&#x0003D;</mo><mo>&#x02212;</mo><mi>Y</mi></mrow><annotation encoding="application/x-tex">HYH^\dagger=i(Z\cdot X)=-Y</annotation></semantics></math>. An existing generator sign must also be retained: conjugating <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mo>&#x02212;</mo><mi>Y</mi></mrow><annotation encoding="application/x-tex">-Y</annotation></semantics></math> by <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mi>S</mi></mrow><annotation encoding="application/x-tex">S</annotation></semantics></math> gives <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mo>&#x0002B;</mo><mi>X</mi></mrow><annotation encoding="application/x-tex">+X</annotation></semantics></math>.</p>
+<p>The table describes operators, not basis-state amplitudes. For example, <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mi>H</mi><mi>X</mi><msup><mi>H</mi><mi>&#x02020;</mi></msup><mo>&#x0003D;</mo><mi>Z</mi></mrow><annotation encoding="application/x-tex">HXH^\dagger=Z</annotation></semantics></math> says that a state stabilized by <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mi>X</mi></mrow><annotation encoding="application/x-tex">X</annotation></semantics></math> becomes one stabilized by <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mi>Z</mi></mrow><annotation encoding="application/x-tex">Z</annotation></semantics></math> after applying <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mi>H</mi></mrow><annotation encoding="application/x-tex">H</annotation></semantics></math>. Indeed, <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mi>H</mi><mo stretchy="false">&#x0007C;</mo><mo>&#x0002B;</mo><mi>&#x027E9;</mi><mo>&#x0003D;</mo><mo stretchy="false">&#x0007C;</mo><mn>0</mn><mi>&#x027E9;</mi></mrow><annotation encoding="application/x-tex">H|+\rangle=|0\rangle</annotation></semantics></math>.</p>
+<h2 id="cnot-update-the-control-and-target-together">CNOT: update the control and target together</h2>
+<p>Write <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mi>C</mi></mrow><annotation encoding="application/x-tex">C</annotation></semantics></math> for CNOT with control <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mi>c</mi></mrow><annotation encoding="application/x-tex">c</annotation></semantics></math> and target <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mi>t</mi></mrow><annotation encoding="application/x-tex">t</annotation></semantics></math>. Here <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><msub><mi>X</mi><mi>c</mi></msub></mrow><annotation encoding="application/x-tex">X_c</annotation></semantics></math> means <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mi>X</mi></mrow><annotation encoding="application/x-tex">X</annotation></semantics></math> on qubit <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mi>c</mi></mrow><annotation encoding="application/x-tex">c</annotation></semantics></math> and identity elsewhere. Four rules determine the action on every Pauli string:</p>
+<table class="comparison-table">
+<thead>
+<tr>
+<th scope="col">Old operator</th>
+<th scope="col"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mi>C</mi><mi>P</mi><msup><mi>C</mi><mi>&#x02020;</mi></msup></mrow><annotation encoding="application/x-tex">CPC^\dagger</annotation></semantics></math></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><msub><mi>X</mi><mi>c</mi></msub></mrow><annotation encoding="application/x-tex">X_c</annotation></semantics></math></td>
+<td><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><msub><mi>X</mi><mi>c</mi></msub><msub><mi>X</mi><mi>t</mi></msub></mrow><annotation encoding="application/x-tex">X_cX_t</annotation></semantics></math></td>
+</tr>
+<tr>
+<td><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><msub><mi>Z</mi><mi>c</mi></msub></mrow><annotation encoding="application/x-tex">Z_c</annotation></semantics></math></td>
+<td><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><msub><mi>Z</mi><mi>c</mi></msub></mrow><annotation encoding="application/x-tex">Z_c</annotation></semantics></math></td>
+</tr>
+<tr>
+<td><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><msub><mi>X</mi><mi>t</mi></msub></mrow><annotation encoding="application/x-tex">X_t</annotation></semantics></math></td>
+<td><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><msub><mi>X</mi><mi>t</mi></msub></mrow><annotation encoding="application/x-tex">X_t</annotation></semantics></math></td>
+</tr>
+<tr>
+<td><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><msub><mi>Z</mi><mi>t</mi></msub></mrow><annotation encoding="application/x-tex">Z_t</annotation></semantics></math></td>
+<td><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><msub><mi>Z</mi><mi>c</mi></msub><msub><mi>Z</mi><mi>t</mi></msub></mrow><annotation encoding="application/x-tex">Z_cZ_t</annotation></semantics></math></td>
+</tr>
+</tbody>
+</table>
+<p>For example, use <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><msup><mi>C</mi><mi>&#x02020;</mi></msup><mo>&#x0003D;</mo><mi>C</mi></mrow><annotation encoding="application/x-tex">C^\dagger=C</annotation></semantics></math> and <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mi>C</mi><mo stretchy="false">&#x0007C;</mo><mi>a</mi><mo>&#x0002C;</mo><mi>b</mi><mi>&#x027E9;</mi><mo>&#x0003D;</mo><mo stretchy="false">&#x0007C;</mo><mi>a</mi><mo>&#x0002C;</mo><mi>a</mi><mo>&#x02295;</mo><mi>b</mi><mi>&#x027E9;</mi></mrow><annotation encoding="application/x-tex">C|a,b\rangle=|a,a\oplus b\rangle</annotation></semantics></math>. Applying <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mi>C</mi></mrow><annotation encoding="application/x-tex">C</annotation></semantics></math>, then <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><msub><mi>X</mi><mi>c</mi></msub></mrow><annotation encoding="application/x-tex">X_c</annotation></semantics></math>, then <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mi>C</mi></mrow><annotation encoding="application/x-tex">C</annotation></semantics></math> sends <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mo stretchy="false">&#x0007C;</mo><mi>a</mi><mo>&#x0002C;</mo><mi>b</mi><mi>&#x027E9;</mi></mrow><annotation encoding="application/x-tex">|a,b\rangle</annotation></semantics></math> to <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mo stretchy="false">&#x0007C;</mo><mi>a</mi><mo>&#x02295;</mo><mn>1</mn><mo>&#x0002C;</mo><mi>b</mi><mo>&#x02295;</mo><mn>1</mn><mi>&#x027E9;</mi></mrow><annotation encoding="application/x-tex">|a\oplus1,b\oplus1\rangle</annotation></semantics></math>. That is precisely <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><msub><mi>X</mi><mi>c</mi></msub><msub><mi>X</mi><mi>t</mi></msub></mrow><annotation encoding="application/x-tex">X_cX_t</annotation></semantics></math>, proving the first rule on a basis and therefore on every state.</p>
+<p>Because <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mi>Y</mi><mo>&#x0003D;</mo><mi>i</mi><mo stretchy="false">&#x00028;</mo><mi>X</mi><mi>&#x000B7;</mi><mi>Z</mi><mo stretchy="false">&#x00029;</mo></mrow><annotation encoding="application/x-tex">Y=i(X\cdot Z)</annotation></semantics></math> and conjugation preserves products, these four rules also handle <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mi>Y</mi></mrow><annotation encoding="application/x-tex">Y</annotation></semantics></math> letters and two nonidentity letters. Keep the order and phase factors when multiplying. For a sign-sensitive example,</p>
+<div class="equation"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mtable displaystyle="true" columnspacing="0em" rowspacing="3pt"><mtr><mtd columnalign="right"><mi>C</mi><mo stretchy="false">&#x00028;</mo><msub><mi>X</mi><mi>c</mi></msub><msub><mi>Z</mi><mi>t</mi></msub><mo stretchy="false">&#x00029;</mo><msup><mi>C</mi><mi>&#x02020;</mi></msup></mtd><mtd columnalign="left"><mi /><mo>&#x0003D;</mo><mo stretchy="false">&#x00028;</mo><msub><mi>X</mi><mi>c</mi></msub><msub><mi>X</mi><mi>t</mi></msub><mo stretchy="false">&#x00029;</mo><mo stretchy="false">&#x00028;</mo><msub><mi>Z</mi><mi>c</mi></msub><msub><mi>Z</mi><mi>t</mi></msub><mo stretchy="false">&#x00029;</mo></mtd></mtr><mtr><mtd columnalign="right" /><mtd columnalign="left"><mi /><mo>&#x0003D;</mo><mo stretchy="false">&#x00028;</mo><msub><mi>X</mi><mi>c</mi></msub><mi>&#x000B7;</mi><msub><mi>Z</mi><mi>c</mi></msub><mo stretchy="false">&#x00029;</mo><mo stretchy="false">&#x00028;</mo><msub><mi>X</mi><mi>t</mi></msub><mi>&#x000B7;</mi><msub><mi>Z</mi><mi>t</mi></msub><mo stretchy="false">&#x00029;</mo></mtd></mtr><mtr><mtd columnalign="right" /><mtd columnalign="left"><mi /><mo>&#x0003D;</mo><mo>&#x02212;</mo><msub><mi>Y</mi><mi>c</mi></msub><msub><mi>Y</mi><mi>t</mi></msub><mo>&#x0002E;</mo></mtd></mtr></mtable></mrow><annotation encoding="application/x-tex">\begin{split}C(X_cZ_t)C^\dagger&amp;=(X_cX_t)(Z_cZ_t)\\&amp;=(X_c\cdot Z_c)(X_t\cdot Z_t)\\&amp;=-Y_cY_t.\end{split}</annotation></semantics></math></div>
+<p>Operators on different qubits commute, which justifies regrouping the middle expression. This calculation explains why dropping phases from a CNOT lookup table would give incorrect state descriptions.</p>
+<h2 id="follow-the-bell-state-circuit-using-generators">Follow the Bell-state circuit using generators</h2>
+<p>Start with <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mo stretchy="false">&#x0007C;</mo><mn>00</mn><mi>&#x027E9;</mi></mrow><annotation encoding="application/x-tex">|00\rangle</annotation></semantics></math>, whose generators are <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mi>Z</mi><mi>I</mi></mrow><annotation encoding="application/x-tex">ZI</annotation></semantics></math> and <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mi>I</mi><mi>Z</mi></mrow><annotation encoding="application/x-tex">IZ</annotation></semantics></math>. Applying <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mi>H</mi></mrow><annotation encoding="application/x-tex">H</annotation></semantics></math> to the first qubit changes the first generator to <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mi>X</mi><mi>I</mi></mrow><annotation encoding="application/x-tex">XI</annotation></semantics></math> and leaves the second unchanged. CNOT then gives</p>
+<table class="comparison-table">
+<thead>
+<tr>
+<th scope="col">Operation</th>
+<th scope="col">Generators after the operation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Initialize <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mo stretchy="false">&#x0007C;</mo><mn>00</mn><mi>&#x027E9;</mi></mrow><annotation encoding="application/x-tex">|00\rangle</annotation></semantics></math></td>
+<td><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mi>Z</mi><mi>I</mi><mo>&#x0002C;</mo><mi>I</mi><mi>Z</mi></mrow><annotation encoding="application/x-tex">ZI,IZ</annotation></semantics></math></td>
+</tr>
+<tr>
+<td>H on <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><msub><mi>q</mi><mn>0</mn></msub></mrow><annotation encoding="application/x-tex">q_0</annotation></semantics></math></td>
+<td><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mi>X</mi><mi>I</mi><mo>&#x0002C;</mo><mi>I</mi><mi>Z</mi></mrow><annotation encoding="application/x-tex">XI,IZ</annotation></semantics></math></td>
+</tr>
+<tr>
+<td>CNOT from <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><msub><mi>q</mi><mn>0</mn></msub></mrow><annotation encoding="application/x-tex">q_0</annotation></semantics></math> to <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><msub><mi>q</mi><mn>1</mn></msub></mrow><annotation encoding="application/x-tex">q_1</annotation></semantics></math></td>
+<td><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mi>X</mi><mi>X</mi><mo>&#x0002C;</mo><mi>Z</mi><mi>Z</mi></mrow><annotation encoding="application/x-tex">XX,ZZ</annotation></semantics></math></td>
+</tr>
+</tbody>
+</table>
+<p>These are the Bell-state generators. We have followed an entangling circuit using only two short rows, without recomputing its amplitudes.</p>
+<p>For <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math> qubits, store the <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math> generators as rows. An <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mi>H</mi></mrow><annotation encoding="application/x-tex">H</annotation></semantics></math> or <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mi>S</mi></mrow><annotation encoding="application/x-tex">S</annotation></semantics></math> gate changes one letter and possibly the sign in each row. CNOT changes two letters and possibly the sign. Each row update takes constant work using the tables, so one gate takes <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mi>O</mi><mo stretchy="false">&#x00028;</mo><mi>n</mi><mo stretchy="false">&#x00029;</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math> updates while storage remains <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mi>O</mi><mo stretchy="false">&#x00028;</mo><msup><mi>n</mi><mn>2</mn></msup><mo stretchy="false">&#x00029;</mo></mrow><annotation encoding="application/x-tex">O(n^2)</annotation></semantics></math>. Only binary data and exact signs are involved. <a class="reference-link" href="#ref-2" aria-label="Reference 2">[2]</a></p>
+<p>All untouched letters stay in place; there is no need to copy an entire row.</p>
+<h2 id="practice">Check your understanding</h2>
+<p>Apply the same CNOT again to the Bell-state generators. Which state results?</p>
+<details>
+<summary>Show answer</summary>
+<p><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mi>X</mi><mi>X</mi></mrow><annotation encoding="application/x-tex">XX</annotation></semantics></math> maps to <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mi>X</mi><mi>I</mi></mrow><annotation encoding="application/x-tex">XI</annotation></semantics></math>, and <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mi>Z</mi><mi>Z</mi></mrow><annotation encoding="application/x-tex">ZZ</annotation></semantics></math> maps to <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mi>I</mi><mi>Z</mi></mrow><annotation encoding="application/x-tex">IZ</annotation></semantics></math>. These generators specify <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mo stretchy="false">&#x0007C;</mo><mo>&#x0002B;</mo><mi>&#x027E9;</mi><mo>&#x02297;</mo><mo stretchy="false">&#x0007C;</mo><mn>0</mn><mi>&#x027E9;</mi></mrow><annotation encoding="application/x-tex">|+\rangle\otimes|0\rangle</annotation></semantics></math>, as expected because applying CNOT twice cancels it. Gates are now accounted for; next we must handle measurement and its random outcomes.</p>
+</details>
+<h2 id="references">References</h2>
+<ol>
+<li id="ref-1">Ronald de Wolf, <a href="https://homepages.cwi.nl/~rdewolf/qcnotes.pdf"><em>Quantum Computing: Lecture Notes</em></a>, August 2026 edition, §§20.1–20.2. Background on stabilizer states and Clifford conjugation. Section 4 supplies the projector-and-trace proof of the dimension claim.</li>
+<li id="ref-2">Scott Aaronson and Daniel Gottesman, <a href="https://arxiv.org/pdf/quant-ph/0406196"><em>Improved Simulation of Stabilizer Circuits</em></a>, §§II–III. Pauli multiplication, compact binary descriptions, and exact gate-update rules. This guide uses only stabilizer generators; the paper’s additional destabilizer rows are not needed for our proof.</li>
+</ol>
+      </article>
+      <nav class="chapter-nav" aria-label="Previous and next sections">
+        <a href="./compact-stabilizer-description.html">← Previous: Why the state has a compact description</a>
+        <a href="./sampling-measurements.html">Next: Sampling the final measurements →</a>
+      </nav>
+    </main>
+    <footer class="site-footer">
+      <span>15-455 · Quantum computation learning guide</span>
+      <a href="#top">Back to top</a>
+    </footer>
+  </div>
+</body>
+</html>
