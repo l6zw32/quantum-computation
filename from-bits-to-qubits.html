@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ffffff">
+  <meta name="description" content="Learn what a qubit is, how amplitudes determine measurement probabilities, and why applying a Hadamard gate twice reveals quantum interference. No quantum computing background required.">
+  <meta property="og:title" content="From classical bits to qubits">
+  <meta property="og:description" content="Learn what a qubit is, how amplitudes determine measurement probabilities, and why applying a Hadamard gate twice reveals quantum interference. No quantum computing background required.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://l6zw32.github.io/quantum-computation/from-bits-to-qubits.html">
+  <link rel="canonical" href="https://l6zw32.github.io/quantum-computation/from-bits-to-qubits.html">
+  <link rel="icon" href="./favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./styles.css">
+  <link rel="stylesheet" href="./lesson.css">
+  <title>From classical bits to qubits | Intro to quantum computation and the Gottesman-Knill theorem</title>
+</head>
+<body id="top">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="page lesson-page">
+    <header class="site-header">
+      <p class="guide-title"><a href="./">Intro to quantum computation and the Gottesman-Knill theorem</a></p>
+      <p class="course-label">Section 1 · Quantum states and compact descriptions</p>
+      <h1>From classical bits to qubits</h1>
+      <p class="page-subtitle">States, measurement, and a first example of interference</p>
+      <nav class="main-nav" aria-label="Guide navigation">
+        <a href="./#outline">Learning outline</a>
+        <a href="#contents">On this page</a>
+        <a href="#practice">Check your understanding</a>
+        <a href="#references">References</a>
+      </nav>
+    </header>
+
+    <main id="main">
+      <p class="lesson-intro">A quantum computation has three ingredients: a state that stores information, operations that change the state, and a measurement that produces a classical answer. We will build this model for one qubit. By the end, you should be able to read a state vector, calculate measurement probabilities, and explain a simple example of interference.</p>
+      <p>No quantum computing or physics background is needed. We will introduce the vector and complex-number notation as it appears.</p>
+
+      <nav class="lesson-contents" id="contents" aria-labelledby="contents-title">
+        <h2 id="contents-title">On this page</h2>
+        <ol>
+          <li><a href="#bits">Bits and randomness</a></li>
+          <li><a href="#states">Describing a qubit</a></li>
+          <li><a href="#measurement">Reading a qubit: measurement</a></li>
+          <li><a href="#gates">Changing a qubit: gates</a></li>
+          <li><a href="#hadamard">The Hadamard gate and interference</a></li>
+          <li><a href="#randomness">Why a superposition differs from a random bit</a></li>
+          <li><a href="#practice">Check your understanding</a></li>
+        </ol>
+      </nav>
+
+      <section id="bits" aria-labelledby="bits-title">
+        <h2 id="bits-title">1. Bits and randomness</h2>
+        <p>A <strong>classical bit</strong> has value 0 or 1. A deterministic operation, such as NOT, changes that value according to a rule: 0 becomes 1, and 1 becomes 0.</p>
+        <p>We can also prepare a bit randomly. Tossing a fair coin and recording its result gives 0 and 1 with probability ½ each. On each run, the bit has one value; the probability distribution describes the randomness in how it was prepared.</p>
+        <p>A <strong>qubit</strong>, short for <em>quantum bit</em>, also gives a single bit when measured in the way we will define below. Its state before measurement, however, requires a different description. That difference will let operations combine information in ways that ordinary probabilities cannot.</p>
+      </section>
+
+      <section id="states" aria-labelledby="states-title">
+        <h2 id="states-title">2. Describing a qubit</h2>
+        <h3>Vectors and the ket notation</h3>
+        <p>A column vector is an ordered list of numbers written vertically. For one qubit, we use two entries and give these two vectors special names:</p>
+        <div class="equation"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block" aria-label="Ket zero is the column vector 1, 0. Ket one is the column vector 0, 1."><mrow><mrow><mo fence="true" stretchy="false">|</mo><mn>0</mn><mo fence="true" stretchy="false">⟩</mo></mrow><mo>=</mo><mrow><mo fence="true" stretchy="true">(</mo><mtable rowspacing="0.35em" columnspacing="0.8em"><mtr><mtd><mn>1</mn></mtd></mtr><mtr><mtd><mn>0</mn></mtd></mtr></mtable><mo fence="true" stretchy="true">)</mo></mrow><mspace width="2em"/><mrow><mo fence="true" stretchy="false">|</mo><mn>1</mn><mo fence="true" stretchy="false">⟩</mo></mrow><mo>=</mo><mrow><mo fence="true" stretchy="true">(</mo><mtable rowspacing="0.35em" columnspacing="0.8em"><mtr><mtd><mn>0</mn></mtd></mtr><mtr><mtd><mn>1</mn></mtd></mtr></mtable><mo fence="true" stretchy="true">)</mo></mrow></mrow></math></div>
+        <p>The notation | · ⟩ is called a <strong>ket</strong>; here it simply denotes a vector. The labels 0 and 1 name the two <strong>computational basis states</strong>. These vectors form a basis because any two-entry vector can be written uniquely as a linear combination of them.</p>
+        <p>A <strong>pure state</strong> of one qubit is represented by</p>
+        <div class="equation"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block" aria-label="Ket psi equals alpha ket zero plus beta ket one, the column vector alpha, beta."><mrow><mrow><mo fence="true" stretchy="false">|</mo><mi>ψ</mi><mo fence="true" stretchy="false">⟩</mo></mrow><mo>=</mo><mrow><mi>α</mi><mrow><mo fence="true" stretchy="false">|</mo><mn>0</mn><mo fence="true" stretchy="false">⟩</mo></mrow><mo>+</mo><mi>β</mi><mrow><mo fence="true" stretchy="false">|</mo><mn>1</mn><mo fence="true" stretchy="false">⟩</mo></mrow></mrow><mo>=</mo><mrow><mo fence="true" stretchy="true">(</mo><mtable rowspacing="0.35em" columnspacing="0.8em"><mtr><mtd><mi>α</mi></mtd></mtr><mtr><mtd><mi>β</mi></mtd></mtr></mtable><mo fence="true" stretchy="true">)</mo></mrow></mrow></math></div>
+        <p>The Greek letter ψ (“psi”) names the state; α (“alpha”) and β (“beta”) are its <strong>amplitudes</strong>. Multiplying a vector by a number multiplies each entry, and adding vectors adds corresponding entries. Thus the equation is ordinary vector arithmetic. A linear combination of basis states is called a <strong>superposition</strong>.</p>
+        <p>We begin with pure states. A preparation that randomly chooses among different pure states is called a <em>mixture</em>; we will compare one with a superposition below without needing additional notation.</p>
+
+        <h3>Complex numbers and normalization</h3>
+        <p>Amplitudes may be complex numbers. Recall that a complex number has the form <i>a</i> + <i>bi</i>, where <i>a</i> and <i>b</i> are real and <i>i</i>² = −1. Its <strong>squared magnitude</strong> is</p>
+        <div class="equation"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block" aria-label="The squared magnitude of a plus b i is a squared plus b squared."><mrow><msup><mrow><mo fence="true" stretchy="false">|</mo><mrow><mi>a</mi><mo>+</mo><mi>b</mi><mi>i</mi></mrow><mo fence="true" stretchy="false">|</mo></mrow><mn>2</mn></msup><mo>=</mo><msup><mi>a</mi><mn>2</mn></msup><mo>+</mo><msup><mi>b</mi><mn>2</mn></msup></mrow></math></div>
+        <p>For a real number this is its usual square. For example, |−½|² = ¼ and |<i>i</i>/2|² = ¼. In particular, squared magnitudes are always nonnegative, even when amplitudes are negative or complex.</p>
+        <p>A valid state vector must be <strong>normalized</strong>:</p>
+        <div class="equation"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block" aria-label="The squared magnitude of alpha plus the squared magnitude of beta equals 1."><mrow><msup><mrow><mo fence="true" stretchy="false">|</mo><mi>α</mi><mo fence="true" stretchy="false">|</mo></mrow><mn>2</mn></msup><mo>+</mo><msup><mrow><mo fence="true" stretchy="false">|</mo><mi>β</mi><mo fence="true" stretchy="false">|</mo></mrow><mn>2</mn></msup><mo>=</mo><mn>1</mn></mrow></math></div>
+        <p>This says that the vector has length 1. The reason for this condition becomes clear from the measurement rule.</p>
+      </section>
+
+      <section id="measurement" aria-labelledby="measurement-title">
+        <h2 id="measurement-title">3. Reading a qubit: measurement</h2>
+        <p>A <strong>measurement in the computational basis</strong> produces one classical outcome, 0 or 1. For the state α|0⟩ + β|1⟩, the <strong>Born rule</strong> gives</p>
+        <div class="equation"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block" aria-label="The probability of outcome zero is the squared magnitude of alpha; the probability of outcome one is the squared magnitude of beta."><mrow><mi>Pr</mi><mrow><mo fence="true">(</mo><mn>0</mn><mo fence="true">)</mo></mrow><mo>=</mo><msup><mrow><mo fence="true" stretchy="false">|</mo><mi>α</mi><mo fence="true" stretchy="false">|</mo></mrow><mn>2</mn></msup><mspace width="1.5em"/><mi>Pr</mi><mrow><mo fence="true">(</mo><mn>1</mn><mo fence="true">)</mo></mrow><mo>=</mo><msup><mrow><mo fence="true" stretchy="false">|</mo><mi>β</mi><mo fence="true" stretchy="false">|</mo></mrow><mn>2</mn></msup></mrow></math></div>
+        <p>Normalization makes these probabilities add to 1. <strong>Amplitudes are not probabilities:</strong> we first take their squared magnitudes. This measurement rule is part of the quantum model. <a class="reference-link" href="#ref-1" aria-label="Reference 1">[1]</a></p>
+
+        <aside class="worked-example" aria-labelledby="measurement-example-title">
+          <h3 id="measurement-example-title">Example: from amplitudes to probabilities</h3>
+          <div class="equation"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block" aria-label="Ket psi equals three fifths ket zero plus four fifths ket one."><mrow><mrow><mo fence="true" stretchy="false">|</mo><mi>ψ</mi><mo fence="true" stretchy="false">⟩</mo></mrow><mo>=</mo><mfrac><mn>3</mn><mn>5</mn></mfrac><mrow><mo fence="true" stretchy="false">|</mo><mn>0</mn><mo fence="true" stretchy="false">⟩</mo></mrow><mo>+</mo><mfrac><mn>4</mn><mn>5</mn></mfrac><mrow><mo fence="true" stretchy="false">|</mo><mn>1</mn><mo fence="true" stretchy="false">⟩</mo></mrow></mrow></math></div>
+          <p>This state is normalized because (3/5)² + (4/5)² = 9/25 + 16/25 = 1. A measurement gives 0 with probability 9/25 and 1 with probability 16/25. It produces a bit, not the pair of amplitudes.</p>
+        </aside>
+
+        <p>Measurement also specifies the state afterward. <strong>If the outcome is 0, the resulting state is |0⟩; if it is 1, the resulting state is |1⟩.</strong> We ignore a physically irrelevant common phase, explained below. Immediately repeating the same measurement, with no intervening operation, gives the same outcome with certainty.</p>
+        <p>To estimate the original probabilities experimentally, prepare the same initial state afresh for each trial and measure once per trial. Repeatedly measuring a single qubit after its first measurement would instead keep returning that first result.</p>
+      </section>
+
+      <section id="gates" aria-labelledby="gates-title">
+        <h2 id="gates-title">4. Changing a qubit: gates</h2>
+        <p>In our ideal model, a reversible operation on a single qubit is a <strong>unitary gate</strong>, represented by a 2 × 2 matrix. Applying it means multiplying the matrix by the state vector. The multiplication rule is</p>
+        <div class="equation"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block" aria-label="The matrix a, b; c, d times the column alpha, beta equals the column a alpha plus b beta, c alpha plus d beta."><mrow><mrow><mo fence="true" stretchy="true">(</mo><mtable rowspacing="0.35em" columnspacing="0.8em"><mtr><mtd><mi>a</mi></mtd><mtd><mi>b</mi></mtd></mtr><mtr><mtd><mi>c</mi></mtd><mtd><mi>d</mi></mtd></mtr></mtable><mo fence="true" stretchy="true">)</mo></mrow><mrow><mo fence="true" stretchy="true">(</mo><mtable rowspacing="0.35em" columnspacing="0.8em"><mtr><mtd><mi>α</mi></mtd></mtr><mtr><mtd><mi>β</mi></mtd></mtr></mtable><mo fence="true" stretchy="true">)</mo></mrow><mo>=</mo><mrow><mo fence="true" stretchy="true">(</mo><mtable rowspacing="0.35em" columnspacing="0.8em"><mtr><mtd><mrow><mi>a</mi><mi>α</mi><mo>+</mo><mi>b</mi><mi>β</mi></mrow></mtd></mtr><mtr><mtd><mrow><mi>c</mi><mi>α</mi><mo>+</mo><mi>d</mi><mi>β</mi></mrow></mtd></mtr></mtable><mo fence="true" stretchy="true">)</mo></mrow></mrow></math></div>
+        <p>Each output entry is the corresponding matrix row multiplied against the input column. Matrix multiplication is <strong>linear</strong>: applying a gate to α|0⟩ + β|1⟩ gives α times its action on |0⟩ plus β times its action on |1⟩.</p>
+        <p>To be unitary, a matrix <i>U</i> must satisfy <i>U</i><sup>†</sup><i>U</i> = <i>I</i>. Here <i>I</i> is the identity matrix, which leaves vectors unchanged. The dagger † means <em>conjugate transpose</em>: swap rows with columns, and replace every complex entry <i>a</i> + <i>bi</i> by <i>a</i> − <i>bi</i>. This condition ensures that the gate preserves normalization and that <i>U</i><sup>†</sup> reverses it. Measurement is a separate operation; it is generally not reversible. <a class="reference-link" href="#ref-1" aria-label="Reference 1">[1]</a></p>
+
+        <aside class="worked-example" aria-labelledby="x-example-title">
+          <h3 id="x-example-title">Example: the X gate</h3>
+          <p>The quantum version of NOT swaps the two amplitudes:</p>
+          <div class="equation"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block" aria-label="X equals the matrix 0, 1; 1, 0. X applied to the column alpha, beta gives the column beta, alpha."><mrow><mi>X</mi><mo>=</mo><mrow><mo fence="true" stretchy="true">(</mo><mtable rowspacing="0.35em" columnspacing="0.8em"><mtr><mtd><mn>0</mn></mtd><mtd><mn>1</mn></mtd></mtr><mtr><mtd><mn>1</mn></mtd><mtd><mn>0</mn></mtd></mtr></mtable><mo fence="true" stretchy="true">)</mo></mrow><mspace width="1.5em"/><mi>X</mi><mrow><mo fence="true" stretchy="true">(</mo><mtable rowspacing="0.35em" columnspacing="0.8em"><mtr><mtd><mi>α</mi></mtd></mtr><mtr><mtd><mi>β</mi></mtd></mtr></mtable><mo fence="true" stretchy="true">)</mo></mrow><mo>=</mo><mrow><mo fence="true" stretchy="true">(</mo><mtable rowspacing="0.35em" columnspacing="0.8em"><mtr><mtd><mi>β</mi></mtd></mtr><mtr><mtd><mi>α</mi></mtd></mtr></mtable><mo fence="true" stretchy="true">)</mo></mrow></mrow></math></div>
+          <p>Thus X|0⟩ = |1⟩ and X|1⟩ = |0⟩. Applying X to the example above gives (4/5)|0⟩ + (3/5)|1⟩, swapping the measurement probabilities.</p>
+        </aside>
+      </section>
+
+      <section id="hadamard" aria-labelledby="hadamard-title">
+        <h2 id="hadamard-title">5. The Hadamard gate and interference</h2>
+        <p>The <strong>Hadamard gate</strong>, written H, mixes the amplitudes by adding and subtracting them:</p>
+        <div class="equation"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block" aria-label="H equals one over square root of two times the matrix 1, 1; 1, minus 1."><mrow><mi>H</mi><mo>=</mo><mfrac><mn>1</mn><msqrt><mn>2</mn></msqrt></mfrac><mrow><mo fence="true" stretchy="true">(</mo><mtable rowspacing="0.35em" columnspacing="0.8em"><mtr><mtd><mn>1</mn></mtd><mtd><mn>1</mn></mtd></mtr><mtr><mtd><mn>1</mn></mtd><mtd><mrow><mo>−</mo><mn>1</mn></mrow></mtd></mtr></mtable><mo fence="true" stretchy="true">)</mo></mrow></mrow></math></div>
+        <div class="equation"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block" aria-label="H applied to the column alpha, beta gives the column (alpha plus beta) over square root of two, (alpha minus beta) over square root of two."><mrow><mi>H</mi><mrow><mo fence="true" stretchy="true">(</mo><mtable rowspacing="0.35em" columnspacing="0.8em"><mtr><mtd><mi>α</mi></mtd></mtr><mtr><mtd><mi>β</mi></mtd></mtr></mtable><mo fence="true" stretchy="true">)</mo></mrow><mo>=</mo><mrow><mo fence="true" stretchy="true">(</mo><mtable rowspacing="0.35em" columnspacing="0.8em"><mtr><mtd><mfrac><mrow><mi>α</mi><mo>+</mo><mi>β</mi></mrow><msqrt><mn>2</mn></msqrt></mfrac></mtd></mtr><mtr><mtd><mfrac><mrow><mi>α</mi><mo>−</mo><mi>β</mi></mrow><msqrt><mn>2</mn></msqrt></mfrac></mtd></mtr></mtable><mo fence="true" stretchy="true">)</mo></mrow></mrow></math></div>
+        <p>In particular, it turns the basis states into two frequently used superpositions:</p>
+        <div class="equation"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block" aria-label="H ket zero equals (ket zero plus ket one) over square root of two, called ket plus."><mrow><mi>H</mi><mrow><mo fence="true" stretchy="false">|</mo><mn>0</mn><mo fence="true" stretchy="false">⟩</mo></mrow><mo>=</mo><mfrac><mrow><mrow><mo fence="true" stretchy="false">|</mo><mn>0</mn><mo fence="true" stretchy="false">⟩</mo></mrow><mo>+</mo><mrow><mo fence="true" stretchy="false">|</mo><mn>1</mn><mo fence="true" stretchy="false">⟩</mo></mrow></mrow><msqrt><mn>2</mn></msqrt></mfrac><mo>=</mo><mrow><mo fence="true" stretchy="false">|</mo><mo>+</mo><mo fence="true" stretchy="false">⟩</mo></mrow></mrow></math></div>
+        <div class="equation"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block" aria-label="H ket one equals (ket zero minus ket one) over square root of two, called ket minus."><mrow><mi>H</mi><mrow><mo fence="true" stretchy="false">|</mo><mn>1</mn><mo fence="true" stretchy="false">⟩</mo></mrow><mo>=</mo><mfrac><mrow><mrow><mo fence="true" stretchy="false">|</mo><mn>0</mn><mo fence="true" stretchy="false">⟩</mo></mrow><mo>−</mo><mrow><mo fence="true" stretchy="false">|</mo><mn>1</mn><mo fence="true" stretchy="false">⟩</mo></mrow></mrow><msqrt><mn>2</mn></msqrt></mfrac><mo>=</mo><mrow><mo fence="true" stretchy="false">|</mo><mo>−</mo><mo fence="true" stretchy="false">⟩</mo></mrow></mrow></math></div>
+        <p>Both states give 0 and 1 with probability ½ when measured immediately. Their amplitudes have the same magnitudes, but a different sign. <a class="reference-link" href="#ref-2" aria-label="Reference 2">[2]</a></p>
+
+        <aside class="worked-example" aria-labelledby="interference-example-title">
+          <h3 id="interference-example-title">Worked example: apply H twice</h3>
+          <p>Start in |0⟩. After the first H, the state is |+⟩, so α = β = 1/√2. Apply the matrix rule again. The new amplitude of |0⟩ is</p>
+          <div class="equation"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block" aria-label="One over square root of two times the sum of one over square root of two and one over square root of two equals one half plus one half equals 1."><mrow><mfrac><mn>1</mn><msqrt><mn>2</mn></msqrt></mfrac><mrow><mo fence="true">(</mo><mrow><mfrac><mn>1</mn><msqrt><mn>2</mn></msqrt></mfrac><mo>+</mo><mfrac><mn>1</mn><msqrt><mn>2</mn></msqrt></mfrac></mrow><mo fence="true">)</mo></mrow><mo>=</mo><mfrac><mn>1</mn><mn>2</mn></mfrac><mo>+</mo><mfrac><mn>1</mn><mn>2</mn></mfrac><mo>=</mo><mn>1</mn></mrow></math></div>
+          <p>The new amplitude of |1⟩ is</p>
+          <div class="equation"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block" aria-label="One over square root of two times the difference of one over square root of two and one over square root of two equals one half minus one half equals 0."><mrow><mfrac><mn>1</mn><msqrt><mn>2</mn></msqrt></mfrac><mrow><mo fence="true">(</mo><mrow><mfrac><mn>1</mn><msqrt><mn>2</mn></msqrt></mfrac><mo>−</mo><mfrac><mn>1</mn><msqrt><mn>2</mn></msqrt></mfrac></mrow><mo fence="true">)</mo></mrow><mo>=</mo><mfrac><mn>1</mn><mn>2</mn></mfrac><mo>−</mo><mfrac><mn>1</mn><mn>2</mn></mfrac><mo>=</mo><mn>0</mn></mrow></math></div>
+          <p>So H|+⟩ = |0⟩, and measuring after both gates gives 0 with certainty. <strong>There is no measurement between the two gates.</strong></p>
+        </aside>
+
+        <p>This is <strong>interference</strong>: contributions to an amplitude can add or cancel before we turn the final amplitudes into probabilities. The |1⟩ contributions cancel exactly. Squaring the intermediate amplitudes too early would discard the signs that make this calculation work.</p>
+        <p>The same calculation gives H|−⟩ = |1⟩. Hence applying H twice returns either basis state to itself. By linearity it returns every state to itself, so H² = <i>I</i>. Since H is real and symmetric, H<sup>†</sup> = H; therefore H<sup>†</sup>H = <i>I</i>, confirming that H is unitary.</p>
+      </section>
+
+      <section id="randomness" aria-labelledby="randomness-title">
+        <h2 id="randomness-title">6. Why a superposition differs from a random bit</h2>
+        <p>Compare two preparations. In preparation A, start in |0⟩ and apply H to obtain |+⟩. In preparation B, toss a fair coin and prepare |0⟩ or |1⟩ according to the result. Measuring immediately gives a fair bit in either case.</p>
+        <p>Now apply one additional H before measuring. Preparation A gives 0 with certainty, as we just calculated. For preparation B, the coin selected |0⟩ on half the runs, producing |+⟩ after H; on the other half it selected |1⟩, producing |−⟩. Either branch gives a fair measurement outcome. The law of total probability gives</p>
+        <div class="equation"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block" aria-label="For preparation B, the probability of outcome zero is one half times one half plus one half times one half, equal to one half."><mrow><mi>Pr</mi><mrow><mo fence="true">(</mo><mn>0</mn><mo fence="true">)</mo></mrow><mo>=</mo><mfrac><mn>1</mn><mn>2</mn></mfrac><mo>·</mo><mfrac><mn>1</mn><mn>2</mn></mfrac><mo>+</mo><mfrac><mn>1</mn><mn>2</mn></mfrac><mo>·</mo><mfrac><mn>1</mn><mn>2</mn></mfrac><mo>=</mo><mfrac><mn>1</mn><mn>2</mn></mfrac></mrow></math></div>
+
+        <table class="comparison-table">
+          <caption>The same initial measurement probabilities can hide different behavior.</caption>
+          <thead>
+            <tr><th scope="col">Preparation</th><th scope="col">Measure immediately</th><th scope="col">Apply H, then measure</th></tr>
+          </thead>
+          <tbody>
+            <tr><th scope="row">A: the pure state |+⟩</th><td>0 or 1, each with probability ½</td><td>0 with certainty</td></tr>
+            <tr><th scope="row">B: a fair random choice of |0⟩ or |1⟩</th><td>0 or 1, each with probability ½</td><td>0 or 1, each with probability ½</td></tr>
+          </tbody>
+        </table>
+        <p>For a superposition, we combine <em>amplitudes</em> within a state and then take squared magnitudes. For a random preparation, we calculate each branch’s probabilities and average them. The computational-basis measurement probabilities alone therefore do not determine a qubit’s behavior under later gates.</p>
+
+        <h3>Relative phase and global phase</h3>
+        <p>The sign difference between |+⟩ and |−⟩ is an example of <strong>relative phase</strong>: one amplitude changes relative to the other. H followed by measurement distinguishes these two states perfectly. For complex amplitudes, phase differences can involve unit-magnitude complex factors other than −1. <a class="reference-link" href="#ref-2" aria-label="Reference 2">[2]</a></p>
+        <p>A <strong>global phase</strong> multiplies <em>all</em> amplitudes by the same complex number <i>c</i> with |<i>c</i>| = 1. The vectors |ψ⟩ and <i>c</i>|ψ⟩ represent the same physical pure state. Any unitary gate keeps that factor common, and taking squared magnitudes removes it. For example, |+⟩ and −|+⟩ represent the same state, whereas |+⟩ and |−⟩ do not. <a class="reference-link" href="#ref-1" aria-label="Reference 1">[1]</a></p>
+      </section>
+
+      <section id="practice" aria-labelledby="practice-title">
+        <h2 id="practice-title">7. Check your understanding</h2>
+        <p>Try each question before opening its answer.</p>
+
+        <div class="exercise">
+          <h3>1. Check the normalization</h3>
+          <p>Is (|0⟩ + <i>i</i>|1⟩)/2 a valid normalized state vector? If not, replace the denominator to normalize it. What are the measurement probabilities?</p>
+          <details>
+            <summary>Show answer: normalization</summary>
+            <div class="answer">
+              <p>Its squared magnitudes sum to |1/2|² + |<i>i</i>/2|² = ¼ + ¼ = ½, so it is not normalized. Dividing by √2 instead of 2 gives (|0⟩ + <i>i</i>|1⟩)/√2. The probabilities are then ½ for 0 and ½ for 1.</p>
+            </div>
+          </details>
+        </div>
+
+        <div class="exercise">
+          <h3>2. Follow a minus sign</h3>
+          <p>Use the Hadamard rule to calculate H|−⟩. Why does it differ from H|+⟩ even though |−⟩ and |+⟩ have the same computational-basis measurement probabilities?</p>
+          <details>
+            <summary>Show answer: relative phase</summary>
+            <div class="answer">
+              <p>Substitute α = 1/√2 and β = −1/√2. The new amplitudes are (α + β)/√2 = 0 and (α − β)/√2 = 1, so H|−⟩ = |1⟩. For |+⟩ the amplitudes instead become 1 and 0. Their relative signs determine which contributions cancel.</p>
+            </div>
+          </details>
+        </div>
+
+        <div class="exercise">
+          <h3>3. Insert a measurement</h3>
+          <p>Start in |0⟩, apply H, measure in the computational basis, apply H again, and measure again. What is the final distribution? How does it change if you omit the first measurement?</p>
+          <details>
+            <summary>Show answer: an intermediate measurement</summary>
+            <div class="answer">
+              <p>The first H makes |+⟩. The first measurement leaves |0⟩ or |1⟩, each with probability ½. The second H makes |+⟩ or |−⟩, so the final outcome is 0 or 1 with probability ½ each. Omitting the first measurement lets the amplitudes interfere: H²|0⟩ = |0⟩, giving 0 with certainty.</p>
+            </div>
+          </details>
+        </div>
+      </section>
+
+      <section id="takeaways" aria-labelledby="takeaways-title">
+        <h2 id="takeaways-title">What to carry forward</h2>
+        <ul class="takeaways">
+          <li>A pure qubit state is a normalized vector of two complex amplitudes, considered up to global phase.</li>
+          <li>A computational-basis measurement gives a classical bit, with probabilities equal to squared magnitudes, and leaves the corresponding basis state.</li>
+          <li>Unitary gates transform amplitudes linearly. Interference makes relative phase matter, even when an immediate measurement cannot see it.</li>
+        </ul>
+        <p>Next, we will extend the state-vector description to two qubits and use H together with a new gate to construct a Bell state.</p>
+        <p class="next-section"><a href="./#section-2">View the outline for “Two qubits and the Bell-state example” →</a><br><span>The next section is planned.</span></p>
+      </section>
+
+      <section id="references" aria-labelledby="references-title">
+        <h2 id="references-title">References and further reading</h2>
+        <p>This section is self-contained. These references provide alternative explanations and more detail.</p>
+        <ol class="resource-list">
+          <li id="ref-1"><p>Ronald de Wolf. <a href="https://homepages.cwi.nl/~rdewolf/qcnotes.pdf">Quantum Computing: Lecture Notes</a>. Sections 1.2.1–1.2.3 introduce state vectors, measurement, and unitary evolution; Appendix A reviews linear algebra. The computational-basis measurement discussion is sufficient here. Section numbers refer to the August 2026 edition.</p></li>
+          <li id="ref-2"><p>IBM Quantum Learning. <a href="https://quantum.cloud.ibm.com/learning/en/courses/basics-of-quantum-information/single-systems/quantum-information">Quantum information: single systems</a>. The qubit examples and Hadamard calculations give another perspective on amplitudes and relative phase.</p></li>
+        </ol>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <span>15-455 · Quantum computation learning guide</span>
+      <a href="./#outline">Back to the learning outline</a>
+      <a href="#top">Back to top</a>
+    </footer>
+  </div>
+</body>
+</html>

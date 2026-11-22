@@ -1,0 +1,58 @@
+/* Reading-page additions; the guide's shared styles remain unchanged. */
+.lesson-page { max-width: 790px; }
+.guide-title { margin: 0 0 22px; font-size: 16px; line-height: 1.5; }
+.lesson-intro { margin-top: 30px; }
+.lesson-contents { border: 1px solid var(--line); padding: 20px 24px; margin-top: 24px; background: #fafafa; }
+.lesson-contents h2 { border: 0; padding: 0; margin: 0 0 12px; font-size: 20px; }
+.lesson-contents ol { margin: 0; padding-left: 25px; }
+.lesson-contents li { padding-left: 2px; margin: 3px 0; }
+.lesson-page h3 { margin-top: 24px; }
+.equation { overflow-x: auto; margin: 18px 0; padding: 8px 2px; }
+.equation math { margin: 0 auto; min-width: max-content; font-size: 1.12em; }
+.worked-example { border-left: 3px solid #aeb8c4; background: #f8f9fa; padding: 18px 22px; margin: 23px 0; }
+.worked-example h3 { margin: 0 0 14px; font-size: 18px; }
+.worked-example > :last-child { margin-bottom: 0; }
+.reference-link { white-space: nowrap; font-size: .88em; }
+.comparison-table { width: 100%; border-collapse: collapse; margin: 24px 0; font-size: 16px; line-height: 1.55; table-layout: fixed; }
+.comparison-table caption { text-align: left; font-size: 15px; padding-bottom: 12px; color: var(--muted); }
+.comparison-table th, .comparison-table td { text-align: left; vertical-align: top; border: 1px solid var(--line); padding: 12px; overflow-wrap: break-word; }
+.comparison-table thead th { background: #f4f5f7; }
+.comparison-table tbody th { font-weight: normal; }
+.exercise { margin: 22px 0; }
+.exercise h3 { font-size: 19px; margin-bottom: 10px; }
+.exercise > p { margin-bottom: 12px; }
+details { border: 1px solid var(--line); }
+summary { padding: 10px 14px; color: var(--link); cursor: pointer; font: 14px/1.6 var(--sans); }
+summary:hover { background: #f6f7f8; }
+summary:focus-visible { outline: 3px solid #976c12; outline-offset: 3px; }
+details[open] summary { border-bottom: 1px solid var(--line); background: #f8f9fa; }
+.answer { padding: 15px 18px; }
+.answer > :last-child { margin-bottom: 0; }
+.takeaways { padding-left: 25px; }
+.takeaways li { margin-bottom: 10px; padding-left: 3px; }
+.next-section { border-top: 1px solid var(--line); margin-top: 22px; padding-top: 17px; }
+.next-section span { font: 13px/1.6 var(--sans); color: var(--muted); }
+.lesson-page .resource-list { font-size: 15px; }
+.lesson-page .resource-list > li { margin-bottom: 16px; }
+@media (max-width: 700px) {
+  .guide-title { font-size: 14px; margin-bottom: 20px; }
+  .lesson-contents { padding: 17px 18px; }
+  .worked-example { padding: 16px 15px; }
+  .comparison-table { font-size: 14px; }
+  .comparison-table th, .comparison-table td { padding: 9px 7px; }
+  .equation math { font-size: 1.03em; }
+}
+@media print {
+  .lesson-contents, .next-section { display: none; }
+  .lesson-intro { margin-top: 20px; }
+  .guide-title { font-size: 11pt; }
+  .equation { overflow: visible; }
+  .worked-example { background: white; break-inside: avoid; }
+  .comparison-table { font-size: 10pt; break-inside: avoid; }
+  .exercise { break-inside: avoid; }
+  details { border: 0; }
+  summary { display: none; }
+  details::details-content { content-visibility: visible; }
+  details .answer { display: block; padding: 8px 0; }
+  details .answer::before { content: "Answer. "; font-weight: bold; }
+}

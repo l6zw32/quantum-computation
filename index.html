@@ -4,9 +4,9 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#ffffff">
-  <meta name="description" content="A learning outline for a beginner’s guide to quantum states, stabilizers, and the Gottesman-Knill theorem for undergraduate complexity theory students.">
+  <meta name="description" content="A beginner’s learning guide to qubits, quantum states, stabilizers, and the Gottesman-Knill theorem for undergraduate complexity theory students.">
   <meta property="og:title" content="Intro to quantum computation and the Gottesman-Knill theorem">
-  <meta property="og:description" content="A quantum computation learning outline, theorem statement, interactive Bell-state example, and suggested reading for students of complexity theory.">
+  <meta property="og:description" content="Learn about qubits through worked examples, then explore the learning outline, Gottesman-Knill theorem statement, and interactive Bell-state example.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://l6zw32.github.io/quantum-computation/">
   <link rel="canonical" href="https://l6zw32.github.io/quantum-computation/">
@@ -21,7 +21,7 @@
     <header class="site-header">
       <p class="course-label">15-455 · Undergraduate complexity theory</p>
       <h1>Intro to quantum computation and the Gottesman-Knill theorem</h1>
-      <p class="page-subtitle">Learning outline and interactive example</p>
+      <p class="page-subtitle">A learning guide to quantum states and classical simulation</p>
       <nav class="main-nav" aria-label="Page contents">
         <a href="#overview">Overview</a>
         <a href="#outline">Learning outline</a>
@@ -34,22 +34,22 @@
     <main id="main">
       <section id="overview" aria-labelledby="overview-title">
         <h2 id="overview-title">Overview</h2>
-        <p>This website is designed to help students with the mathematical background of 15-455 learn quantum computation from the beginning. The planned learning path starts with classical bits and qubits, then develops the stabilizer tools needed to prove that Clifford circuits with final computational-basis measurements can be simulated efficiently by a classical randomized algorithm.</p>
+        <p>This website is designed to help students with the mathematical background of 15-455 learn quantum computation from the beginning. The learning path starts with classical bits and qubits, then develops the stabilizer tools needed to prove that Clifford circuits with final computational-basis measurements can be simulated efficiently by a classical randomized algorithm.</p>
         <p>The central question is <strong>which quantum computations have efficient classical simulations?</strong> Stabilizer circuits provide a useful case study: they can create entangled states, yet their structure permits a compact description and efficient simulation. <a href="#resource-1" aria-label="Reference 1">[1]</a> <a href="#resource-3" aria-label="Reference 3">[3]</a></p>
         <p><strong>Prerequisites.</strong> Only the background of 15-455 is assumed: familiarity with classical computation, elementary probability, mathematical proofs, and asymptotic notation. No previous knowledge of quantum computing or physics is required. Short reminders will introduce the complex numbers, vectors, and matrix operations used in the examples and proof. Quantum notation, tensor products, and binary row elimination will be explained where they are needed.</p>
-        <p class="project-status"><strong>Current version:</strong> this page provides a learning outline, the main theorem statement, and an interactive example. The full explanations and theorem proof are planned for the completed guide.</p>
+        <p class="project-status"><strong>Current version:</strong> <a href="./from-bits-to-qubits.html">From classical bits to qubits</a> is ready to read, with worked examples and practice questions. The remaining six sections are outlined below; their full explanations and theorem proof are planned. The theorem statement and interactive Bell-state example are also available.</p>
       </section>
 
       <section id="outline" aria-labelledby="outline-title">
         <h2 id="outline-title">Learning outline</h2>
-        <p>The seven sections below outline the learning path for the completed guide. They are arranged in reading order, with each section building on the previous ones through explanations, worked examples, and brief checks for understanding. The goal is a concise, self-contained introduction that you can work through at your own pace.</p>
+        <p>The seven sections below form the learning path for the guide. They are arranged in reading order, with each section building on the previous ones through explanations, worked examples, and brief checks for understanding. The goal is a concise, self-contained introduction that you can work through at your own pace.</p>
         <p>The Bell state will serve as a recurring example, connecting the basic ideas to a proof of the Gottesman–Knill theorem for Clifford circuits with final computational-basis measurements. Each section will explain the mathematics it needs. The references offer optional further reading.</p>
         <div class="lecture-unit">
           <h3>Quantum states and compact descriptions</h3>
           <ol class="outline-list">
             <li id="section-1">
-              <h4>From classical bits to qubits</h4>
-              <p>We will start with ordinary bits, introduce a qubit, and explain the notation |0⟩, |1⟩, and |ψ⟩. Short reminders about complex numbers, vectors, and matrix operations will support the definitions of amplitudes, normalization, and measurement probabilities. Applying a Hadamard gate twice will provide one worked example of how gates act and how interference distinguishes a superposition from an ordinary random bit.</p>
+              <h4><a href="./from-bits-to-qubits.html">From classical bits to qubits</a></h4>
+              <p>Start with ordinary bits and learn how vectors describe a qubit. This section introduces ket notation, complex amplitudes, normalization, measurement, and the X and Hadamard gates. Worked calculations show how interference distinguishes a superposition from a random preparation, followed by three questions with expandable answers. <a href="./from-bits-to-qubits.html">Read the section →</a></p>
             </li>
             <li id="section-2">
               <h4>Two qubits and the Bell-state example</h4>

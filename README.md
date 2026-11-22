@@ -4,11 +4,11 @@ A traditional educational website for a CMU 15-455 complexity theory project.
 
 **GitHub owner:** `l6zw32`  
 **Repository:** `quantum-computation`  
-**Intended public URL:** https://l6zw32.github.io/quantum-computation/
+**Public URL:** https://l6zw32.github.io/quantum-computation/
 
 ## Current material
 
-The page contains a proposed eight-section outline spanning two lecture units, prerequisites, the Gottesman-Knill theorem statement, an interactive Bell-state example, and three annotated learning resources. The full lessons and theorem proof are clearly identified as planned material.
+The guide has a seven-section learning outline. [From classical bits to qubits](https://l6zw32.github.io/quantum-computation/from-bits-to-qubits.html) is available as the first full section: it introduces vectors, complex amplitudes, normalization, measurement, unitary gates, and Hadamard interference, with worked examples and three practice questions. The remaining six sections and the theorem proof are identified as planned material. The homepage also provides prerequisites, the Gottesman-Knill theorem statement, an interactive Bell-state example, and annotated learning resources.
 
 ## Publish with GitHub Pages
 
@@ -26,7 +26,9 @@ GitHub says publication may take up to ten minutes. Preparing or uploading these
 
 | File | Purpose |
 | --- | --- |
-| `index.html` | Page content, metadata, references, and the initial Bell-state display. |
+| `index.html` | Guide overview, learning outline, references, and the initial Bell-state display. |
+| `from-bits-to-qubits.html` | The first complete learning section, with native MathML equations and expandable practice answers. |
+| `lesson.css` | Reading-page styles, examples, comparison table, and practice answers. |
 | `styles.css` | Traditional responsive layout, keyboard-focus styling, and print formatting. |
 | `app.js` | Bell-state controls and section navigation highlighting. |
 | `favicon.svg` | Site icon. |
