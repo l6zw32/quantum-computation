@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ffffff">
+  <meta name="description" content="See how the Gottesman–Knill theorem helps test quantum circuits and simple error-correction checks, and why entanglement alone does not imply a quantum speedup.">
+  <meta property="og:title" content="Applications and significance">
+  <meta property="og:description" content="See how the Gottesman–Knill theorem helps test quantum circuits and simple error-correction checks, and why entanglement alone does not imply a quantum speedup.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://l6zw32.github.io/quantum-computation/applications-and-significance.html">
+  <link rel="canonical" href="https://l6zw32.github.io/quantum-computation/applications-and-significance.html">
+  <link rel="icon" href="./favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./styles.css">
+  <link rel="stylesheet" href="./lesson.css">
+  <title>Applications and significance | Intro to quantum computation and the Gottesman-Knill theorem</title>
+</head>
+<body id="top">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="page lesson-page">
+    <header class="site-header">
+      <p class="guide-title"><a href="./">Intro to quantum computation and the Gottesman-Knill theorem</a></p>
+      <p class="course-label">Section 8 · Applications and significance</p>
+      <h1>Applications and significance</h1>
+      <p class="page-subtitle">Circuit testing, error correction, and the limits of quantum speedup</p>
+      <nav class="main-nav" aria-label="Guide navigation">
+        <a href="./#outline">Learning outline</a>
+        <a href="#contents">On this page</a>
+        <a href="#practice">Check your understanding</a>
+        <a href="#references">References</a>
+      </nav>
+      <details class="guide-sections">
+        <summary>All sections</summary>
+        <nav aria-label="All guide sections"><ol><li><a href="./from-bits-to-qubits.html">From classical bits to qubits</a></li>
+<li><a href="./two-qubits-and-bell-state.html">Two qubits and the Bell-state example</a></li>
+<li><a href="./pauli-operators-and-stabilizers.html">Pauli operators and stabilizer constraints</a></li>
+<li><a href="./compact-stabilizer-description.html">Why the state has a compact description</a></li>
+<li><a href="./clifford-gate-updates.html">Updating generators under Clifford gates</a></li>
+<li><a href="./sampling-measurements.html">Sampling the final measurements</a></li>
+<li><a href="./gottesman-knill-theorem.html">The Gottesman–Knill theorem and its proof</a></li>
+<li><a href="./applications-and-significance.html" aria-current="page">Applications and significance</a></li></ol></nav>
+      </details>
+    </header>
+    <main id="main">
+      <div class="lesson-intro"><p>The Gottesman–Knill theorem gives us more than a simulation algorithm. It helps us check quantum circuits, test error-correction procedures, and understand which ingredients a quantum speedup would need.</p></div>
+      <nav class="lesson-contents" id="contents" aria-labelledby="contents-title">
+        <h2 id="contents-title">On this page</h2>
+        <div class="toc">
+<ul>
+<li><a href="#predicting-and-checking-circuit-outputs">Predicting and checking circuit outputs</a></li>
+<li><a href="#testing-a-simple-error-correction-procedure">Testing a simple error-correction procedure</a></li>
+<li><a href="#understanding-the-limits-of-quantum-speedup">Understanding the limits of quantum speedup</a></li>
+<li><a href="#practice">Check your understanding</a></li>
+<li><a href="#references">References</a></li>
+</ul>
+</div>
+
+      </nav>
+      <article class="lesson-content" aria-label="Section 8: Applications and significance">
+        
+<h2 id="predicting-and-checking-circuit-outputs">Predicting and checking circuit outputs</h2>
+<p>Extend the Bell circuit to three qubits. Start with <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mo stretchy="false">&#x0007C;</mo><mn>000</mn><mi>&#x027E9;</mi></mrow><annotation encoding="application/x-tex">|000\rangle</annotation></semantics></math>, apply <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mi>H</mi></mrow><annotation encoding="application/x-tex">H</annotation></semantics></math> to the left qubit, then apply CNOT from it to the middle and right qubits. The result is</p>
+<div class="equation"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mo stretchy="false">&#x0007C;</mo><mi>G</mi><mi>&#x027E9;</mi><mo>&#x0003D;</mo><mfrac><mrow><mo stretchy="false">&#x0007C;</mo><mn>000</mn><mi>&#x027E9;</mi><mo>&#x0002B;</mo><mo stretchy="false">&#x0007C;</mo><mn>111</mn><mi>&#x027E9;</mi></mrow><mrow><msqrt><mn>2</mn></msqrt></mrow></mfrac><mo>&#x0002C;</mo></mrow><annotation encoding="application/x-tex">|G\rangle=\frac{|000\rangle+|111\rangle}{\sqrt2},</annotation></semantics></math></div>
+<p>called a <strong>GHZ state</strong>. A computational-basis measurement returns <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mn>000</mn></mrow><annotation encoding="application/x-tex">000</annotation></semantics></math> or <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mn>111</mn></mrow><annotation encoding="application/x-tex">111</annotation></semantics></math>, each with probability <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mn>1</mn><mo>&#x0002F;</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">1/2</annotation></semantics></math>. One classical fair coin samples this distribution exactly.</p>
+<p>A stabilizer simulator supplies reference samples for checking a circuit implementation. For example, omitting the CNOT to the right qubit changes the possible outputs to <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mn>000</mn></mrow><annotation encoding="application/x-tex">000</annotation></semantics></math> and <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mn>110</mn></mrow><annotation encoding="application/x-tex">110</annotation></semantics></math>, revealing the mistake. For larger Clifford circuits, the same method uses <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mi>O</mi><mo stretchy="false">&#x00028;</mo><msup><mi>n</mi><mn>2</mn></msup><mo stretchy="false">&#x00029;</mo></mrow><annotation encoding="application/x-tex">O(n^2)</annotation></semantics></math> bits to describe the state instead of storing all <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><msup><mn>2</mn><mi>n</mi></msup></mrow><annotation encoding="application/x-tex">2^n</annotation></semantics></math> amplitudes. <a class="reference-link" href="#ref-1" aria-label="Reference 1">[1]</a></p>
+<p>Comparing results in one measurement basis checks those output statistics; it does not by itself determine the whole quantum state.</p>
+<h2 id="testing-a-simple-error-correction-procedure">Testing a simple error-correction procedure</h2>
+<p>Suppose we prepare <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mo stretchy="false">&#x0007C;</mo><mi>G</mi><mi>&#x027E9;</mi></mrow><annotation encoding="application/x-tex">|G\rangle</annotation></semantics></math> and then either no error occurs or <strong>one qubit suffers a bit flip</strong>, represented by <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mi>X</mi></mrow><annotation encoding="application/x-tex">X</annotation></semantics></math>. We can identify the error using the two checks <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mi>Z</mi><mi>Z</mi><mi>I</mi></mrow><annotation encoding="application/x-tex">ZZI</annotation></semantics></math> and <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mi>I</mi><mi>Z</mi><mi>Z</mi></mrow><annotation encoding="application/x-tex">IZZ</annotation></semantics></math>. On a basis state, each check has sign <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mo>&#x0002B;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">+1</annotation></semantics></math> when its two selected bits agree and <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mo>&#x02212;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">-1</annotation></semantics></math> when they differ. <a class="reference-link" href="#ref-2" aria-label="Reference 2">[2]</a> <a class="reference-link" href="#ref-3" aria-label="Reference 3">[3]</a></p>
+<p>The pair of measured signs is called the <strong>syndrome</strong>:</p>
+<table class="comparison-table">
+<thead>
+<tr>
+<th scope="col">Error</th>
+<th scope="col"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mi>Z</mi><mi>Z</mi><mi>I</mi></mrow><annotation encoding="application/x-tex">ZZI</annotation></semantics></math> sign</th>
+<th scope="col"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mi>I</mi><mi>Z</mi><mi>Z</mi></mrow><annotation encoding="application/x-tex">IZZ</annotation></semantics></math> sign</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>None</td>
+<td><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mo>&#x0002B;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">+1</annotation></semantics></math></td>
+<td><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mo>&#x0002B;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">+1</annotation></semantics></math></td>
+</tr>
+<tr>
+<td><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mi>X</mi></mrow><annotation encoding="application/x-tex">X</annotation></semantics></math> on the left qubit</td>
+<td><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mo>&#x02212;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">-1</annotation></semantics></math></td>
+<td><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mo>&#x0002B;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">+1</annotation></semantics></math></td>
+</tr>
+<tr>
+<td><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mi>X</mi></mrow><annotation encoding="application/x-tex">X</annotation></semantics></math> on the middle qubit</td>
+<td><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mo>&#x02212;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">-1</annotation></semantics></math></td>
+<td><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mo>&#x02212;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">-1</annotation></semantics></math></td>
+</tr>
+<tr>
+<td><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mi>X</mi></mrow><annotation encoding="application/x-tex">X</annotation></semantics></math> on the right qubit</td>
+<td><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mo>&#x0002B;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">+1</annotation></semantics></math></td>
+<td><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mo>&#x02212;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">-1</annotation></semantics></math></td>
+</tr>
+</tbody>
+</table>
+<p>For example, a flip on the middle qubit gives</p>
+<div class="equation"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mo stretchy="false">&#x00028;</mo><mi>I</mi><mi>X</mi><mi>I</mi><mo stretchy="false">&#x00029;</mo><mo stretchy="false">&#x0007C;</mo><mi>G</mi><mi>&#x027E9;</mi><mo>&#x0003D;</mo><mfrac><mrow><mo stretchy="false">&#x0007C;</mo><mn>010</mn><mi>&#x027E9;</mi><mo>&#x0002B;</mo><mo stretchy="false">&#x0007C;</mo><mn>101</mn><mi>&#x027E9;</mi></mrow><mrow><msqrt><mn>2</mn></msqrt></mrow></mfrac><mo>&#x0002E;</mo></mrow><annotation encoding="application/x-tex">(IXI)|G\rangle=\frac{|010\rangle+|101\rangle}{\sqrt2}.</annotation></semantics></math></div>
+<p>Both neighboring pairs disagree in either term, so the syndrome is <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mo stretchy="false">&#x00028;</mo><mo>&#x02212;</mo><mn>1</mn><mo>&#x0002C;</mo><mo>&#x02212;</mo><mn>1</mn><mo stretchy="false">&#x00029;</mo></mrow><annotation encoding="application/x-tex">(-1,-1)</annotation></semantics></math>. Apply <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mi>X</mi></mrow><annotation encoding="application/x-tex">X</annotation></semantics></math> to the middle qubit again to restore <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mo stretchy="false">&#x0007C;</mo><mi>G</mi><mi>&#x027E9;</mi></mrow><annotation encoding="application/x-tex">|G\rangle</annotation></semantics></math>, since <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><msup><mi>X</mi><mn>2</mn></msup><mo>&#x0003D;</mo><mi>I</mi></mrow><annotation encoding="application/x-tex">X^2=I</annotation></semantics></math>. Equivalently, an error flips the sign of exactly the checks it anticommutes with. <a class="reference-link" href="#ref-2" aria-label="Reference 2">[2]</a> <a class="reference-link" href="#ref-3" aria-label="Reference 3">[3]</a></p>
+<p>These two checks diagnose errors; a full stabilizer description of <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mo stretchy="false">&#x0007C;</mo><mi>G</mi><mi>&#x027E9;</mi></mrow><annotation encoding="application/x-tex">|G\rangle</annotation></semantics></math> also includes <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mi>X</mi><mi>X</mi><mi>X</mi></mrow><annotation encoding="application/x-tex">XXX</annotation></semantics></math>.</p>
+<p><strong>How do we read the checks?</strong> Add two helper qubits, called <strong>ancillas</strong>, each starting in <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mo stretchy="false">&#x0007C;</mo><mn>0</mn><mi>&#x027E9;</mi></mrow><annotation encoding="application/x-tex">|0\rangle</annotation></semantics></math>. For the first helper, apply CNOT from the left and middle data qubits into it. This records their XOR. Use the middle and right data qubits for the second helper. Measure the helpers at the end: bit <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mi>b</mi></mrow><annotation encoding="application/x-tex">b</annotation></semantics></math> corresponds to sign <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mo stretchy="false">&#x00028;</mo><mo>&#x02212;</mo><mn>1</mn><msup><mo stretchy="false">&#x00029;</mo><mi>b</mi></msup></mrow><annotation encoding="application/x-tex">(-1)^b</annotation></semantics></math>. <a class="reference-link" href="#ref-2" aria-label="Reference 2">[2]</a></p>
+<p>The preparation, inserted errors, and check circuit use Clifford gates; even <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mi>X</mi><mo>&#x0003D;</mo><mi>H</mi><msup><mi>S</mi><mn>2</mn></msup><mi>H</mi></mrow><annotation encoding="application/x-tex">X=HS^2H</annotation></semantics></math> uses our allowed gates. To predict just the syndrome, Section 7's theorem applies: measure all qubits at the end and retain only the helper bits. Thus we can test the error-detection circuit entirely on a classical computer.</p>
+<p>This is a small test of the <strong>three-qubit bit-flip code</strong>, using a stabilizer input. The table assumes at most one bit flip and does not handle arbitrary noise. More broadly, stabilizer simulators such as <strong>Stim</strong> are used to study error-correction circuits. <a class="reference-link" href="#ref-3" aria-label="Reference 3">[3]</a> <a class="reference-link" href="#ref-4" aria-label="Reference 4">[4]</a></p>
+<h2 id="understanding-the-limits-of-quantum-speedup">Understanding the limits of quantum speedup</h2>
+<p>The GHZ example contains entanglement, yet its outputs are easy to simulate. The theorem shows that, with our initial states and measurements, Clifford gates alone cannot produce a sampling task that is classically intractable.</p>
+<p>A common operation outside this family is the <strong><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mi>T</mi></mrow><annotation encoding="application/x-tex">T</annotation></semantics></math> gate</strong>:</p>
+<div class="equation"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>T</mi><mo>&#x0003D;</mo><mo>&#x00028;</mo><mtable><mtr><mtd><mn>1</mn></mtd><mtd><mn>0</mn></mtd></mtr><mtr><mtd><mn>0</mn></mtd><mtd><msup><mi>e</mi><mrow><mi>i</mi><mi>&#x003C0;</mi><mo>&#x0002F;</mo><mn>4</mn></mrow></msup></mtd></mtr></mtable><mo>&#x00029;</mo><mo>&#x0002E;</mo></mrow><annotation encoding="application/x-tex">T=\begin{pmatrix}1&amp;0\\0&amp;e^{i\pi/4}\end{pmatrix}.</annotation></semantics></math></div>
+<p>Direct matrix multiplication gives</p>
+<div class="equation"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>T</mi><mi>X</mi><msup><mi>T</mi><mi>&#x02020;</mi></msup><mo>&#x0003D;</mo><mfrac><mrow><mi>X</mi><mo>&#x0002B;</mo><mi>Y</mi></mrow><mrow><msqrt><mn>2</mn></msqrt></mrow></mfrac><mo>&#x0002C;</mo></mrow><annotation encoding="application/x-tex">TXT^\dagger=\frac{X+Y}{\sqrt2},</annotation></semantics></math></div>
+<p>which is not a signed Pauli matrix. Our rule of updating each row to another signed Pauli string therefore no longer applies. This identifies a limitation of the representation; it does <strong>not</strong> prove that every circuit containing <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mi>T</mi></mrow><annotation encoding="application/x-tex">T</annotation></semantics></math> is hard to simulate. <a class="reference-link" href="#ref-5" aria-label="Reference 5">[5]</a></p>
+<h2 id="practice">Check your understanding</h2>
+<h3 id="1-spotting-a-circuit-mistake">1. Spotting a circuit mistake</h3>
+<p>In the three-qubit preparation above, suppose we omit the CNOT to the right qubit. Why can <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mn>110</mn></mrow><annotation encoding="application/x-tex">110</annotation></semantics></math> occur?</p>
+<details>
+<summary>Show answer</summary>
+<p>After <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mi>H</mi></mrow><annotation encoding="application/x-tex">H</annotation></semantics></math> and the remaining CNOT, the state is <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mo stretchy="false">&#x00028;</mo><mo stretchy="false">&#x0007C;</mo><mn>000</mn><mi>&#x027E9;</mi><mo>&#x0002B;</mo><mo stretchy="false">&#x0007C;</mo><mn>110</mn><mi>&#x027E9;</mi><mo stretchy="false">&#x00029;</mo><mo>&#x0002F;</mo><msqrt><mn>2</mn></msqrt></mrow><annotation encoding="application/x-tex">(|000\rangle+|110\rangle)/\sqrt2</annotation></semantics></math>. The right qubit stays in 0. Thus <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mn>110</mn></mrow><annotation encoding="application/x-tex">110</annotation></semantics></math> occurs with probability <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mn>1</mn><mo>&#x0002F;</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">1/2</annotation></semantics></math>, while the intended circuit never produces it.</p>
+</details>
+<h3 id="2-using-the-syndrome">2. Using the syndrome</h3>
+<p>Assuming at most one bit flip, which correction should follow syndrome <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mo stretchy="false">&#x00028;</mo><mo>&#x02212;</mo><mn>1</mn><mo>&#x0002C;</mo><mo>&#x0002B;</mo><mn>1</mn><mo stretchy="false">&#x00029;</mo></mrow><annotation encoding="application/x-tex">(-1,+1)</annotation></semantics></math>?</p>
+<details>
+<summary>Show answer</summary>
+<p>Apply <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mi>X</mi></mrow><annotation encoding="application/x-tex">X</annotation></semantics></math> to the left qubit. It is the only single-qubit flip that changes the <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mi>Z</mi><mi>Z</mi><mi>I</mi></mrow><annotation encoding="application/x-tex">ZZI</annotation></semantics></math> sign but leaves the <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mi>I</mi><mi>Z</mi><mi>Z</mi></mrow><annotation encoding="application/x-tex">IZZ</annotation></semantics></math> sign unchanged.</p>
+</details>
+<h3 id="3-a-gate-outside-the-theorem">3. A gate outside the theorem</h3>
+<p>Does applying <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mi>T</mi></mrow><annotation encoding="application/x-tex">T</annotation></semantics></math> to <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mo stretchy="false">&#x0007C;</mo><mn>0</mn><mi>&#x027E9;</mi></mrow><annotation encoding="application/x-tex">|0\rangle</annotation></semantics></math> produce a state that is hard to simulate?</p>
+<details>
+<summary>Show answer</summary>
+<p>No: <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mi>T</mi><mo stretchy="false">&#x0007C;</mo><mn>0</mn><mi>&#x027E9;</mi><mo>&#x0003D;</mo><mo stretchy="false">&#x0007C;</mo><mn>0</mn><mi>&#x027E9;</mi></mrow><annotation encoding="application/x-tex">T|0\rangle=|0\rangle</annotation></semantics></math>. Being outside the theorem's gate set does not itself establish a computational advantage.</p>
+</details>
+<h2 id="references">References</h2>
+<ol>
+<li id="ref-1">Scott Aaronson and Daniel Gottesman, <a href="https://arxiv.org/abs/quant-ph/0406196">Improved Simulation of Stabilizer Circuits</a>. Efficient classical simulation and its implementation.</li>
+<li id="ref-2">IBM Quantum Learning, <a href="https://quantum.cloud.ibm.com/learning/en/courses/foundations-of-quantum-error-correction/stabilizer-formalism/repetition-code-revisited">Repetition code revisited</a>. Parity checks and error syndromes.</li>
+<li id="ref-3">Daniel Gottesman, <a href="https://arxiv.org/pdf/quant-ph/0004072">An Introduction to Quantum Error Correction</a>, §4. Stabilizer checks and error detection.</li>
+<li id="ref-4">Craig Gidney, <a href="https://quantum-journal.org/papers/q-2021-07-06-497/">Stim: a fast stabilizer circuit simulator</a>. An application to quantum error-correction research.</li>
+<li id="ref-5">Ronald de Wolf, <a href="https://homepages.cwi.nl/~rdewolf/qcnotes.pdf">Quantum Computing: Lecture Notes</a>, §§20.3–20.4. The simulation theorem and the non-Clifford <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mi>T</mi></mrow><annotation encoding="application/x-tex">T</annotation></semantics></math> gate.</li>
+</ol>
+      </article>
+      <nav class="chapter-nav" aria-label="Previous and next sections">
+        <a href="./gottesman-knill-theorem.html">← Previous: The Gottesman–Knill theorem and its proof</a>
+        <a href="./#outline">Return to the learning outline →</a>
+      </nav>
+    </main>
+    <footer class="site-footer">
+      <span>15-455 · Quantum computation learning guide</span>
+      <a href="#top">Back to top</a>
+    </footer>
+  </div>
+</body>
+</html>

@@ -89,7 +89,9 @@ def build_chapter(index, chapter):
     if intro_match:
         body = body[intro_match.end():]
     title = html.escape(chapter["title"])
-    group = "Quantum states and compact descriptions" if index < 4 else "Efficient classical simulation"
+    group = ("Quantum states and compact descriptions" if index < 4
+             else "Efficient classical simulation" if index < 7
+             else "Applications and significance")
     outline = "\n".join(
         f'<li><a href="./{item["file"]}"' + (' aria-current="page"' if i == index else '')
         + f'>{html.escape(item["title"])}</a></li>' for i, item in enumerate(CHAPTERS)
@@ -130,7 +132,7 @@ def build_chapter(index, chapter):
         <a href="#references">References</a>
       </nav>
       <details class="guide-sections">
-        <summary>All seven sections</summary>
+        <summary>All sections</summary>
         <nav aria-label="All guide sections"><ol>{outline}</ol></nav>
       </details>
     </header>

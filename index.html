@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#ffffff">
   <meta name="description" content="A concise, self-contained guide to qubits, stabilizer circuits, and a complete proof of the Gottesman-Knill theorem for undergraduate complexity theory students.">
   <meta property="og:title" content="Intro to quantum computation and the Gottesman-Knill theorem">
-  <meta property="og:description" content="Learn quantum computation from the basics through seven sections, worked examples, and a complete proof of efficient classical stabilizer simulation.">
+  <meta property="og:description" content="Learn quantum computation from the basics through eight sections, worked examples, a proof of efficient classical stabilizer simulation, and its applications.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://l6zw32.github.io/quantum-computation/">
   <link rel="canonical" href="https://l6zw32.github.io/quantum-computation/">
@@ -34,7 +34,7 @@
     <main id="main">
       <section id="overview" aria-labelledby="overview-title">
         <h2 id="overview-title">Overview</h2>
-        <p>This website is designed to help students with the mathematical background of 15-455 learn quantum computation from the beginning. The learning path starts with classical bits and qubits, then develops the stabilizer tools needed to prove that Clifford circuits with final computational-basis measurements can be simulated efficiently by a classical randomized algorithm.</p>
+        <p>This website is designed to help students with the mathematical background of 15-455 learn quantum computation from the beginning. The learning path starts with classical bits and qubits, then develops the stabilizer tools needed to prove that Clifford circuits with final computational-basis measurements can be simulated efficiently by a classical randomized algorithm. The final section applies these ideas to circuit testing, error correction, and the limits of quantum speedup.</p>
         <p>The central question is <strong>which quantum computations have efficient classical simulations?</strong> Stabilizer circuits provide a useful case study: they can create entangled states, yet their structure permits a compact description and efficient simulation. <a href="#resource-1" aria-label="Reference 1">[1]</a> <a href="#resource-3" aria-label="Reference 3">[3]</a></p>
         <p><strong>Prerequisites.</strong> Only the background of 15-455 is assumed: familiarity with classical computation, elementary probability, mathematical proofs, and asymptotic notation. No previous knowledge of quantum computing or physics is required. The guide introduces the complex numbers, vectors, matrix operations, tensor products, and binary row elimination used in the examples and proof.</p>
         <p><a href="./from-bits-to-qubits.html"><strong>Start learning: From classical bits to qubits →</strong></a></p>
@@ -42,7 +42,7 @@
 
       <section id="outline" aria-labelledby="outline-title">
         <h2 id="outline-title">Learning outline</h2>
-        <p>Read the sections in order. Each introduces the mathematics it needs and includes a short question with an expandable answer. The Bell state connects the basic definitions to the final simulation proof.</p>
+        <p>Read the sections in order. Each introduces the mathematics it needs and includes short practice problems with expandable answers. The Bell state connects the basic definitions to the simulation proof, followed by a brief look at applications.</p>
         <div class="lecture-unit">
           <h3>Quantum states and compact descriptions</h3>
           <ol class="outline-list">
@@ -78,6 +78,10 @@
             <li id="section-7">
               <h4><a href="./gottesman-knill-theorem.html">The Gottesman–Knill theorem and its proof</a></h4>
               <p>Assemble the classical sampler and prove its correctness by induction. Bound its running time and storage, and explain how exact sampling can remain efficient even for entangled states.</p>
+            </li>
+            <li id="section-8">
+              <h4><a href="./applications-and-significance.html">Applications and significance</a></h4>
+              <p>Use a three-qubit example to check circuit outputs and identify a bit-flip error from two stabilizer checks. See how classical simulation supports error-correction research and why entanglement alone does not guarantee a quantum speedup.</p>
             </li>
           </ol>
         </div>

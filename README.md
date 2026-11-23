@@ -5,7 +5,7 @@ A concise educational website for a CMU 15-455 complexity theory project.
 **Public website:** https://l6zw32.github.io/quantum-computation/  
 **Repository:** `l6zw32/quantum-computation`
 
-The guide assumes the mathematical background of undergraduate complexity theory and introduces the quantum notation and linear algebra it uses. All seven sections are complete. The site uses a traditional reading layout, native MathML equations, worked examples, expandable practice answers, and an interactive Bell-state example.
+The guide assumes the mathematical background of undergraduate complexity theory and introduces the quantum notation and linear algebra it uses. All eight sections are complete. The site uses a traditional reading layout, native MathML equations, worked examples, expandable practice answers, and an interactive Bell-state example.
 
 ## Reading order
 
@@ -16,13 +16,14 @@ The guide assumes the mathematical background of undergraduate complexity theory
 5. [Updating generators under Clifford gates](https://l6zw32.github.io/quantum-computation/clifford-gate-updates.html)
 6. [Sampling the final measurements](https://l6zw32.github.io/quantum-computation/sampling-measurements.html)
 7. [The Gottesman–Knill theorem and its proof](https://l6zw32.github.io/quantum-computation/gottesman-knill-theorem.html)
+8. [Applications and significance](https://l6zw32.github.io/quantum-computation/applications-and-significance.html)
 
 The proof covers circuits initialized in zero, followed by H, S, and CNOT gates, then final computational-basis measurements. It gives exact classical sampling of the joint output distribution, with a compact representation and a conservative polynomial runtime bound. Broader versions and optimized algorithms are left to the references.
 
 ## Files and editing
 
 - `index.html`: guide overview, linked reading outline, theorem statement, references, and the Bell-state example.
-- The seven reading-page HTML files: generated, committed pages served directly by GitHub Pages.
+- The eight reading-page HTML files: generated, committed pages served directly by GitHub Pages.
 - `content/*.md`: the editable section text, with LaTeX math.
 - `content/guide.json`: section titles, filenames, and metadata.
 - `scripts/build.py`: converts the section text into complete HTML pages and MathML.
