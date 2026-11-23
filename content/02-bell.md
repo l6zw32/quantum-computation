@@ -97,7 +97,7 @@ The **controlled-NOT gate (CNOT)** has a control qubit and a target qubit. Here 
 | $|10\rangle$ | $|11\rangle$ |
 | $|11\rangle$ | $|10\rangle$ |
 
-Equivalently, $|xy\rangle\mapsto|x,y\oplus x\rangle$, where $\oplus$ is addition modulo 2. This permutation of basis vectors is unitary. The table specifies CNOT on the four basis states, but CNOT can also take any superposition of them as input, applying these rules term by term by linearity. **It does not measure the control.** [2]
+Equivalently, $|xy\rangle\mapsto|x,y\oplus x\rangle$, where $\oplus$ is addition modulo 2. This permutation of basis vectors is unitary. The table specifies CNOT on the four basis states, but CNOT can also take any superposition of them as input, applying these rules term by term by linearity. [2]
 
 <aside class="worked-example" markdown="1">
 ### Example: prepare the Bell state
