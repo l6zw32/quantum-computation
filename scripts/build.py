@@ -19,7 +19,7 @@ GUIDE_TITLE = "Intro to quantum computation and the Gottesman-Knill theorem"
 BASE = "https://l6zw32.github.io/quantum-computation/"
 CHAPTERS = json.loads((ROOT / "content/guide.json").read_text())
 DEMO_PATTERN = re.compile(r"<!--\s*interactive:([a-z-]+)\s*-->")
-DEMO_NAMES = {"phase", "constraints", "syndrome"}
+DEMO_NAMES = {"phase", "bell", "constraints", "syndrome"}
 
 
 def include_interactives(source):
@@ -96,9 +96,12 @@ def render_body(source):
 
 def build_chapter(index, chapter):
     source = (ROOT / "content" / chapter["source"]).read_text()
+    demo_names = set(DEMO_PATTERN.findall(source))
     interactive_assets = ('\n  <link rel="stylesheet" href="./interactives.css">'
                           '\n  <script src="./interactives.js" defer></script>'
-                          if DEMO_PATTERN.search(source) else "")
+                          if demo_names & {"phase", "constraints", "syndrome"} else "")
+    if "bell" in demo_names:
+        interactive_assets += '\n  <script src="./app.js" defer></script>'
     body, toc, equation_count = render_body(include_interactives(source))
     intro_match = re.match(r"<p>.*?</p>", body, flags=re.S)
     intro = intro_match.group(0) if intro_match else ""

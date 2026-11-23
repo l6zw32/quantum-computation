@@ -1,0 +1,44 @@
+<section class="bell-demo" id="bell-preview" aria-labelledby="preview-title">
+  <h3 id="preview-title">Interactive example: preparing a Bell state</h3>
+  <p>Select a checkpoint to follow the circuit above and compare its joint state and computational-basis measurement probabilities. We use the basis order |q₀q₁⟩, with q₀ on the left. [2]</p>
+  <p>The stabilizer generators shown below are constraints on the whole state; <a href="./pauli-operators-and-stabilizers.html">Section 3</a> explains their notation and meaning.</p>
+  <figure class="bell-example">
+    <div class="example-grid">
+      <div class="circuit-panel">
+        <h4>Circuit and selected step</h4>
+        <svg class="circuit" viewBox="0 0 400 126" role="img" aria-labelledby="circuit-title circuit-desc">
+          <title id="circuit-title">A circuit that prepares a Bell state</title>
+          <desc id="circuit-desc">Qubits q zero and q one start in zero. Apply a Hadamard gate to q zero, then a controlled-NOT from q zero to q one.</desc>
+          <text x="8" y="44" class="circuit-label">q₀</text><text x="8" y="100" class="circuit-label">q₁</text>
+          <text x="45" y="44" class="ket">|0⟩</text><text x="45" y="100" class="ket">|0⟩</text>
+          <path d="M82 38H374M82 94H374" class="wire"/>
+          <g class="gate active" data-gate="h"><rect x="127" y="18" width="40" height="40"/><text x="147" y="45" text-anchor="middle">H</text></g>
+          <g class="cnot active" data-gate="cnot"><path d="M261 38V94"/><circle cx="261" cy="38" r="5" class="control"/><circle cx="261" cy="94" r="13" class="target"/><path d="M251 94H271M261 84V104"/></g>
+          <text x="147" y="120" text-anchor="middle" class="gate-caption">Hadamard</text><text x="261" y="120" text-anchor="middle" class="gate-caption">CNOT</text>
+        </svg>
+        <div class="step-controls" role="group" aria-label="Select a circuit checkpoint">
+          <button type="button" data-step="0" aria-pressed="false">1. Initialize</button>
+          <button type="button" data-step="1" aria-pressed="false">2. Apply H</button>
+          <button type="button" data-step="2" aria-pressed="true">3. Apply CNOT</button>
+        </div>
+        <p class="example-help">The highlighted gates have been applied at the selected step.</p>
+      </div>
+      <div class="preview-output" aria-live="polite" aria-atomic="true">
+        <h4>State and measurement</h4>
+        <div class="state-label"><span>Quantum state</span><span id="state-kind">Entangled</span></div>
+        <div class="state-equation" id="state-equation" aria-label="The sum of ket zero zero and ket one one, divided by square root of two"><span class="fraction"><span>|00⟩ + |11⟩</span><span>√2</span></span></div>
+        <p class="probability-heading">Measurement probabilities</p>
+        <div class="probability-bars" aria-label="Probabilities: zero zero 50 percent; zero one 0 percent; one zero 0 percent; one one 50 percent">
+          <div class="probability-column"><span class="bar-number">50%</span><div class="bar-track"><span class="bar" style="height:50%"></span></div><span class="bar-label">|00⟩</span></div>
+          <div class="probability-column"><span class="bar-number">0%</span><div class="bar-track"><span class="bar" style="height:0%"></span></div><span class="bar-label">|01⟩</span></div>
+          <div class="probability-column"><span class="bar-number">0%</span><div class="bar-track"><span class="bar" style="height:0%"></span></div><span class="bar-label">|10⟩</span></div>
+          <div class="probability-column"><span class="bar-number">50%</span><div class="bar-track"><span class="bar" style="height:50%"></span></div><span class="bar-label">|11⟩</span></div>
+        </div>
+        <div class="stabilizer-strip"><span>Stabilizer generators</span><div id="generators"><code>+XX</code><code>+ZZ</code></div></div>
+        <p class="step-explanation" id="step-explanation">CNOT correlates the two qubits. Measuring gives 00 or 11, each with probability ½.</p>
+      </div>
+    </div>
+    <figcaption>Preparing a Bell state and describing it with stabilizer generators. The three checkpoints are exact states of this circuit.</figcaption>
+    <noscript><p>The final Bell-state example is shown. Enable JavaScript to switch between circuit checkpoints.</p></noscript>
+  </figure>
+</section>

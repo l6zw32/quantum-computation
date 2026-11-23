@@ -45,7 +45,7 @@ section { margin: 38px 0 0; }
 .example-grid { display: grid; grid-template-columns: 1fr 1fr; border: 1px solid var(--line); }
 .circuit-panel, .preview-output { min-width: 0; padding: 22px; }
 .preview-output { border-left: 1px solid var(--line); }
-.example-grid h3 { font-family: var(--sans); font-size: 15px; margin: 0 0 22px; }
+.example-grid h3, .example-grid h4 { font-family: var(--sans); font-size: 15px; margin: 0 0 22px; }
 .circuit { display: block; width: 100%; height: auto; margin: 16px 0 28px; overflow: visible; }
 .circuit text { font-family: var(--serif); fill: var(--ink); }
 .circuit-label, .ket { font-size: 19px; }
@@ -126,3 +126,4 @@ figcaption { font-size: 14px; color: var(--muted); margin-top: 11px; line-height
   .example-grid { grid-template-columns: 1fr 1fr; }
   .preview-output { border-left: 1px solid var(--line); border-top: 0; }
 }
+

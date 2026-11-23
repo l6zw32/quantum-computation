@@ -133,7 +133,7 @@ The final state is the **Bell state** we will use throughout the guide, denoted
 Measuring both qubits gives $00$ or $11$, each with probability $1/2$. If we measure only $q_0$, we get 0 or 1 equally often. Conditioned on that outcome, the joint state becomes $|00\rangle$ or $|11\rangle$, respectively, so a subsequent measurement of $q_1$ agrees with $q_0$.
 </aside>
 
-Try the [interactive Bell-state example](./index.html#bell-preview) to follow these two steps. Its state and probability displays track the joint system; the next section explains its stabilizer rows.
+<!-- interactive:bell -->
 
 ## Why the Bell state is entangled
 
