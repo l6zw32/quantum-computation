@@ -13,6 +13,8 @@
   <link rel="icon" href="./favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="./styles.css">
   <link rel="stylesheet" href="./lesson.css">
+  <link rel="stylesheet" href="./interactives.css">
+  <script src="./interactives.js" defer></script>
   <title>Applications and significance | Intro to quantum computation and the Gottesman-Knill theorem</title>
 </head>
 <body id="top">
@@ -105,6 +107,56 @@
 <p><strong>How do we read the checks?</strong> Add two helper qubits, called <strong>ancillas</strong>, each starting in <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mo stretchy="false">&#x0007C;</mo><mn>0</mn><mi>&#x027E9;</mi></mrow><annotation encoding="application/x-tex">|0\rangle</annotation></semantics></math>. For the first helper, apply CNOT from the left and middle data qubits into it. This records their XOR. Use the middle and right data qubits for the second helper. Measure the helpers at the end: bit <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mi>b</mi></mrow><annotation encoding="application/x-tex">b</annotation></semantics></math> corresponds to sign <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mo stretchy="false">&#x00028;</mo><mo>&#x02212;</mo><mn>1</mn><msup><mo stretchy="false">&#x00029;</mo><mi>b</mi></msup></mrow><annotation encoding="application/x-tex">(-1)^b</annotation></semantics></math>. <a class="reference-link" href="#ref-2" aria-label="Reference 2">[2]</a></p>
 <p>The preparation, inserted errors, and check circuit use Clifford gates; even <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mi>X</mi><mo>&#x0003D;</mo><mi>H</mi><msup><mi>S</mi><mn>2</mn></msup><mi>H</mi></mrow><annotation encoding="application/x-tex">X=HS^2H</annotation></semantics></math> uses our allowed gates. To predict just the syndrome, Section 7's theorem applies: measure all qubits at the end and retain only the helper bits. Thus we can test the error-detection circuit entirely on a classical computer.</p>
 <p>This is a small test of the <strong>three-qubit bit-flip code</strong>, using a stabilizer input. The table assumes at most one bit flip and does not handle arbitrary noise. More broadly, stabilizer simulators such as <strong>Stim</strong> are used to study error-correction circuits. <a class="reference-link" href="#ref-3" aria-label="Reference 3">[3]</a> <a class="reference-link" href="#ref-4" aria-label="Reference 4">[4]</a></p>
+<aside class="interactive-demo" data-demo="syndrome" id="syndrome-explorer" aria-labelledby="syndrome-demo-title">
+  <h3 id="syndrome-demo-title">Try it: find and correct one bit flip</h3>
+  <p>Choose an error, read the two checks, and apply the indicated correction. Each error choice starts a fresh run from <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mo stretchy="false">&#x00028;</mo><mo stretchy="false">&#x0007C;</mo><mn>000</mn><mi>&#x027E9;</mi><mo>&#x0002B;</mo><mo stretchy="false">&#x0007C;</mo><mn>111</mn><mi>&#x027E9;</mi><mo stretchy="false">&#x00029;</mo><mo>&#x0002F;</mo><msqrt><mn>2</mn></msqrt></mrow><annotation encoding="application/x-tex">(|000\rangle+|111\rangle)/\sqrt2</annotation></semantics></math>.</p>
+  <div class="demo-controls" hidden>
+    <p class="demo-label">Initial error</p>
+    <div class="demo-buttons" role="group" aria-label="Choose the initial bit-flip error">
+      <button type="button" data-error="none" aria-pressed="true">No error</button>
+      <button type="button" data-error="left" aria-pressed="false">Flip left</button>
+      <button type="button" data-error="middle" aria-pressed="false">Flip middle</button>
+      <button type="button" data-error="right" aria-pressed="false">Flip right</button>
+    </div>
+  </div>
+  <div class="demo-panel">
+    <h4>Current three-qubit state</h4>
+    <div data-error-state="none">
+
+<div class="equation"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mfrac><mrow><mo stretchy="false">&#x0007C;</mo><mn>000</mn><mi>&#x027E9;</mi><mo>&#x0002B;</mo><mo stretchy="false">&#x0007C;</mo><mn>111</mn><mi>&#x027E9;</mi></mrow><mrow><msqrt><mn>2</mn></msqrt></mrow></mfrac></mrow><annotation encoding="application/x-tex">\frac{|000\rangle+|111\rangle}{\sqrt2}</annotation></semantics></math></div>
+
+</div>
+    <div data-error-state="left" hidden>
+
+<div class="equation"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mfrac><mrow><mo stretchy="false">&#x0007C;</mo><mn>100</mn><mi>&#x027E9;</mi><mo>&#x0002B;</mo><mo stretchy="false">&#x0007C;</mo><mn>011</mn><mi>&#x027E9;</mi></mrow><mrow><msqrt><mn>2</mn></msqrt></mrow></mfrac></mrow><annotation encoding="application/x-tex">\frac{|100\rangle+|011\rangle}{\sqrt2}</annotation></semantics></math></div>
+
+</div>
+    <div data-error-state="middle" hidden>
+
+<div class="equation"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mfrac><mrow><mo stretchy="false">&#x0007C;</mo><mn>010</mn><mi>&#x027E9;</mi><mo>&#x0002B;</mo><mo stretchy="false">&#x0007C;</mo><mn>101</mn><mi>&#x027E9;</mi></mrow><mrow><msqrt><mn>2</mn></msqrt></mrow></mfrac></mrow><annotation encoding="application/x-tex">\frac{|010\rangle+|101\rangle}{\sqrt2}</annotation></semantics></math></div>
+
+</div>
+    <div data-error-state="right" hidden>
+
+<div class="equation"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mfrac><mrow><mo stretchy="false">&#x0007C;</mo><mn>001</mn><mi>&#x027E9;</mi><mo>&#x0002B;</mo><mo stretchy="false">&#x0007C;</mo><mn>110</mn><mi>&#x027E9;</mi></mrow><mrow><msqrt><mn>2</mn></msqrt></mrow></mfrac></mrow><annotation encoding="application/x-tex">\frac{|001\rangle+|110\rangle}{\sqrt2}</annotation></semantics></math></div>
+
+</div>
+  </div>
+  <h4>Recorded syndrome</h4>
+  <div class="demo-grid">
+    <div class="demo-check"><span>ZZI: left and middle</span><strong data-syndrome-sign="0">Not read</strong></div>
+    <div class="demo-check"><span>IZZ: middle and right</span><strong data-syndrome-sign="1">Not read</strong></div>
+  </div>
+  <div class="demo-controls demo-buttons" hidden>
+    <button type="button" data-read-syndrome>Read checks</button>
+    <button type="button" data-correct-error disabled>Apply correction</button>
+    <button type="button" data-reset-syndrome>Start over</button>
+  </div>
+  <p class="demo-status" data-syndrome-status role="status">The state is prepared with no error. Choose a bit flip, then read the checks to identify it.</p>
+  <p class="demo-help">This experiment assumes no error or one X error. The check outcomes are deterministic for these four cases.</p>
+  <noscript><p class="demo-help">The error-free state is shown. Enable JavaScript to run the error-detection steps.</p></noscript>
+</aside>
+
 <h2 id="understanding-the-limits-of-quantum-speedup">Understanding the limits of quantum speedup</h2>
 <p>The GHZ example contains entanglement, yet its outputs are easy to simulate. The theorem shows that, with our initial states and measurements, Clifford gates alone cannot produce a sampling task that is classically intractable.</p>
 <p>A common operation outside this family is the <strong><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mi>T</mi></mrow><annotation encoding="application/x-tex">T</annotation></semantics></math> gate</strong>:</p>

@@ -18,6 +18,18 @@ ROOT = Path(__file__).resolve().parent.parent
 GUIDE_TITLE = "Intro to quantum computation and the Gottesman-Knill theorem"
 BASE = "https://l6zw32.github.io/quantum-computation/"
 CHAPTERS = json.loads((ROOT / "content/guide.json").read_text())
+DEMO_PATTERN = re.compile(r"<!--\s*interactive:([a-z-]+)\s*-->")
+DEMO_NAMES = {"phase", "constraints", "syndrome"}
+
+
+def include_interactives(source):
+    """Insert authored demo markup while retaining the editable text sources."""
+    def include(match):
+        name = match.group(1)
+        if name not in DEMO_NAMES:
+            raise ValueError(f"Unknown interactive example: {name}")
+        return (ROOT / "content/interactives" / f"{name}.html").read_text()
+    return DEMO_PATTERN.sub(include, source)
 
 
 def render_body(source):
@@ -83,7 +95,11 @@ def render_body(source):
 
 
 def build_chapter(index, chapter):
-    body, toc, equation_count = render_body((ROOT / "content" / chapter["source"]).read_text())
+    source = (ROOT / "content" / chapter["source"]).read_text()
+    interactive_assets = ('\n  <link rel="stylesheet" href="./interactives.css">'
+                          '\n  <script src="./interactives.js" defer></script>'
+                          if DEMO_PATTERN.search(source) else "")
+    body, toc, equation_count = render_body(include_interactives(source))
     intro_match = re.match(r"<p>.*?</p>", body, flags=re.S)
     intro = intro_match.group(0) if intro_match else ""
     if intro_match:
@@ -114,7 +130,7 @@ def build_chapter(index, chapter):
   <link rel="canonical" href="{BASE + chapter['file']}">
   <link rel="icon" href="./favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="./styles.css">
-  <link rel="stylesheet" href="./lesson.css">
+  <link rel="stylesheet" href="./lesson.css">{interactive_assets}
   <title>{title} | {GUIDE_TITLE}</title>
 </head>
 <body id="top">

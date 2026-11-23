@@ -239,6 +239,8 @@ where $\delta=\theta-\phi$ modulo $2\pi$, chosen in $[0,2\pi)$. This is the gene
 The original $\alpha$ does not have to be $1/\sqrt2$. We have chosen an equivalent representative with that first amplitude. For example, $(i|0\rangle+|1\rangle)/\sqrt2$ becomes $(|0\rangle-i|1\rangle)/\sqrt2$ after multiplying the whole vector by $-i$. Both describe the same physical state, with relative phase $-\pi/2$ (equivalently, $3\pi/2$).
 </aside>
 
+<!-- interactive:phase -->
+
 ## Check your understanding {#practice}
 
 ### 1. Measurement between gates

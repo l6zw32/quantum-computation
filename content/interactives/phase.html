@@ -1,0 +1,54 @@
+<aside class="interactive-demo" data-demo="phase" id="phase-explorer" aria-labelledby="phase-demo-title">
+  <h3 id="phase-demo-title">Try it: change the relative phase</h3>
+  <p>Keep the first amplitude fixed and vary the phase of the second:</p>
+  \[
+  |\psi_\delta\rangle=\frac{|0\rangle+e^{i\delta}|1\rangle}{\sqrt2}.
+  \]
+  <div class="phase-controls">
+    <figure class="phase-circle">
+      <svg viewBox="0 0 220 190" role="img" aria-labelledby="phase-circle-title">
+        <title id="phase-circle-title">The phase factor is 1: angle zero on the unit circle.</title>
+        <defs><marker id="phase-arrowhead" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0 0 L7 3.5 L0 7 Z" fill="#214d7c"></path></marker></defs>
+        <path class="demo-axis" d="M24 95 H196 M110 174 V16"></path>
+        <circle class="demo-circle" cx="110" cy="95" r="59"></circle>
+        <text x="188" y="116">Re</text><text x="120" y="23">Im</text>
+        <text x="168" y="116">1</text><text x="120" y="42">i</text>
+        <g data-phase-arrow><line x1="110" y1="95" x2="166" y2="95" stroke="#214d7c" stroke-width="2.5" marker-end="url(#phase-arrowhead)"></line></g>
+        <circle cx="110" cy="95" r="3" fill="#214d7c"></circle>
+      </svg>
+      <figcaption>The arrow shows \(e^{i\delta}\), whose magnitude stays 1.</figcaption>
+    </figure>
+    <div class="demo-controls" hidden>
+      <label class="demo-label" for="relative-phase">Relative phase δ</label>
+      <output id="phase-angle" for="relative-phase" aria-live="off">0° (0 radians)</output>
+      <input id="relative-phase" type="range" min="0" max="360" step="1" value="0" aria-describedby="phase-slider-help" aria-valuetext="0 degrees, 0 radians">
+      <p class="demo-help" id="phase-slider-help">Drag the slider or use the arrow keys. Try these phases:</p>
+      <div class="demo-buttons" role="group" aria-label="Common relative phases">
+        <button type="button" data-phase="0" aria-pressed="true">0</button>
+        <button type="button" data-phase="90" aria-pressed="false">π/2</button>
+        <button type="button" data-phase="180" aria-pressed="false">π</button>
+        <button type="button" data-phase="270" aria-pressed="false">3π/2</button>
+      </div>
+    </div>
+  </div>
+  <p class="demo-help">These are two alternative experiments. Start with a fresh copy of the state for each column.</p>
+  <div class="demo-grid">
+    <div class="demo-panel">
+      <h4>Measure directly</h4>
+      <div class="demo-probability"><span>Outcome 0</span><strong>50%</strong><div class="demo-track" aria-hidden="true"><span style="width:50%"></span></div></div>
+      <div class="demo-probability"><span>Outcome 1</span><strong>50%</strong><div class="demo-track" aria-hidden="true"><span style="width:50%"></span></div></div>
+    </div>
+    <div class="demo-panel">
+      <h4>Apply H, then measure</h4>
+      <div class="demo-probability"><span>Outcome 0</span><strong data-phase-probability="0">100%</strong><div class="demo-track" aria-hidden="true"><span data-phase-bar="0" style="width:100%"></span></div></div>
+      <div class="demo-probability"><span>Outcome 1</span><strong data-phase-probability="1">0%</strong><div class="demo-track" aria-hidden="true"><span data-phase-bar="1" style="width:0%"></span></div></div>
+    </div>
+  </div>
+  <p>The H gate adds and subtracts the amplitudes, giving</p>
+  \[
+  \Pr_H(0)=\left|\frac{1+e^{i\delta}}2\right|^2=\frac{1+\cos\delta}{2},
+  \qquad \Pr_H(1)=\frac{1-\cos\delta}{2}.
+  \]
+  <p class="demo-status" data-phase-status role="status">At δ = 0, the contributions to outcome 1 cancel. Applying H gives outcome 0 with certainty.</p>
+  <noscript><p class="demo-help">The example shows δ = 0. Enable JavaScript to vary the phase.</p></noscript>
+</aside>

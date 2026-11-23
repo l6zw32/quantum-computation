@@ -16,6 +16,8 @@ Together, consistency and independence exclude every nonempty product equal to e
 
 The common eigenspace means all vectors satisfying $g_j|v\rangle=|v\rangle$ for every $j$. We will construct a matrix that keeps exactly these vectors, then count the dimension of its output space.
 
+<!-- interactive:constraints -->
+
 ## Why the common eigenspace is one-dimensional
 
 ### Step 1: keep the vectors satisfying one constraint

@@ -1,0 +1,33 @@
+<aside class="interactive-demo" data-demo="syndrome" id="syndrome-explorer" aria-labelledby="syndrome-demo-title">
+  <h3 id="syndrome-demo-title">Try it: find and correct one bit flip</h3>
+  <p>Choose an error, read the two checks, and apply the indicated correction. Each error choice starts a fresh run from \((|000\rangle+|111\rangle)/\sqrt2\).</p>
+  <div class="demo-controls" hidden>
+    <p class="demo-label">Initial error</p>
+    <div class="demo-buttons" role="group" aria-label="Choose the initial bit-flip error">
+      <button type="button" data-error="none" aria-pressed="true">No error</button>
+      <button type="button" data-error="left" aria-pressed="false">Flip left</button>
+      <button type="button" data-error="middle" aria-pressed="false">Flip middle</button>
+      <button type="button" data-error="right" aria-pressed="false">Flip right</button>
+    </div>
+  </div>
+  <div class="demo-panel">
+    <h4>Current three-qubit state</h4>
+    <div data-error-state="none">\[\frac{|000\rangle+|111\rangle}{\sqrt2}\]</div>
+    <div data-error-state="left" hidden>\[\frac{|100\rangle+|011\rangle}{\sqrt2}\]</div>
+    <div data-error-state="middle" hidden>\[\frac{|010\rangle+|101\rangle}{\sqrt2}\]</div>
+    <div data-error-state="right" hidden>\[\frac{|001\rangle+|110\rangle}{\sqrt2}\]</div>
+  </div>
+  <h4>Recorded syndrome</h4>
+  <div class="demo-grid">
+    <div class="demo-check"><span>ZZI: left and middle</span><strong data-syndrome-sign="0">Not read</strong></div>
+    <div class="demo-check"><span>IZZ: middle and right</span><strong data-syndrome-sign="1">Not read</strong></div>
+  </div>
+  <div class="demo-controls demo-buttons" hidden>
+    <button type="button" data-read-syndrome>Read checks</button>
+    <button type="button" data-correct-error disabled>Apply correction</button>
+    <button type="button" data-reset-syndrome>Start over</button>
+  </div>
+  <p class="demo-status" data-syndrome-status role="status">The state is prepared with no error. Choose a bit flip, then read the checks to identify it.</p>
+  <p class="demo-help">This experiment assumes no error or one X error. The check outcomes are deterministic for these four cases.</p>
+  <noscript><p class="demo-help">The error-free state is shown. Enable JavaScript to run the error-detection steps.</p></noscript>
+</aside>

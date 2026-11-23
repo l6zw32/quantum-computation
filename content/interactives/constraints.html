@@ -1,0 +1,37 @@
+<aside class="interactive-demo" data-demo="constraints" id="constraint-explorer" aria-labelledby="constraints-demo-title">
+  <h3 id="constraints-demo-title">Try it: narrow down the state with constraints</h3>
+  <p>For two qubits, choose which equations to impose. These controls select constraints; they do not apply gates.</p>
+  <div class="demo-controls" hidden>
+    <div class="demo-grid">
+      <div><label class="demo-label" for="zz-constraint">ZZ constraint</label><select id="zz-constraint"><option value="off">No constraint</option><option value="1">+ZZ |ψ⟩ = |ψ⟩</option><option value="-1">−ZZ |ψ⟩ = |ψ⟩</option></select></div>
+      <div><label class="demo-label" for="xx-constraint">XX constraint</label><select id="xx-constraint"><option value="off">No constraint</option><option value="1">+XX |ψ⟩ = |ψ⟩</option><option value="-1">−XX |ψ⟩ = |ψ⟩</option></select></div>
+    </div>
+    <div class="demo-buttons"><button type="button" data-clear-constraints>Clear constraints</button></div>
+  </div>
+  <p class="demo-result">Allowed subspace dimension: <strong data-constraint-dimension>4</strong></p>
+  <p class="demo-help">The allowed vectors below form a basis of the solution space. Any normalized linear combination of them is also allowed.</p>
+  <div class="demo-basis" role="group" aria-label="Basis vectors and whether they satisfy the selected constraints">
+    <div class="demo-basis-vector" data-basis="phi-plus" data-allowed="true">
+      <p class="demo-vector-status">Allowed</p>
+      \[\frac{|00\rangle+|11\rangle}{\sqrt2}\]
+      <p class="demo-help">ZZ eigenvalue +1 · XX eigenvalue +1</p>
+    </div>
+    <div class="demo-basis-vector" data-basis="phi-minus" data-allowed="true">
+      <p class="demo-vector-status">Allowed</p>
+      \[\frac{|00\rangle-|11\rangle}{\sqrt2}\]
+      <p class="demo-help">ZZ eigenvalue +1 · XX eigenvalue −1</p>
+    </div>
+    <div class="demo-basis-vector" data-basis="psi-plus" data-allowed="true">
+      <p class="demo-vector-status">Allowed</p>
+      \[\frac{|01\rangle+|10\rangle}{\sqrt2}\]
+      <p class="demo-help">ZZ eigenvalue −1 · XX eigenvalue +1</p>
+    </div>
+    <div class="demo-basis-vector" data-basis="psi-minus" data-allowed="true">
+      <p class="demo-vector-status">Allowed</p>
+      \[\frac{|01\rangle-|10\rangle}{\sqrt2}\]
+      <p class="demo-help">ZZ eigenvalue −1 · XX eigenvalue −1</p>
+    </div>
+  </div>
+  <p class="demo-status" data-constraint-status role="status">No equations are selected, so all two-qubit states are allowed. Add a ZZ constraint, then an XX constraint, and watch the dimension change from 4 to 2 to 1.</p>
+  <noscript><p class="demo-help">All four basis vectors are shown with no constraints imposed. Enable JavaScript to choose constraints.</p></noscript>
+</aside>

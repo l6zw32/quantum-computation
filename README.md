@@ -5,7 +5,7 @@ A concise educational website for a CMU 15-455 complexity theory project.
 **Public website:** https://l6zw32.github.io/quantum-computation/  
 **Repository:** `l6zw32/quantum-computation`
 
-The guide assumes the mathematical background of undergraduate complexity theory and introduces the quantum notation and linear algebra it uses. All eight sections are complete. The site uses a traditional reading layout, native MathML equations, worked examples, expandable practice answers, and an interactive Bell-state example.
+The guide assumes the mathematical background of undergraduate complexity theory and introduces the quantum notation and linear algebra it uses. All eight sections are complete. The site uses a traditional reading layout, native MathML equations, worked examples, expandable practice answers, and focused interactive examples for Bell-state preparation, interference, stabilizer constraints, and error correction.
 
 ## Reading order
 
@@ -26,11 +26,13 @@ The proof covers circuits initialized in zero, followed by H, S, and CNOT gates,
 - The eight reading-page HTML files: generated, committed pages served directly by GitHub Pages.
 - `content/*.md`: the editable section text, with LaTeX math.
 - `content/guide.json`: section titles, filenames, and metadata.
+- `content/interactives/*.html`: the small demo panels included through `<!-- interactive:name -->` markers in sections 1, 4, and 8.
 - `scripts/build.py`: converts the section text into complete HTML pages and MathML.
 - `requirements-build.txt`: pinned Python dependencies for rebuilding the reading pages.
 - `styles.css`: shared typography and responsive homepage layout.
 - `lesson.css`: reading-page styles.
 - `app.js`: Bell-state controls and homepage navigation highlighting.
+- `interactives.js` and `interactives.css`: the phase, constraint, and syndrome demos. These assets load only on the three pages that use them; the examples retain readable initial states without JavaScript and respect reduced-motion preferences.
 - `favicon.svg`, `.nojekyll`, and `LICENSE`: site assets and repository metadata.
 
 To edit a reading section, change its Markdown file and rebuild:

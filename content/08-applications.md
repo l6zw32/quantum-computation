@@ -43,6 +43,8 @@ The preparation, inserted errors, and check circuit use Clifford gates; even $X=
 
 This is a small test of the **three-qubit bit-flip code**, using a stabilizer input. The table assumes at most one bit flip and does not handle arbitrary noise. More broadly, stabilizer simulators such as **Stim** are used to study error-correction circuits. [3, 4]
 
+<!-- interactive:syndrome -->
+
 ## Understanding the limits of quantum speedup
 
 The GHZ example contains entanglement, yet its outputs are easy to simulate. The theorem shows that, with our initial states and measurements, Clifford gates alone cannot produce a sampling task that is classically intractable.

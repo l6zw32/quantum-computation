@@ -13,6 +13,8 @@
   <link rel="icon" href="./favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="./styles.css">
   <link rel="stylesheet" href="./lesson.css">
+  <link rel="stylesheet" href="./interactives.css">
+  <script src="./interactives.js" defer></script>
   <title>From classical bits to qubits | Intro to quantum computation and the Gottesman-Knill theorem</title>
 </head>
 <body id="top">
@@ -189,6 +191,65 @@ X\begin{pmatrix}\alpha\\\beta\end{pmatrix}
 <p>where <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mi>&#x003B4;</mi><mo>&#x0003D;</mo><mi>&#x003B8;</mi><mo>&#x02212;</mo><mi>&#x003D5;</mi></mrow><annotation encoding="application/x-tex">\delta=\theta-\phi</annotation></semantics></math> modulo <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mn>2</mn><mi>&#x003C0;</mi></mrow><annotation encoding="application/x-tex">2\pi</annotation></semantics></math>, chosen in <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mo stretchy="false">[</mo><mn>0</mn><mo>&#x0002C;</mo><mn>2</mn><mi>&#x003C0;</mi><mo stretchy="false">&#x00029;</mo></mrow><annotation encoding="application/x-tex">[0,2\pi)</annotation></semantics></math>. This is the general form of a pure qubit state with 50–50 computational-basis probabilities, <strong>up to global phase</strong>.</p>
 <p>The original <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mi>&#x003B1;</mi></mrow><annotation encoding="application/x-tex">\alpha</annotation></semantics></math> does not have to be <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mn>1</mn><mo>&#x0002F;</mo><msqrt><mn>2</mn></msqrt></mrow><annotation encoding="application/x-tex">1/\sqrt2</annotation></semantics></math>. We have chosen an equivalent representative with that first amplitude. For example, <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mo stretchy="false">&#x00028;</mo><mi>i</mi><mo stretchy="false">&#x0007C;</mo><mn>0</mn><mi>&#x027E9;</mi><mo>&#x0002B;</mo><mo stretchy="false">&#x0007C;</mo><mn>1</mn><mi>&#x027E9;</mi><mo stretchy="false">&#x00029;</mo><mo>&#x0002F;</mo><msqrt><mn>2</mn></msqrt></mrow><annotation encoding="application/x-tex">(i|0\rangle+|1\rangle)/\sqrt2</annotation></semantics></math> becomes <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mo stretchy="false">&#x00028;</mo><mo stretchy="false">&#x0007C;</mo><mn>0</mn><mi>&#x027E9;</mi><mo>&#x02212;</mo><mi>i</mi><mo stretchy="false">&#x0007C;</mo><mn>1</mn><mi>&#x027E9;</mi><mo stretchy="false">&#x00029;</mo><mo>&#x0002F;</mo><msqrt><mn>2</mn></msqrt></mrow><annotation encoding="application/x-tex">(|0\rangle-i|1\rangle)/\sqrt2</annotation></semantics></math> after multiplying the whole vector by <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mo>&#x02212;</mo><mi>i</mi></mrow><annotation encoding="application/x-tex">-i</annotation></semantics></math>. Both describe the same physical state, with relative phase <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mo>&#x02212;</mo><mi>&#x003C0;</mi><mo>&#x0002F;</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">-\pi/2</annotation></semantics></math> (equivalently, <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mn>3</mn><mi>&#x003C0;</mi><mo>&#x0002F;</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">3\pi/2</annotation></semantics></math>).</p>
 </aside>
+<aside class="interactive-demo" data-demo="phase" id="phase-explorer" aria-labelledby="phase-demo-title">
+  <h3 id="phase-demo-title">Try it: change the relative phase</h3>
+  <p>Keep the first amplitude fixed and vary the phase of the second:</p>
+
+
+<div class="equation"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mo stretchy="false">&#x0007C;</mo><msub><mi>&#x003C8;</mi><mi>&#x003B4;</mi></msub><mi>&#x027E9;</mi><mo>&#x0003D;</mo><mfrac><mrow><mo stretchy="false">&#x0007C;</mo><mn>0</mn><mi>&#x027E9;</mi><mo>&#x0002B;</mo><msup><mi>e</mi><mrow><mi>i</mi><mi>&#x003B4;</mi></mrow></msup><mo stretchy="false">&#x0007C;</mo><mn>1</mn><mi>&#x027E9;</mi></mrow><mrow><msqrt><mn>2</mn></msqrt></mrow></mfrac><mo>&#x0002E;</mo></mrow><annotation encoding="application/x-tex">|\psi_\delta\rangle=\frac{|0\rangle+e^{i\delta}|1\rangle}{\sqrt2}.</annotation></semantics></math></div>
+
+
+  <div class="phase-controls">
+    <figure class="phase-circle">
+      <svg viewBox="0 0 220 190" role="img" aria-labelledby="phase-circle-title">
+        <title id="phase-circle-title">The phase factor is 1: angle zero on the unit circle.</title>
+        <defs><marker id="phase-arrowhead" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0 0 L7 3.5 L0 7 Z" fill="#214d7c"></path></marker></defs>
+        <path class="demo-axis" d="M24 95 H196 M110 174 V16"></path>
+        <circle class="demo-circle" cx="110" cy="95" r="59"></circle>
+        <text x="188" y="116">Re</text><text x="120" y="23">Im</text>
+        <text x="168" y="116">1</text><text x="120" y="42">i</text>
+        <g data-phase-arrow><line x1="110" y1="95" x2="166" y2="95" stroke="#214d7c" stroke-width="2.5" marker-end="url(#phase-arrowhead)"></line></g>
+        <circle cx="110" cy="95" r="3" fill="#214d7c"></circle>
+      </svg>
+      <figcaption>The arrow shows <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><msup><mi>e</mi><mrow><mi>i</mi><mi>&#x003B4;</mi></mrow></msup></mrow><annotation encoding="application/x-tex">e^{i\delta}</annotation></semantics></math>, whose magnitude stays 1.</figcaption>
+    </figure>
+    <div class="demo-controls" hidden>
+      <label class="demo-label" for="relative-phase">Relative phase δ</label>
+      <output id="phase-angle" for="relative-phase" aria-live="off">0° (0 radians)</output>
+      <input id="relative-phase" type="range" min="0" max="360" step="1" value="0" aria-describedby="phase-slider-help" aria-valuetext="0 degrees, 0 radians">
+      <p class="demo-help" id="phase-slider-help">Drag the slider or use the arrow keys. Try these phases:</p>
+      <div class="demo-buttons" role="group" aria-label="Common relative phases">
+        <button type="button" data-phase="0" aria-pressed="true">0</button>
+        <button type="button" data-phase="90" aria-pressed="false">π/2</button>
+        <button type="button" data-phase="180" aria-pressed="false">π</button>
+        <button type="button" data-phase="270" aria-pressed="false">3π/2</button>
+      </div>
+    </div>
+  </div>
+  <p class="demo-help">These are two alternative experiments. Start with a fresh copy of the state for each column.</p>
+  <div class="demo-grid">
+    <div class="demo-panel">
+      <h4>Measure directly</h4>
+      <div class="demo-probability"><span>Outcome 0</span><strong>50%</strong><div class="demo-track" aria-hidden="true"><span style="width:50%"></span></div></div>
+      <div class="demo-probability"><span>Outcome 1</span><strong>50%</strong><div class="demo-track" aria-hidden="true"><span style="width:50%"></span></div></div>
+    </div>
+    <div class="demo-panel">
+      <h4>Apply H, then measure</h4>
+      <div class="demo-probability"><span>Outcome 0</span><strong data-phase-probability="0">100%</strong><div class="demo-track" aria-hidden="true"><span data-phase-bar="0" style="width:100%"></span></div></div>
+      <div class="demo-probability"><span>Outcome 1</span><strong data-phase-probability="1">0%</strong><div class="demo-track" aria-hidden="true"><span data-phase-bar="1" style="width:0%"></span></div></div>
+    </div>
+  </div>
+  <p>The H gate adds and subtracts the amplitudes, giving</p>
+
+
+<div class="equation"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mo movablelimits="true">Pr</mo><mi>H</mi></msub><mo stretchy="false">&#x00028;</mo><mn>0</mn><mo stretchy="false">&#x00029;</mo><mo>&#x0003D;</mo><msup><mrow><mo stretchy="true" fence="true" form="prefix">&#x0007C;</mo><mfrac><mrow><mn>1</mn><mo>&#x0002B;</mo><msup><mi>e</mi><mrow><mi>i</mi><mi>&#x003B4;</mi></mrow></msup></mrow><mn>2</mn></mfrac><mo stretchy="true" fence="true" form="postfix">&#x0007C;</mo></mrow><mn>2</mn></msup><mo>&#x0003D;</mo><mfrac><mrow><mn>1</mn><mo>&#x0002B;</mo><mi>cos</mi><mi>&#x003B4;</mi></mrow><mrow><mn>2</mn></mrow></mfrac><mo>&#x0002C;</mo><mspace width="2em" /><msub><mo movablelimits="true">Pr</mo><mi>H</mi></msub><mo stretchy="false">&#x00028;</mo><mn>1</mn><mo stretchy="false">&#x00029;</mo><mo>&#x0003D;</mo><mfrac><mrow><mn>1</mn><mo>&#x02212;</mo><mi>cos</mi><mi>&#x003B4;</mi></mrow><mrow><mn>2</mn></mrow></mfrac><mo>&#x0002E;</mo></mrow><annotation encoding="application/x-tex">\Pr_H(0)=\left|\frac{1+e^{i\delta}}2\right|^2=\frac{1+\cos\delta}{2},
+  \qquad \Pr_H(1)=\frac{1-\cos\delta}{2}.</annotation></semantics></math></div>
+
+
+  <p class="demo-status" data-phase-status role="status">At δ = 0, the contributions to outcome 1 cancel. Applying H gives outcome 0 with certainty.</p>
+  <noscript><p class="demo-help">The example shows δ = 0. Enable JavaScript to vary the phase.</p></noscript>
+</aside>
+
 <h2 id="practice">Check your understanding</h2>
 <h3 id="1-measurement-between-gates">1. Measurement between gates</h3>
 <p>Start in <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mo stretchy="false">&#x0007C;</mo><mn>0</mn><mi>&#x027E9;</mi></mrow><annotation encoding="application/x-tex">|0\rangle</annotation></semantics></math>, apply H, measure, apply H again, then measure again. What is the final distribution? What changes if you omit the first measurement?</p>

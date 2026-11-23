@@ -13,6 +13,8 @@
   <link rel="icon" href="./favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="./styles.css">
   <link rel="stylesheet" href="./lesson.css">
+  <link rel="stylesheet" href="./interactives.css">
+  <script src="./interactives.js" defer></script>
   <title>Why the state has a compact description | Intro to quantum computation and the Gottesman-Knill theorem</title>
 </head>
 <body id="top">
@@ -70,6 +72,60 @@
 <p><strong>Compact-description theorem.</strong> If <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math> signed Pauli generators on <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math> qubits satisfy these conditions, their common <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mo>&#x0002B;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">+1</annotation></semantics></math> eigenspace has dimension one. Thus they specify a unique normalized pure state up to global phase, called a <strong>stabilizer state</strong>. <a class="reference-link" href="#ref-1" aria-label="Reference 1">[1]</a></p>
 </aside>
 <p>The common eigenspace means all vectors satisfying <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><msub><mi>g</mi><mi>j</mi></msub><mo stretchy="false">&#x0007C;</mo><mi>v</mi><mi>&#x027E9;</mi><mo>&#x0003D;</mo><mo stretchy="false">&#x0007C;</mo><mi>v</mi><mi>&#x027E9;</mi></mrow><annotation encoding="application/x-tex">g_j|v\rangle=|v\rangle</annotation></semantics></math> for every <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><mi>j</mi></mrow><annotation encoding="application/x-tex">j</annotation></semantics></math>. We will construct a matrix that keeps exactly these vectors, then count the dimension of its output space.</p>
+<aside class="interactive-demo" data-demo="constraints" id="constraint-explorer" aria-labelledby="constraints-demo-title">
+  <h3 id="constraints-demo-title">Try it: narrow down the state with constraints</h3>
+  <p>For two qubits, choose which equations to impose. These controls select constraints; they do not apply gates.</p>
+  <div class="demo-controls" hidden>
+    <div class="demo-grid">
+      <div><label class="demo-label" for="zz-constraint">ZZ constraint</label><select id="zz-constraint"><option value="off">No constraint</option><option value="1">+ZZ |ψ⟩ = |ψ⟩</option><option value="-1">−ZZ |ψ⟩ = |ψ⟩</option></select></div>
+      <div><label class="demo-label" for="xx-constraint">XX constraint</label><select id="xx-constraint"><option value="off">No constraint</option><option value="1">+XX |ψ⟩ = |ψ⟩</option><option value="-1">−XX |ψ⟩ = |ψ⟩</option></select></div>
+    </div>
+    <div class="demo-buttons"><button type="button" data-clear-constraints>Clear constraints</button></div>
+  </div>
+  <p class="demo-result">Allowed subspace dimension: <strong data-constraint-dimension>4</strong></p>
+  <p class="demo-help">The allowed vectors below form a basis of the solution space. Any normalized linear combination of them is also allowed.</p>
+  <div class="demo-basis" role="group" aria-label="Basis vectors and whether they satisfy the selected constraints">
+    <div class="demo-basis-vector" data-basis="phi-plus" data-allowed="true">
+      <p class="demo-vector-status">Allowed</p>
+
+
+<div class="equation"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mfrac><mrow><mo stretchy="false">&#x0007C;</mo><mn>00</mn><mi>&#x027E9;</mi><mo>&#x0002B;</mo><mo stretchy="false">&#x0007C;</mo><mn>11</mn><mi>&#x027E9;</mi></mrow><mrow><msqrt><mn>2</mn></msqrt></mrow></mfrac></mrow><annotation encoding="application/x-tex">\frac{|00\rangle+|11\rangle}{\sqrt2}</annotation></semantics></math></div>
+
+
+      <p class="demo-help">ZZ eigenvalue +1 · XX eigenvalue +1</p>
+    </div>
+    <div class="demo-basis-vector" data-basis="phi-minus" data-allowed="true">
+      <p class="demo-vector-status">Allowed</p>
+
+
+<div class="equation"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mfrac><mrow><mo stretchy="false">&#x0007C;</mo><mn>00</mn><mi>&#x027E9;</mi><mo>&#x02212;</mo><mo stretchy="false">&#x0007C;</mo><mn>11</mn><mi>&#x027E9;</mi></mrow><mrow><msqrt><mn>2</mn></msqrt></mrow></mfrac></mrow><annotation encoding="application/x-tex">\frac{|00\rangle-|11\rangle}{\sqrt2}</annotation></semantics></math></div>
+
+
+      <p class="demo-help">ZZ eigenvalue +1 · XX eigenvalue −1</p>
+    </div>
+    <div class="demo-basis-vector" data-basis="psi-plus" data-allowed="true">
+      <p class="demo-vector-status">Allowed</p>
+
+
+<div class="equation"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mfrac><mrow><mo stretchy="false">&#x0007C;</mo><mn>01</mn><mi>&#x027E9;</mi><mo>&#x0002B;</mo><mo stretchy="false">&#x0007C;</mo><mn>10</mn><mi>&#x027E9;</mi></mrow><mrow><msqrt><mn>2</mn></msqrt></mrow></mfrac></mrow><annotation encoding="application/x-tex">\frac{|01\rangle+|10\rangle}{\sqrt2}</annotation></semantics></math></div>
+
+
+      <p class="demo-help">ZZ eigenvalue −1 · XX eigenvalue +1</p>
+    </div>
+    <div class="demo-basis-vector" data-basis="psi-minus" data-allowed="true">
+      <p class="demo-vector-status">Allowed</p>
+
+
+<div class="equation"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mfrac><mrow><mo stretchy="false">&#x0007C;</mo><mn>01</mn><mi>&#x027E9;</mi><mo>&#x02212;</mo><mo stretchy="false">&#x0007C;</mo><mn>10</mn><mi>&#x027E9;</mi></mrow><mrow><msqrt><mn>2</mn></msqrt></mrow></mfrac></mrow><annotation encoding="application/x-tex">\frac{|01\rangle-|10\rangle}{\sqrt2}</annotation></semantics></math></div>
+
+
+      <p class="demo-help">ZZ eigenvalue −1 · XX eigenvalue −1</p>
+    </div>
+  </div>
+  <p class="demo-status" data-constraint-status role="status">No equations are selected, so all two-qubit states are allowed. Add a ZZ constraint, then an XX constraint, and watch the dimension change from 4 to 2 to 1.</p>
+  <noscript><p class="demo-help">All four basis vectors are shown with no constraints imposed. Enable JavaScript to choose constraints.</p></noscript>
+</aside>
+
 <h2 id="why-the-common-eigenspace-is-one-dimensional">Why the common eigenspace is one-dimensional</h2>
 <h3 id="step-1-keep-the-vectors-satisfying-one-constraint">Step 1: keep the vectors satisfying one constraint</h3>
 <p><strong>Definition (Orthogonal projector)</strong>: A projector onto a subspace keeps the component inside it and removes the perpendicular component. For complex columns, the inner product is <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><semantics><mrow><msup><mi>u</mi><mi>&#x02020;</mi></msup><mi>v</mi></mrow><annotation encoding="application/x-tex">u^\dagger v</annotation></semantics></math>; two vectors are perpendicular when this is zero.</p>
